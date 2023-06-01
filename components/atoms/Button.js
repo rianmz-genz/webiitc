@@ -1,0 +1,21 @@
+import React from 'react'
+import { variant } from '@/utils/utils';
+const Button = ({ color, size, ...props}) => {
+    const button = variant('rounded-full ', {
+        color: {
+          gradient: 'bg-gradient-to-r from-oren to-kuning hover:from-kuning hover:to-oren text-white ',
+          white: 'bg-white text-[#EACB05] hover:bg-red-600 text-white',
+        },
+        size: {
+          sm: 'px-5 py-1 text-sm',
+          md: 'px-8 py-2',
+          lg: 'px-10 py-3 text-lg font-bold',
+        },
+      });   
+  return <button className={button({ color, size })} {...props} />;
+}
+Button.defaultProps = {
+    color: 'gradient',
+    size: 'md',
+  };
+export default Button
