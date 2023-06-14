@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
-import { BsHourglassSplit } from 'react-icons/bs'
+import { BsHourglassSplit } from 'react-icons/bs';
+
 const Countdown = () => {
   const targetDate = new Date('August 7, 2023 00:00:00').getTime();
-  const [countdown, setCountdown] = useState(calculateCountdown());
+  const [countdown, setCountdown] = useState({ days: '', hours: '', minutes: '', seconds: '' });
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const timer = setInterval(() => {
       setCountdown(calculateCountdown());
     }, 1000);
 
     return () => {
+      setIsMounted(false);
       clearInterval(timer);
     };
   }, []);
@@ -28,19 +32,23 @@ const Countdown = () => {
 
   return (
     <div className='flex space-x-5 items-center'>
-        <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
+      {isMounted && (
+        <>
+          <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
             {countdown.days}
-        </div>
-        <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
+          </div>
+          <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
             {countdown.hours}
-        </div>
-        <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
+          </div>
+          <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
             {countdown.minutes}
-        </div>
-        <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
+          </div>
+          <div className='bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark'>
             {countdown.seconds}
-        </div>
-        <BsHourglassSplit className='text-red text-2xl animate-pulse' />
+          </div>
+        </>
+      )}
+      <BsHourglassSplit className='text-red text-2xl animate-pulse' />
     </div>
   );
 };

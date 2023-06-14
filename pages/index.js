@@ -1,4 +1,4 @@
-import { AboutSection, Button, HeroSection, SkemaSection } from '@/components'
+import { AboutSection, Button, CompetitionSection, HeroSection, SkemaSection } from '@/components'
 import Head from 'next/head'
 
 export default function Home() {
@@ -10,6 +10,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <SkemaSection />
+      <CompetitionSection />
     </main>
   )
 }

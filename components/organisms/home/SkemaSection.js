@@ -8,7 +8,7 @@ import React from 'react'
 
 const SkemaSection = () => {
   return (
-    <section id='skema' className='min-h-screen'>
+    <section id='skema' className='py-12 flex justify-center'>
       <div className='w-11/12 mx-auto'>
       <ParagraphSection 
         flashValue={'Show your skill to the world'} 
