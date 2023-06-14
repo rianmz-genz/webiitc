@@ -19,6 +19,7 @@ const Text = ({color, additionals,weight, size, ...props}) => {
             bigtitle: 'text-5xl',
             mdtitle: 'text-4xl',
             title: 'text-3xl',
+            cardtitle: 'text-2xl',
             description: 'text-lg',
             base: 'text-base',
             small: 'text-sm',

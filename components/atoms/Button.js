@@ -5,6 +5,7 @@ const Button = ({ color, size, ...props}) => {
         color: {
           gradient: 'bg-gradient-to-r from-oren to-kuning text-white hover:scale-90',
           white: 'bg-white text-softyellow hover:bg-kuning hover:text-white',
+          orentransparent: 'bg-oren/10 text-oren'
         },
         size: {
           sm: 'px-5 py-1 text-sm',
