@@ -15,6 +15,10 @@ module.exports = {
       colors: {
         'oren': '#F37F00',
         'kuning': '#F7D708',
+        'softyellow': '#EACB05',
+        'dark': '#505050',
+        'silver': '#D9D9D9',
+        'red': '#F27641',
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif']
