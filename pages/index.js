@@ -1,4 +1,4 @@
-import { AboutSection, Button, CompetitionSection, HeroSection, SkemaSection } from '@/components'
+import { AboutSection, CompetitionSection, HeroSection, SkemaSection, TimelineSection } from '@/components'
 import Head from 'next/head'
 
 export default function Home() {
@@ -6,11 +6,13 @@ export default function Home() {
     <main>
       <Head>
         <title>IITC</title>
+        <meta name="title" content='IITC' />
       </Head>
       <HeroSection />
       <AboutSection />
       <SkemaSection />
       <CompetitionSection />
+      <TimelineSection />
     </main>
   )
 }
