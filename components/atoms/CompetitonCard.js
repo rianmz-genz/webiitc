@@ -6,7 +6,7 @@ import Button from './Button'
 
 const CompetitonCard = ({imgSrc, title, category, maxMembers}) => {
   return (
-    <li className='rounded-xl w-full overflow-hidden shadow-lg'>
+    <li className='rounded-xl w-full overflow-hidden shadow transition-all duration-300 hover:shadow-lg'>
             <Image 
                 className='w-full'
                 src={imgSrc} 
@@ -22,7 +22,7 @@ const CompetitonCard = ({imgSrc, title, category, maxMembers}) => {
                     <HiOutlineUsers className='text-dark' />
                     <Text size={'small'}>{maxMembers} MAX</Text>
                     </div>
-                    <Button>Detail</Button>
+                    <Button size={'sm'}>Detail</Button>
                 </div>
             </div>
         </li>
