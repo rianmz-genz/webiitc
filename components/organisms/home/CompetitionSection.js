@@ -14,10 +14,10 @@ const CompetitionSection = () => {
         title={'Pilih lomba yang relevant dengan kamu'} 
         description={'pilih lomba yang sesuai dengan kemampuan kamu ya..'}
         />
-      <ol className='rounded-xl w-full mt-12 grid grid-cols-4 gap-3'>
+      <ol className='rounded-xl w-full mt-12 grid grid-cols-5 gap-3'>
         <CompetitonCard 
             category={'Pelajar & Mahasiswa'}
-            imgSrc={'/images/kucing.png'}
+            imgSrc={'/images/trex.png'}
             maxMembers={5}
             title={'Website Design'}
         />
@@ -32,6 +32,12 @@ const CompetitionSection = () => {
             imgSrc={'/images/koala.png'}
             maxMembers={5}
             title={'E-Sport'}
+        />
+        <CompetitonCard 
+            category={'Pelajar & Mahasiswa'}
+            imgSrc={'/images/trex.png'}
+            maxMembers={5}
+            title={'Cover Music'}
         />
         <CompetitonCard 
             category={'Pelajar & Mahasiswa'}
