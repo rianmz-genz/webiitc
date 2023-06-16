@@ -3,9 +3,9 @@ import { variant } from '@/utils/utils';
 const Button = ({ color, size, ...props}) => {
     const button = variant('rounded-full', {
         color: {
-          gradient: 'bg-gradient-to-r from-oren to-kuning text-white hover:scale-90',
+          gradient: 'bg-gradient-to-r from-oren to-kuning text-white hover:scale-95',
           white: 'bg-white text-softyellow hover:bg-kuning hover:text-white',
-          orentransparent: 'bg-oren/10 text-oren'
+          orentransparent: 'bg-oren/10 text-oren hover:shadow-lg'
         },
         size: {
           sm: 'px-5 py-1 text-sm',
