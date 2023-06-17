@@ -12,13 +12,15 @@ const AboutSection = () => {
       <Container>
         <div className="w-11/12 mx-auto flex items-center ">
           <article className="w-6/12 flex flex-col space-y-4 items-start justify-center">
-            <FlashParagraph
-              isHorizontal={true}
-              value={'Show your skill to the world'}
-            />
+            <div className="text-center w-full mt-10">
+              <FlashParagraph
+                isHorizontal={true}
+                value={'Show your skill to the world'}
+              />
+            </div>
             <Text
               size={'mdtitle'}
-              additionals={'leading-relaxed'}
+              additionals={'leading-relaxed md:text-3xl lg:text-4xl'}
               color={'dark'}
               weight={'bold'}
             >
@@ -37,7 +39,7 @@ const AboutSection = () => {
             alt="Gambar Tunjukan Skill"
             width={1080}
             height={1080}
-            className="w-6/12"
+            className="w-6/12 md:object-contain"
           />
         </div>
       </Container>

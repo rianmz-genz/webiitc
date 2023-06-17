@@ -11,7 +11,7 @@ const HeroSection = () => {
     <section id="hero" className="relative overflow-hidden h-screen">
       <div className="absolute inset-0 ">
         <div
-          className=" w-full bg-cover  bg-no-repeat h-screen max-h-screen "
+          className=" w-full bg-cover  bg-no-repeat h-screen max-h-screen"
           style={{ backgroundImage: "url('/images/HeroImage.png')" }}
         />
       </div>
@@ -21,10 +21,19 @@ const HeroSection = () => {
           size={'bigtitle'}
           weight={'bold'}
           color={'white'}
-          additionals={'w-8/12 leading-relaxed text-center drop-shadow-xl'}
+          additionals={
+            'leading-relaxed text-center drop-shadow-xl md:text-7xl lg:text-4xl md:w-11/12 lg:w-8/12'
+          }
         >
-          <span className="text-[#FFE600]"> Buktikan </span> bahwa kamu memiliki
-          potensi emas dan <span className="text-[#FFA139]"> menangkan </span>{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-l from-orange-500 to bg-yellow-400">
+            {' '}
+            Buktikan{' '}
+          </span>{' '}
+          bahwa kamu memiliki potensi emas dan{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-l from-orange-500 to bg-yellow-400">
+            {' '}
+            menangkan{' '}
+          </span>{' '}
           event ini
         </Text>
       </Container>

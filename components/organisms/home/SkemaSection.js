@@ -20,6 +20,7 @@ const SkemaSection = () => {
                 'Baca baik baik detailnya ya, agar tidak salah langkah'
               }
             />
+
             <ol className="bg-silver/40 p-2 rounded-xl w-full mt-12 grid grid-cols-4">
               <SkemaCard
                 buttonHref={'/'}
