@@ -4,7 +4,11 @@ import Text from './Text'
 import { HiOutlineUsers } from 'react-icons/hi'
 import Button from './Button'
 
-const CompetitonCard = ({imgSrc, title, category, maxMembers}) => {
+const CompetitonCard = ({ imgSrc, title, category, maxMembers, setIsCompetitionDetail, setCompetitionName }) => {
+    const handleViewDetailCompetition = () => {
+        setCompetitionName(title)
+        setIsCompetitionDetail(true)
+    }
   return (
     <li className='rounded-xl w-full overflow-hidden shadow transition-all duration-300 hover:shadow-lg'>
             <Image 
@@ -22,7 +26,7 @@ const CompetitonCard = ({imgSrc, title, category, maxMembers}) => {
                     <HiOutlineUsers className='text-dark' />
                     <Text size={'small'}>{maxMembers} MAX</Text>
                     </div>
-                    <Button size={'sm'}>Detail</Button>
+                    <Button onClick={handleViewDetailCompetition} size={'sm'}>Detail</Button>
                 </div>
             </div>
         </li>
