@@ -1,11 +1,12 @@
 import React from 'react'
 import { variant } from '@/utils/utils';
-const Button = ({ color, size, ...props}) => {
-    const button = variant('rounded-full', {
+const Button = ({ color, size, isSquare = false, ...props}) => {
+    const button = variant(`${isSquare ? "rounded-md" : "rounded-full"}`, {
         color: {
           gradient: 'bg-gradient-to-r from-oren to-kuning text-white hover:scale-95',
           white: 'bg-white text-softyellow hover:bg-kuning hover:text-white',
-          orentransparent: 'bg-oren/10 text-oren hover:shadow-lg'
+          orentransparent: 'bg-oren/10 text-oren hover:shadow-lg',
+          oren: 'bg-oren text-white hover:scale-95 ttransition-all duration-300'
         },
         size: {
           sm: 'px-5 py-1 text-sm',
