@@ -6,3 +6,4 @@ export { default as CompetitionSection } from './organisms/home/CompetitionSecti
 export { default as TimelineSection } from './organisms/home/TimelineSection'
 export { default as FaqSection } from './organisms/home/FaqSection'
 export { default as Footer } from './organisms/home/Footer'
+export { default as CompetitionDetails } from './organisms/details/CompetitionDetails'
