@@ -1,4 +1,5 @@
 import Button from "@/components/atoms/Button";
+import Logo from "@/components/atoms/Logo";
 import NavItem from "@/components/molecules/NavItem";
 import NavLink from "@/components/molecules/NavLink";
 import Link from "next/link";
@@ -13,7 +14,7 @@ const Navbar = () => {
         itemScope
         itemType="https://schema.org/SiteNavigationElement"
       >
-        <h1 className='text-4xl text-white font-bold'>IITC</h1>
+        <Logo>IITC</Logo>
         <NavItem show={isMenuOpen}>
           <NavLink target="#hero">Home</NavLink>
           <NavLink target="#about">About</NavLink>
