@@ -11,7 +11,7 @@ const HeroSection = () => {
     <section id="hero" className="relative overflow-hidden h-screen">
       <div className="absolute inset-0 ">
         <div
-          className=" w-full bg-cover  bg-no-repeat h-screen max-h-screen"
+          className=" w-full bg-cover  bg-no-repeat h-screen max-h-screen bg-center"
           style={{ backgroundImage: "url('/images/HeroImage.png')" }}
         />
       </div>
