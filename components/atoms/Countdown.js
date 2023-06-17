@@ -41,16 +41,16 @@ const Countdown = () => {
     <div className="flex space-x-5 items-center">
       {isMounted && (
         <>
-          <div className="bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark">
+          <div className="bg-silver/30 md:text-2xl font-bold px-3 py-4 rounded-xl text-dark">
             {countdown.days}
           </div>
-          <div className="bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark">
+          <div className="bg-silver/30 md:text-2xl font-bold px-3 py-4 rounded-xl text-dark">
             {countdown.hours}
           </div>
-          <div className="bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark">
+          <div className="bg-silver/30 md:text-2xl font-bold px-3 py-4 rounded-xl text-dark">
             {countdown.minutes}
           </div>
-          <div className="bg-silver/30 text-2xl font-bold px-3 py-4 rounded-xl text-dark">
+          <div className="bg-silver/30 md:text-2xl font-bold px-3 py-4 rounded-xl text-dark">
             {countdown.seconds}
           </div>
         </>

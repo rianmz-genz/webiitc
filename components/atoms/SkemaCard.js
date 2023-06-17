@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const SkemaCard = ({ imgUrl, title, description, buttonHref, buttonValue }) => {
   return (
-    <li className="w-full hover:bg-white hover:shadow-2xl transition-all duration-700 p-4 rounded-xl flex flex-col justify-between">
+    <li className="w-full hover:bg-white border border-slate-300 md:border-none hover:shadow-2xl transition-all duration-700 p-4 rounded-xl flex flex-col justify-between">
       <Image
         className="w-3/12 ml-3 drop-shadow-2xl"
         src={imgUrl}

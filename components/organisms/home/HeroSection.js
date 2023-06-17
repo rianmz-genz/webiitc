@@ -22,7 +22,7 @@ const HeroSection = () => {
           weight={'bold'}
           color={'white'}
           additionals={
-            'leading-relaxed text-center drop-shadow-xl md:text-7xl lg:text-4xl md:w-11/12 lg:w-8/12'
+            'leading-relaxed text-center drop-shadow-xl text-xl md:text-7xl lg:text-4xl md:w-11/12 lg:w-8/12'
           }
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-l from-orange-500 to bg-yellow-400">
