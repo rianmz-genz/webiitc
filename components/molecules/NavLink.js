@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const NavLink = ({ children, target }) => {
+const NavLink = ({ children, target, isSmall = false }) => {
   const [isActive, setIsActive] = useState(false);
   const headerHeight = 92;
   useEffect(() => {
@@ -31,7 +31,7 @@ const NavLink = ({ children, target }) => {
       <a
         itemProp="url"
         href={target}
-        className={`text-poppins text-xl transition-all duration-300 ${
+        className={`${isSmall ? "text-sm" : "text-xl"} text-poppins transition-all duration-300 ${
           isActive
             ? "font-semibold text-kuning dark:text-kuning"
             : "text-white dark:text-white dark:hover:text-kuning"
