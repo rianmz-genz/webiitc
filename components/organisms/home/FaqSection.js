@@ -13,8 +13,10 @@ const FaqSection = () => {
           id="faq"
           className="w-full flex flex-col items-center justify-center py-12"
         >
-          <Text size={'title'}>Frequently Asked Questions?</Text>
-          <ul className="w-8/12 flex flex-col space-y-4 my-10">
+          <Text size={'title'} additionals={'text-xl md:text-3xl lg:text-4xl'}>
+            Frequently Asked Questions?
+          </Text>
+          <ul className="w-11/12 text-xs md:text-md md:w-8/12 flex flex-col space-y-4 my-10">
             {faqs.map((item, index) => (
               <FaqCard
                 key={index}
@@ -27,9 +29,14 @@ const FaqSection = () => {
               />
             ))}
           </ul>
-          <Text size={'title'}>Still have a questions?</Text>
-          <div className="w-8/12 text-center mt-2">
-            <Text>
+          <Text
+            size={'title'}
+            additionals={'text-xl md:text-3xl lg:text-4xl font-black'}
+          >
+            Still have a questions?
+          </Text>
+          <div className="w-11/12 md:w-8/12 text-center mt-2">
+            <Text additionals={'text-justify md:text-center'}>
               Jika pertanyaan kamu belum terjawab pada FAQ di atas kamu bisa
               segera menghubungi kami melalui contact dibawah. kami akan segera
               menjawab anda.

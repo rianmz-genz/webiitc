@@ -13,14 +13,16 @@ const SkemaSection = () => {
       <Container>
         <section id="skema" className="py-12 flex justify-center">
           <div className="w-11/12 mx-auto">
-            <ParagraphSection
-              flashValue={'Show your skill to the world'}
-              title={'Begini alur skema dasar dari event ini'}
-              description={
-                'Baca baik baik detailnya ya, agar tidak salah langkah'
-              }
-            />
-            <ol className="bg-silver/40 p-2 rounded-xl w-full mt-12 grid grid-cols-4">
+            <div className="text-xs w-full md:text-3xl lg:text-4xl">
+              <ParagraphSection
+                flashValue={'Show your skill to the world'}
+                title={'Begini alur skema dasar dari event ini'}
+                description={
+                  'Baca baik baik detailnya ya, agar tidak salah langkah'
+                }
+              />
+            </div>
+            <ol className="bg-silver/40 p-2 rounded-xl w-full mt-12 grid gap-3 md:gap-0 md:grid-cols-4">
               <SkemaCard
                 buttonHref={'/'}
                 buttonValue={'Detailnya'}
