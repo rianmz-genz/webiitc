@@ -19,7 +19,7 @@ const Footer = () => {
                 mencari generasi dengan potensi yang luar biasa pada bidang
                 tertentu
               </Text>
-              <ul className="flex space-x-4 justify-center md:justify-start">
+              <ul className="flex space-x-4 justify-center md:justify-start text-xs md:text-md flex-wrap gap-2">
                 <NavLink isSmall target="#hero">
                   Home
                 </NavLink>
@@ -51,7 +51,7 @@ const Footer = () => {
               </div>
             </div>
             {/* right side */}
-            <form className="flex justify-center items-end md:w-6/12 flex-col space-y-2 mt-5 md:mt-0">
+            <form className="flex justify-center items-end md:w-6/12 px-10 flex-col space-y-2 mt-5 md:mt-0">
               <label className="flex space-y-2 flex-col">
                 <Text
                   size={'description'}
@@ -60,13 +60,13 @@ const Footer = () => {
                 >
                   Get the freshest news from us
                 </Text>
-                <div className="flex items-center justify-center md:justify-start space-x-3">
+                <div className="flex items-center justify-center md:justify-start lg:space-x-3 flex-wrap gap-3">
                   <input
                     type="text"
                     placeholder="your email address"
-                    className="bg-white px-2 py-1 rounded-md focus:outline-none text-sm"
+                    className="bg-white px-2 py-2 rounded-md focus:outline-none text-sm"
                   />
-                  <Button isSquare color={'oren'} size={'sm'}>
+                  <Button isSquare color={'oren'} size={'md'}>
                     Subscribe
                   </Button>
                 </div>
@@ -74,18 +74,18 @@ const Footer = () => {
             </form>
           </div>
           {/* bottom */}
-          <div className="w-11/12 flex justify-between mt-6 lg:flex-row text-[#92989F] items-center flex-col">
+          <div className="w-11/12 flex  justify-between mt-6 lg:flex-row text-[#92989F] items-center flex-col">
             <ul className="flex space-x-4 items-center">
-              <li className="border-x border-[#92989F] text-xs px-3">
+              <li className="border-none md:border-x border-[#92989F] text-xs px-3">
                 <a href="#">Terms & Conditions</a>
               </li>
-              <li className="border-r border-[#92989F] text-xs pr-3">
+              <li className="boeder-none md:border-r border-[#92989F] text-xs pr-3">
                 <a href="#">Privacy Policy</a>
               </li>
-              <li className="border-r border-[#92989F] text-xs pr-3">
+              <li className="boeder-none md:border-r border-[#92989F] text-xs pr-3">
                 <a href="#">Accessibility</a>
               </li>
-              <li className="border-r border-[#92989F] text-xs pr-3">
+              <li className="boeder-none md:border-r border-[#92989F] text-xs pr-3">
                 <a href="#">Legal</a>
               </li>
             </ul>
