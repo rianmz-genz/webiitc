@@ -12,7 +12,7 @@ const AboutSection = () => {
       <Container>
         <div className="w-11/12 mx-auto flex flex-col  md:flex-row  md:items-center ">
           <article className="w-11/12  md:w-6/12 flex flex-col space-y-4 ml-3 md:ml-0 justify-center">
-            <div className="text-center w-full mt-10 text-xs md:text-md">
+            <div className="text-center w-full mt-10 text-xs md:text-md lg:text-lg">
               <FlashParagraph
                 isHorizontal={true}
                 value={'Show your skill to the world'}
@@ -35,19 +35,18 @@ const AboutSection = () => {
             </Text>
             <Countdown />
 
-            <Button size={'lg'} additionals={''}>
+            <Button size={'lg'} additionals={'w-60'}>
               Daftar Sekarang
             </Button>
           </article>
-          <div className="w-full  flex justify-center flex-col my-auto">
-            <Image
-              src={'/images/showofFix.png'}
-              alt="Gambar Tunjukan Skill"
-              width={1080}
-              height={1080}
-              className="md:w-6/12 md:object-contain self-start w-full object-cover bg-red-500 -ml-5 md:-ml-0"
-            />
-          </div>
+
+          <Image
+            src={'/images/showofFix.png'}
+            alt="Gambar Tunjukan Skill"
+            width={1080}
+            height={1080}
+            className="md:w-6/12 md:bg-contain self-start w-full object-cover bg-red-500 -ml-5 md:-ml-0"
+          />
         </div>
       </Container>
     </section>

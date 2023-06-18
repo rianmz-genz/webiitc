@@ -13,7 +13,7 @@ const SkemaSection = () => {
       <Container>
         <section id="skema" className="py-12 flex justify-center">
           <div className="w-11/12 mx-auto">
-            <div className="text-xs w-full md:text-3xl lg:text-4xl">
+            <div className="text-xs md:text-md w-full ">
               <ParagraphSection
                 flashValue={'Show your skill to the world'}
                 title={'Begini alur skema dasar dari event ini'}

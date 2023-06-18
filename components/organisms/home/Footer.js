@@ -10,16 +10,16 @@ const Footer = () => {
   return (
     <div className="w-full bg-darkblue">
       <Container>
-        <footer className="w-full pt-12 pb-16 bg-darkblue flex justify-center items-center flex-col">
-          <div className="w-11/12 flex justify-between items-center border-b pb-12 border-[#71777D]">
+        <footer className="w-full pt-12 pb-5 md:pb-16 bg-darkblue flex justify-center items-center flex-col">
+          <div className="w-11/12 flex flex-col md:flex-row justify-start md:justify-between items-center border-b pb-12 border-[#71777D]">
             {/* left side */}
-            <div className="space-y-5 w-6/12">
+            <div className="space-y-5 md:w-6/12 text-center md:text-start">
               <Logo>IITC</Logo>
-              <Text additionals={'w-6/12'} size={'small'} color={'white'}>
+              <Text additionals={'md:w-6/12'} size={'small'} color={'white'}>
                 mencari generasi dengan potensi yang luar biasa pada bidang
                 tertentu
               </Text>
-              <ul className="flex space-x-4">
+              <ul className="flex space-x-4 justify-center md:justify-start">
                 <NavLink isSmall target="#hero">
                   Home
                 </NavLink>
@@ -39,7 +39,7 @@ const Footer = () => {
                   FAQ
                 </NavLink>
               </ul>
-              <div className="flex space-x-2 text-white items-center">
+              <div className="flex space-x-2 my-5 md:my-0 text-white items-center justify-center md:justify-start">
                 <AiOutlineMail />
                 <Text color={'white'} size={'small'}>
                   adminiitc@gmail.com
@@ -51,12 +51,16 @@ const Footer = () => {
               </div>
             </div>
             {/* right side */}
-            <form className="flex justify-center items-end w-6/12 flex-col space-y-2">
+            <form className="flex justify-center items-end md:w-6/12 flex-col space-y-2 mt-5 md:mt-0">
               <label className="flex space-y-2 flex-col">
-                <Text size={'description'} color={'white'}>
+                <Text
+                  size={'description'}
+                  color={'white'}
+                  additionals={'hidden md:block'}
+                >
                   Get the freshest news from us
                 </Text>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center justify-center md:justify-start space-x-3">
                   <input
                     type="text"
                     placeholder="your email address"
@@ -70,7 +74,7 @@ const Footer = () => {
             </form>
           </div>
           {/* bottom */}
-          <div className="w-11/12 flex justify-between mt-6 text-[#92989F] items-center">
+          <div className="w-11/12 flex justify-between mt-6 lg:flex-row text-[#92989F] items-center flex-col">
             <ul className="flex space-x-4 items-center">
               <li className="border-x border-[#92989F] text-xs px-3">
                 <a href="#">Terms & Conditions</a>
@@ -85,7 +89,9 @@ const Footer = () => {
                 <a href="#">Legal</a>
               </li>
             </ul>
-            <p>Develop with love © Intermedia 2023. All right reserved</p>
+            <p className="text-xs my-10 md:text-md">
+              Develop with love © Intermedia 2023. All right reserved
+            </p>
           </div>
         </footer>
       </Container>
