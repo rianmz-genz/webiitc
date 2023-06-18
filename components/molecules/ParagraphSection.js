@@ -9,8 +9,12 @@ const ParagraphSection = ({
   isWhite = false,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center space-y-3">
-      <FlashParagraph isHorizontal={true} className="flex" value={flashValue} />
+    <div className="flex flex-col lg:items-center lg:justify-center  space-y-3">
+      <FlashParagraph
+        isHorizontal={true}
+        className="flex lg:flex-col md:text-md lg:text-lg"
+        value={flashValue}
+      />
       <Text
         additionals={'text-xl md:text-3xl lg:text-4xl'}
         size={'title'}
