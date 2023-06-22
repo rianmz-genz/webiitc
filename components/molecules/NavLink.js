@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const NavLink = ({ children, target, isSmall = false }) => {
+const NavLink = ({ children, target, isSmall = false, isWhite = false }) => {
   const [isActive, setIsActive] = useState(false);
   const headerHeight = 92;
   useEffect(() => {
@@ -29,22 +29,21 @@ const NavLink = ({ children, target, isSmall = false }) => {
   return (
     <li>
       <a
-        itemProp="url"
         href={target}
         className={`${isSmall ? "text-sm" : "text-xl"} text-poppins transition-all duration-300 ${
           isActive
             ? "font-semibold text-kuning dark:text-kuning"
-            : "text-white dark:text-white dark:hover:text-kuning"
-        } hover:text-kuning`}
-        onClick={(e) => {
-          e.preventDefault();
-          if (document && window) {
-            const targetElement = document.querySelector(target);
-            if (targetElement) {
-              window.scrollTo(0, targetElement.offsetTop - headerHeight);
-            }
-          }
-        }}
+            : "dark:hover:text-kuning"
+        } ${isWhite ? "text-white dark:text-white" : "text-black dark:text-black"} hover:text-kuning`}
+        // onClick={(e) => {
+        //   e.preventDefault();
+        //   if (document && window) {
+        //     const targetElement = document.querySelector(target);
+        //     if (targetElement) {
+        //       window.scrollTo(0, targetElement.offsetTop - headerHeight);
+        //     }
+        //   }
+        // }}
       >
         {children}
       </a>
