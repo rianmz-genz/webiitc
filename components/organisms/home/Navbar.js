@@ -9,10 +9,10 @@ import { FiX, FiMenu } from 'react-icons/fi';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <header className="w-11/12 mx-auto absolute z-30 top-6 bg-transparent  rounded-full p-2 ">
+    <header className="w-11/12 mx-auto fixed z-30 top-6 bg-transparent backdrop-blur-md  rounded-full px-4 py-2">
       <Container>
         <nav
-          className="flex justify-between text-white items-center"
+          className="flex justify-between text-black items-center"
           itemScope
           itemType="https://schema.org/SiteNavigationElement"
         >
