@@ -6,6 +6,7 @@ import Button from './Button'
 
 const CompetitonCard = ({ imgSrc, title, category, maxMembers, setIsCompetitionDetail, setCompetitionName }) => {
     const handleViewDetailCompetition = () => {
+        window.scrollTo(0,0)
         setCompetitionName(title)
         setIsCompetitionDetail(true)
     }
