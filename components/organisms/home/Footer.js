@@ -20,22 +20,22 @@ const Footer = () => {
                 tertentu
               </Text>
               <ul className="flex space-x-4 justify-center md:justify-start text-xs md:text-md flex-wrap gap-2">
-                <NavLink isSmall target="#hero">
+                <NavLink isSmall isWhite target="#hero">
                   Home
                 </NavLink>
-                <NavLink isSmall target="#about">
+                <NavLink isSmall isWhite target="#about">
                   About
                 </NavLink>
-                <NavLink isSmall target="#skema">
+                <NavLink isSmall isWhite target="#skema">
                   Skema
                 </NavLink>
-                <NavLink isSmall target="#lomba">
+                <NavLink isSmall isWhite target="#lomba">
                   Lomba
                 </NavLink>
-                <NavLink isSmall target="#timeline">
+                <NavLink isSmall isWhite target="#timeline">
                   Timeline
                 </NavLink>
-                <NavLink isSmall target="#faq">
+                <NavLink isSmall isWhite target="#faq">
                   FAQ
                 </NavLink>
               </ul>
