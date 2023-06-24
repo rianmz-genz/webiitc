@@ -13,6 +13,7 @@ import {
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
 import Cookies from "js-cookie";
+import { IoMdArrowBack } from "react-icons/io";
 export async function getServerSideProps(context) {
   const token = context.req.cookies.token;
   if (token) {
@@ -66,6 +67,16 @@ const Login = () => {
         <p>{Message}</p>
       </Alert>
       <AuthPage onSubmit={handleLogin} title={"Daftar IITC"}>
+        <Link href={"/"}>
+          <Button
+            additionals={"flex lg:absolute top-8 lg:mb-0 mb-4 items-center"}
+            color={"silver"}
+            size={"base"}
+          >
+            <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
+            Back
+          </Button>
+        </Link>
         <Text size={"mdtitle"} weight={"bold"}>
           Sign In
         </Text>
@@ -93,7 +104,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <Button color={"gradient2"}>
+        <Button disabled={isHitApi} color={"gradient2"}>
           {isHitApi ? (
             <AiOutlineLoading3Quarters className="text-white text-xl animate-spin" />
           ) : (
