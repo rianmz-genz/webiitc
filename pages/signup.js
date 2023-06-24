@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { AiFillWarning, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoMdArrowBack } from "react-icons/io";
 export async function getServerSideProps(context) {
   const token = context.req.cookies.token;
   if (token) {
@@ -100,6 +101,16 @@ const Signup = () => {
         <p className="text-sm">{Message}</p>
       </Alert>
       <AuthPage onSubmit={handleSubmit} title={"Daftar IITC"}>
+        <Link href={"/"}>
+          <Button
+            additionals={"flex  mb-4 items-center"}
+            color={"silver"}
+            size={"base"}
+          >
+            <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
+            Back
+          </Button>
+        </Link>
         <Text size={"mdtitle"} weight={"bold"}>
           Sign Up
         </Text>
@@ -152,7 +163,7 @@ const Signup = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <Button color={"gradient2"}>
+        <Button disabled={isHitApi} color={"gradient2"}>
           {isHitApi ? (
             <AiOutlineLoading3Quarters className="text-white text-xl animate-spin" />
           ) : (
