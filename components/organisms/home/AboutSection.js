@@ -1,10 +1,11 @@
-import Button from '@/components/atoms/Button';
-import Countdown from '@/components/atoms/Countdown';
-import FlashParagraph from '@/components/atoms/FlashParagraph';
-import { Container } from '../../../components';
-import Text from '@/components/atoms/Text';
-import Image from 'next/image';
-import React from 'react';
+import Button from "@/components/atoms/Button";
+import Countdown from "@/components/atoms/Countdown";
+import FlashParagraph from "@/components/atoms/FlashParagraph";
+import { Container } from "../../../components";
+import Text from "@/components/atoms/Text";
+import Image from "next/image";
+import React from "react";
+import Link from "next/link";
 
 const AboutSection = () => {
   return (
@@ -15,33 +16,34 @@ const AboutSection = () => {
             <div className="text-center w-full mt-10 text-xs md:text-md lg:text-lg">
               <FlashParagraph
                 isHorizontal={true}
-                value={'Show your skill to the world'}
+                value={"Show your skill to the world"}
               />
             </div>
             <Text
-              size={'mdtitle'}
+              size={"mdtitle"}
               additionals={
-                'leading-relaxed text-xl md:text-3xl lg:text-4xl mb-10 md:mb-0'
+                "leading-relaxed text-xl md:text-3xl lg:text-4xl mb-10 md:mb-0"
               }
-              color={'dark'}
-              weight={'bold'}
+              color={"dark"}
+              weight={"bold"}
             >
               Tunjukan skillmu dan raih kemenangan mutlak !
             </Text>
-            <Text color={'dark'} additionals="text-justify md:text-start ">
+            <Text color={"dark"} additionals="text-justify md:text-start ">
               Event ini di adakan untuk anak muda generasi Z yang bersaing
               secara sportif dan juga penuh semangat, penilaian dalam event ini
               sepenuhnya dilakukan secara adil dan profesional.
             </Text>
             <Countdown />
-
-            <Button size={'lg'} additionals={'w-60'}>
-              Daftar Sekarang
-            </Button>
+            <Link href={"/signup"}>
+              <Button size={"lg"} additionals={"w-60"}>
+                Daftar Sekarang
+              </Button>
+            </Link>
           </article>
 
           <Image
-            src={'/images/showofFix.png'}
+            src={"/images/showofFix.png"}
             alt="Gambar Tunjukan Skill"
             width={1080}
             height={1080}
