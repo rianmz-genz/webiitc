@@ -1,0 +1,1 @@
+export const urlLogin = `${process.env.NEXT_PUBLIC_URL_DOMAIN}/login`;
