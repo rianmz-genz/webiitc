@@ -8,13 +8,13 @@ import {
   HeroSection,
   SkemaSection,
   TimelineSection,
-} from '@/components';
-import Head from 'next/head';
-import { useState } from 'react';
+} from "@/components";
+import Head from "next/head";
+import { useState } from "react";
 
 export default function Home() {
   const [isCompetitionDetail, setIsCompetitionDetail] = useState(false);
-  const [competitionName, setCompetitionName] = useState('');
+  const [competitionName, setCompetitionName] = useState("");
   return isCompetitionDetail ? (
     <CompetitionDetails
       competitionName={competitionName}
@@ -26,9 +26,7 @@ export default function Home() {
         <title>IITC</title>
         <meta name="title" content="IITC" />
       </Head>
-
       <HeroSection />
-
       <AboutSection />
       <SkemaSection />
       <CompetitionSection
