@@ -8,7 +8,6 @@ import Image from "next/image";
 import Text from "@/components/atoms/Text";
 import LeftRightText from "@/components/molecules/LeftRightText";
 import { BsFillJournalBookmarkFill, BsGridFill } from "react-icons/bs";
-import { AiFillCheckCircle } from "react-icons/ai";
 import StackCard from "@/components/atoms/StackCard";
 import JuknisItem from "@/components/atoms/JukinisItem";
 const CompetitionDetails = ({ setIsCompetitionDetail, competitionName }) => {
