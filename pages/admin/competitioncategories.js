@@ -1,6 +1,7 @@
 import { Button } from "@/components";
 import DashboardCard from "@/components/atoms/DashboardCard";
 import Input from "@/components/atoms/Input";
+import Modals from "@/components/organisms/admin/Modals";
 import DashboardAdminTemplate from "@/components/pagetemplate/DashboardAdmin";
 import React, { useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
@@ -12,29 +13,23 @@ const CompetitionCategory = () => {
   const [isModal, setIsModal] = useState(false);
   return (
     <>
-      <div
-        className={`${
-          isModal ? "visible opacity-100" : "invisible opacity-0"
-        } transition-all duration-300 w-full h-screen fixed bg-black/5 backdrop-blur-sm z-50 flex justify-center items-center`}
-      >
-        <form className="w-full max-w-[500px] bg-white px-8 py-4 rounded-md">
-          <h1 className="text-xl mb-2">Tambah Kategori</h1>
-          <Input />
-          <div className="flex items-center space-x-2 mt-4 justify-end">
-            <Button
-              type="button"
-              onClick={() => setIsModal(false)}
-              isSquare
-              color={"bluelight"}
-            >
-              Batal
-            </Button>
-            <Button isSquare color={"blue"}>
-              Simpan
-            </Button>
-          </div>
-        </form>
-      </div>
+      <Modals isModal={isModal}>
+        <h1 className="text-xl mb-2">Tambah Kategori</h1>
+        <Input />
+        <div className="flex items-center space-x-2 mt-4 justify-end">
+          <Button
+            type="button"
+            onClick={() => setIsModal(false)}
+            isSquare
+            color={"bluelight"}
+          >
+            Batal
+          </Button>
+          <Button isSquare color={"blue"}>
+            Simpan
+          </Button>
+        </div>
+      </Modals>
       <DashboardAdminTemplate title={"Categories"}>
         <DashboardCard>
           <ul className="flex items-center gap-2">
