@@ -39,10 +39,10 @@ const CompetitionCategory = () => {
             <p>
               <MdArrowForwardIos className="text-xs text-gray-400" />
             </p>
-            <p className="text-blue-600 text-sm">Lomba</p>
+            <p className="text-blue-600 text-sm">Kategori Lomba</p>
           </ul>
           <div className="flex justify-between items-center mt-2">
-            <h1 className="text-2xl fomt-semibold">Lomba</h1>
+            <h1 className="text-2xl fomt-semibold">Kategori Lomba</h1>
             <Button
               onClick={() => setIsModal(true)}
               isSquare
@@ -50,7 +50,7 @@ const CompetitionCategory = () => {
               additionals={"flex items-center gap-2"}
             >
               <FiPlus className="text-white" />
-              <p>Kategori Baru</p>
+              <p>Buat Kategori</p>
             </Button>
           </div>
         </DashboardCard>
