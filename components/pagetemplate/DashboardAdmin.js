@@ -2,18 +2,22 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { BiCategoryAlt } from "react-icons/bi";
+import { BiCategoryAlt, BiLogOutCircle } from "react-icons/bi";
 import { CgEditBlackPoint } from "react-icons/cg";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FiX } from "react-icons/fi";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 const DashboardAdminTemplate = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const handleLogout = () => {
+    Cookies.remove("adminKey");
+    router.replace("/admin");
+  };
   return (
     <>
-      <Head>
-        <title>{title} - Admin</title>
-      </Head>
       <main className="bg-sslate w-full min-h-screen flex lg:flex-row flex-col">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -37,8 +41,8 @@ const DashboardAdminTemplate = ({ title, children }) => {
             width={1080}
             height={1080}
           />
-          <hr className="border border-gray-400/40 w-full my-7" />
-          <ul className="gap-3 flex flex-col w-full">
+          <hr className="border border-gray-400/10 w-full my-7" />
+          <ul className="gap-3 flex flex-col w-full h-full">
             <li className="w-full text-slate-600">
               <Link
                 href={"/admin/dashboard"}
@@ -63,6 +67,14 @@ const DashboardAdminTemplate = ({ title, children }) => {
                 <BiCategoryAlt /> <p>Kategori Lomba</p>
               </Link>
             </li>
+            <hr className="border border-gray-400/10 w-full my-4" />
+            <button
+              onClick={handleLogout}
+              className="flex text-slate-600 items-center gap-3"
+            >
+              <BiLogOutCircle />
+              <p>Keluar</p>
+            </button>
           </ul>
         </nav>
         <div className="w-full my-8 gap-3 flex flex-col">{children}</div>
