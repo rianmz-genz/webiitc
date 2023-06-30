@@ -2,11 +2,25 @@ import React from "react";
 import Container from "../molecules/Container";
 import Head from "next/head";
 
-const AuthPage = ({ children, title, onSubmit }) => {
+const AuthPage = ({ children, title, onSubmit, description }) => {
   return (
     <>
       <Head>
         <title>{title}</title>
+        <link
+          rel="icon"
+          type="image/png"
+          href="images/LOGO/LOGO IIT COMPETITION PNG.png"
+        />
+        <meta name="description" content={description} />
+        <meta name="robots" content="index,follow" />
+        <meta name="googlebot" content="index,follow" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta
+          property="og:image"
+          content="https://raw.githubusercontent.com/rianmz-genz/webiitc/main/public/images/LOGO/LOGO IIT COMPETITION PNG.png"
+        />
       </Head>
       <Container>
         <main className="w-full lg:flex-row flex-col lg:py-0 py-12 lg:pr-3 lg:pl-12 mx-auto justify-between flex items-center min-h-screen ">
