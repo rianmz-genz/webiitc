@@ -100,7 +100,11 @@ const Signup = () => {
         <AiFillWarning className="text-red text-xl" />
         <p className="text-sm">{Message}</p>
       </Alert>
-      <AuthPage onSubmit={handleSubmit} title={"Daftar IITC"}>
+      <AuthPage
+        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        onSubmit={handleSubmit}
+        title={"Daftar IITC"}
+      >
         <Link href={"/"}>
           <Button
             additionals={"flex  mb-4 items-center"}
