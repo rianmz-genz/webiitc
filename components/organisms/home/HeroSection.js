@@ -3,17 +3,8 @@ import Text from "@/components/atoms/Text";
 import Button from "@/components/atoms/Button";
 import Navbar from "./Navbar";
 import Container from "@/components/molecules/Container";
-import sendEmail from "@/api/auth/SendEmail";
 
 const HeroSection = () => {
-  const handleSendEmail = async () => {
-    try {
-      await sendEmail();
-      console.log("Email berhasil dikirim.");
-    } catch (error) {
-      console.error("Terjadi kesalahan saat mengirim email: ", error);
-    }
-  };
   return (
     <section id="hero" className="relative overflow-hidden h-screen shadow">
       <div className="absolute inset-0 ">
@@ -44,7 +35,6 @@ const HeroSection = () => {
             menangkan{" "}
           </span>{" "}
           event ini
-          <Button onClick={() => handleSendEmail()}>adkaslkd</Button>
         </Text>
       </Container>
     </section>
