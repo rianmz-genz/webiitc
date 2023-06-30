@@ -1,47 +1,103 @@
+import LoginApi from "@/api/auth/LoginApi";
 import { Button } from "@/components";
+import Alert from "@/components/atoms/Alert";
+import Text from "@/components/atoms/Text";
 import InputTitle from "@/components/molecules/InputTitle";
-import Cookies from "js-cookie";
-import Head from "next/head";
+import AuthPage from "@/components/pagetemplate/AuthPage";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  AiFillCheckCircle,
+  AiFillWarning,
+  AiOutlineLoading3Quarters,
+} from "react-icons/ai";
+import Cookies from "js-cookie";
+import { IoMdArrowBack } from "react-icons/io";
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.adminKey;
+  if (token) {
+    return {
+      redirect: {
+        destination: "/dashboard/user",
+        permanent: false,
+      },
+    };
+  }
 
-const AdminLogin = () => {
+  // Lanjutkan eksekusi jika token tersedia
+  // ...
+
+  return {
+    props: {},
+  };
+}
+const LoginAdmin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isHitApi, setIsHitApi] = useState(false);
+  const [isSucces, setIsSucces] = useState(false);
+  const [isWrong, setIsWrong] = useState(false);
+  const [Message, setMessage] = useState("");
   const router = useRouter();
-  const date = new Date();
-  const code = process.env.NEXT_PUBLIC_ADMINKEY;
-  const now = `${date.getDate()}${date.getMinutes()}${date.getHours()}`;
-  const adminKey = code + now;
-  const [key, setKey] = useState("");
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log(adminKey);
-    if (key == adminKey) {
-      Cookies.set("adminKey", key, { expires: 1 }); // Cookie berakhir dalam 7 hari
-      router.push("/admin/dashboard");
-    }
+    setIsHitApi(true);
+    LoginApi({ email, password }).then((res) => {
+      setIsHitApi(false);
+      if (res.status == 1) {
+        setIsSucces(true);
+        setMessage(res.message);
+        Cookies.set("adminKey", res.data.access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
+        router.push("/admin/dashboard");
+      } else if (res.status == 0) {
+        setIsWrong(true);
+        setMessage(res.message);
+      }
+    });
   };
   return (
-    <>
-      <Head>
-        <title>Login - Admin</title>
-      </Head>
-      <main className="w-full min-h-screen flex items-center justify-center bg-slate-100">
-        <form
-          onSubmit={handleSubmit}
-          className="lg:w-full max-w-[600px]  lg:py-12 bg-white lg:px-8 p-6 w-11/12"
-        >
+    <div className="overflow-hidden">
+      <Alert onClose={() => setIsSucces(false)} isOpen={isSucces}>
+        <AiOutlineLoading3Quarters className="text-green-400 text-xl animate-spin" />
+        <p>{Message}</p>
+      </Alert>
+      <Alert onClose={() => setIsWrong(false)} isOpen={isWrong}>
+        <AiFillWarning className="text-red text-xl" />
+        <p>{Message}</p>
+      </Alert>
+      <AuthPage onSubmit={handleLogin} title={"Daftar IITC"}>
+        <Text size={"mdtitle"} weight={"bold"} additionals={"mb-6"}>
+          Admin
+        </Text>
+        <div className="space-y-3 mb-4">
           <InputTitle
-            required
-            title={"Key"}
-            placeholder="Admin key"
-            value={key}
-            onChange={(e) => setKey(e.target.value)}
+            type="email"
+            title={"Email"}
+            value={email}
+            required={true}
+            placeholder="Enter your email"
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <Button additionals={"w-full mt-3"}>Login</Button>
-        </form>
-      </main>
-    </>
+          <InputTitle
+            required={true}
+            title={"Password"}
+            type="password"
+            value={password}
+            placeholder="Enter your password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <Button disabled={isHitApi} color={"gradient2"}>
+          {isHitApi ? (
+            <AiOutlineLoading3Quarters className="text-white text-xl animate-spin" />
+          ) : (
+            "Submit"
+          )}
+        </Button>
+      </AuthPage>
+    </div>
   );
 };
 
-export default AdminLogin;
+export default LoginAdmin;
