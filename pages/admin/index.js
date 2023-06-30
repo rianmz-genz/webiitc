@@ -66,7 +66,11 @@ const LoginAdmin = () => {
         <AiFillWarning className="text-red text-xl" />
         <p>{Message}</p>
       </Alert>
-      <AuthPage onSubmit={handleLogin} title={"Daftar IITC"}>
+      <AuthPage
+        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        onSubmit={handleLogin}
+        title={"Login Admin IIT Competition"}
+      >
         <Text size={"mdtitle"} weight={"bold"} additionals={"mb-6"}>
           Admin
         </Text>
