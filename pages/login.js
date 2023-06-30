@@ -66,7 +66,11 @@ const Login = () => {
         <AiFillWarning className="text-red text-xl" />
         <p>{Message}</p>
       </Alert>
-      <AuthPage onSubmit={handleLogin} title={"Daftar IITC"}>
+      <AuthPage
+        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        onSubmit={handleLogin}
+        title={"Daftar IITC"}
+      >
         <Link href={"/"}>
           <Button
             additionals={"flex lg:absolute top-8 lg:mb-0 mb-4 items-center"}
