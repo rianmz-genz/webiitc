@@ -5,6 +5,7 @@ const Button = ({ color, size, additionals, isSquare = false, ...props }) => {
     `${isSquare ? "rounded-md" : "rounded-full"} ${additionals}`,
     {
       color: {
+        red: "text-red bg-red/10 ",
         bluelight: "bg-blue-600/40 text-white hover:scale-95",
         blue: "bg-blue-600 text-white hover:scale-95",
         gradient2:
