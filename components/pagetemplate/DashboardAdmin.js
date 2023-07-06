@@ -77,7 +77,7 @@ const DashboardAdminTemplate = ({ title, children }) => {
             </button>
           </ul>
         </nav>
-        <div className="w-full my-8 gap-3 flex flex-col">{children}</div>
+        <div className="w-full py-8 gap-3 flex flex-col">{children}</div>
       </main>
     </>
   );
