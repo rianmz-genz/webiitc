@@ -15,6 +15,7 @@ const CompetitonCard = ({
   setCompetitionName,
   isAdmin,
   onDelete,
+  handleCLickButton,
 }) => {
   const handleViewDetailCompetition = () => {
     window.scrollTo(0, 0);
@@ -55,8 +56,11 @@ const CompetitonCard = ({
             <HiOutlineUsers className="text-dark" />
             <Text size={"small"}>{maxMembers} MAX</Text>
           </div>
-          <Button onClick={handleViewDetailCompetition} size={"sm"}>
-            Detail
+          <Button
+            onClick={isAdmin ? handleCLickButton : handleViewDetailCompetition}
+            size={"sm"}
+          >
+            {isAdmin ? "Edit" : "Detail"}
           </Button>
         </div>
       </div>
