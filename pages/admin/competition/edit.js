@@ -1,5 +1,7 @@
 import GetAllCategoryApi from "@/api/admin/categories/GetAll";
 import CreateCompetitionApi from "@/api/admin/competition/Create";
+import EditCompetitionApi from "@/api/admin/competition/Edit";
+import GetDetailCompetitionsApi from "@/api/homepage/GetDetailCompetitionApi";
 import { Button } from "@/components";
 import Alert from "@/components/atoms/Alert";
 import DashboardCard from "@/components/atoms/DashboardCard";
@@ -10,8 +12,9 @@ import InputTitle from "@/components/molecules/InputTitle";
 import DynamicInput from "@/components/organisms/admin/DynamicInput";
 import PromptStyle from "@/components/organisms/admin/PromptStyle";
 import DashboardAdminTemplate from "@/components/pagetemplate/DashboardAdmin";
-import { getBinaryByBoolean } from "@/utils/utils";
-import React, { useState } from "react";
+import getPlusDate, { getBinaryByBoolean } from "@/utils/utils";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
   AiOutlineCheckCircle,
   AiOutlineEdit,
@@ -48,11 +51,14 @@ export async function getServerSideProps() {
     };
   }
 }
+
 const EditCompetition = ({ categories }) => {
+  const router = useRouter();
   const [stacks, setStacks] = useState([]);
   const [juknis, setJuknis] = useState([]);
   const [isIndividu, setIsIndividu] = useState(false);
   const [cover, setCover] = useState(null);
+  const [resCover, setResCover] = useState("");
   const [name, setName] = useState("");
   const [htm, setHtm] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -60,10 +66,28 @@ const EditCompetition = ({ categories }) => {
   const [maxMembers, setMaxMembers] = useState("");
   const [description, setDescription] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [resCategories, setResCategories] = useState([]);
   const [isHitApi, setIsHitApi] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [message, setMessage] = useState("");
+  useEffect(() => {
+    GetDetailCompetitionsApi({ slug: router?.query?.cmpt }).then((res) => {
+      console.log(res);
+      const compt = res?.data.competition;
+      setDeadline(`${getPlusDate({ plusDate: parseInt(compt.deadline) })}`);
+      setName(compt.name);
+      setResCategories(compt.categories);
+      setHtm(compt.competitionPrice);
+      setMaxMembers(`${compt.maxMembers}`);
+      setIsIndividu(compt.maxMembers == 1);
+      setStacks(compt.techStacks);
+      setDescription(compt.description);
+      setGuidebook(compt.guideBookLink);
+      setResCover(compt.cover);
+      setJuknis(compt.criteria);
+    });
+  }, [router.isReady]);
   const handleAddCategory = (e, id) => {
     if (e) {
       if (selectedCategories.includes(id)) return;
@@ -75,23 +99,11 @@ const EditCompetition = ({ categories }) => {
     }
     console.log(selectedCategories);
   };
-  const handleAddCompetition = () => {
+  const handleEditCompetition = () => {
     setIsHitApi(true);
-    const data = {
-      cover,
-      name,
-      isIndividu: getBinaryByBoolean({ isIndividu }),
-      selectedCategories,
-      deadline,
-      maxMembers: parseInt(maxMembers),
-      price: htm,
-      techStack: stacks,
-      description,
-      guideBookLink: guidebook,
-      criteria: juknis,
-    };
-    console.log(data);
-    CreateCompetitionApi({
+
+    EditCompetitionApi({
+      slug: router.query.cmpt,
       cover,
       name,
       isIndividu: getBinaryByBoolean({ isIndividu }),
@@ -157,12 +169,12 @@ const EditCompetition = ({ categories }) => {
             <p>
               <MdArrowForwardIos className="text-xs text-gray-400" />
             </p>
-            <p className="text-blue-600 text-sm">Buat</p>
+            <p className="text-blue-600 text-sm">Edit</p>
           </ul>
           <div className="flex justify-between items-center mt-2">
-            <h1 className="text-2xl fomt-semibold">Buat Lomba</h1>
+            <h1 className="text-2xl fomt-semibold">Edit Lomba</h1>
             <Button
-              onClick={() => handleAddCompetition()}
+              onClick={() => handleEditCompetition()}
               isSquare
               color={"blue"}
               additionals={"flex items-center gap-2"}
