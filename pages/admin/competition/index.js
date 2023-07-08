@@ -30,6 +30,9 @@ const AdminLomba = ({ competitions }) => {
       } else return;
     });
   };
+  const handleEdit = ({ slug }) => {
+    router.push(`/admin/competition/edit?cmpt=${slug}`);
+  };
   return (
     <>
       <PopupDelete
@@ -72,6 +75,9 @@ const AdminLomba = ({ competitions }) => {
                 maxMembers={competition?.maxMembers}
                 title={competition?.name}
                 slug={competition?.slug}
+                handleCLickButton={() =>
+                  handleEdit({ slug: competition?.slug })
+                }
               />
             ))}
           </ol>
