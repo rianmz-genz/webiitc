@@ -29,10 +29,11 @@ const DashboardAdminTemplate = ({ title, children }) => {
             <GiHamburgerMenu className="text-2xl text-blue-400" />
           )}
         </button>
+        <div className="w-full lg:max-w-[250px]"></div>
         <nav
           className={`${
             isOpen ? "block" : "lg:block hidden"
-          } w-full lg:max-w-[250px] bg-white py-12 px-7 flex flex-col items-center justify-start`}
+          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start`}
         >
           <Image
             className="w-24"
