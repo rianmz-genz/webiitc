@@ -5,14 +5,22 @@ import { IoMdArrowBack } from "react-icons/io";
 import Button from "@/components/atoms/Button";
 import Text from "@/components/atoms/Text";
 import LeftRightText from "@/components/molecules/LeftRightText";
-import { BsFillJournalBookmarkFill, BsGridFill } from "react-icons/bs";
+import {
+  BsFillJournalBookmarkFill,
+  BsFillPeopleFill,
+  BsGridFill,
+} from "react-icons/bs";
 import StackCard from "@/components/atoms/StackCard";
 import JuknisItem from "@/components/atoms/JukinisItem";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import GetDetailCompetitionsApi from "@/api/homepage/GetDetailCompetitionApi";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { FiX } from "react-icons/fi";
 const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [isHitApi, setIsHitApi] = useState(true);
   const [competition, setCompetition] = useState({});
+  const router = useRouter();
   useEffect(() => {
     getOneCompetition();
   }, []);
@@ -25,13 +33,20 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
       })
       .catch((err) => console.log(err));
   };
+  const handleJoin = () => {
+    const token = Cookies.get("token");
+    if (!token) return router.push("/login");
+    if (token) {
+    }
+  };
   return (
     <>
       <Head>
         <title>Detail</title>
         <meta name="title" content="IITC" />
       </Head>
-      <main>
+      <main className="overflow-hidden">
+        <PopUpChoose />
         <div className="w-11/12 mx-auto py-6">
           <Button
             onClick={() => setIsCompetitionDetail(false)}
@@ -106,7 +121,8 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   </Text>
                   <ul className="flex gap-3 flex-wrap mt-2 mb-8">
                     {competition?.techStacks.map((stack, index) => {
-                      <StackCard key={index}>{stack}</StackCard>;
+                      console.log(stack);
+                      return <StackCard key={index}>{stack}</StackCard>;
                     })}
                   </ul>
                   <Text size={"description"} weight={"semi"}>
@@ -128,13 +144,13 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                       <Text weight={"semi"}>{competition?.name}</Text>
                       <Text size={"sm"}>Guide Book</Text>
                     </div>
-                    <Button
-                      download
+                    <a
                       href={competition?.guideBookLink}
-                      color={"orentransparent"}
+                      download
+                      className="bg-oren/10 text-oren px-4 py-2 rounded-full"
                     >
                       Download
-                    </Button>
+                    </a>
                   </div>
                   <Text size={"description"} weight={"semi"}>
                     Juknis
@@ -158,3 +174,25 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
 };
 
 export default CompetitionDetails;
+
+const PopUpChoose = () => {
+  return (
+    <div className="bg-dark/10 backdrop-blur-md w-full fixed h-screen z-20 flex justify-center items-center">
+      <div className="w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative">
+        <button className="bg-red/10 text-red rounded-full p-1 absolute top-3 right-3">
+          <FiX />
+        </button>
+        <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
+          Buat atau bergabung dengan tim
+        </Text>
+        <div className="bg-slate-100 rounded-md p-6 my-6">
+          <BsFillPeopleFill className="text-5xl text-slate-800" />
+        </div>
+        <div className="flex space-x-4">
+          <Button color={"dark"}>Bergabung</Button>
+          <Button color={"oren"}>Buat</Button>
+        </div>
+      </div>
+    </div>
+  );
+};
