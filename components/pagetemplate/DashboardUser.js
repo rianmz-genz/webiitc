@@ -2,19 +2,24 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { BiCategoryAlt, BiLogOutCircle } from "react-icons/bi";
+import {
+  BiCategoryAlt,
+  BiLogOutCircle,
+  BiUser,
+  BiUserCircle,
+} from "react-icons/bi";
 import { CgEditBlackPoint } from "react-icons/cg";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FiX } from "react-icons/fi";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-const DashboardAdminTemplate = ({ title, children }) => {
+const DashboardUserTemplate = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const handleLogout = () => {
-    Cookies.remove("adminKey");
-    router.replace("/admin");
+    Cookies.remove("token");
+    router.replace("/login");
   };
   return (
     <>
@@ -45,27 +50,16 @@ const DashboardAdminTemplate = ({ title, children }) => {
           <hr className="border border-gray-400/10 w-full my-7" />
           <ul className="gap-3 flex flex-col w-full h-full">
             <li className="w-full text-slate-600">
-              <Link
-                href={"/admin/dashboard"}
-                className="flex items-center gap-3"
-              >
-                <LuLayoutDashboard /> <p>Dashboard</p>
-              </Link>
-            </li>
-            <li className="w-full text-slate-600">
-              <Link
-                href={"/admin/competition"}
-                className="flex items-center gap-3"
-              >
+              <Link href={"/dashboard"} className="flex items-center gap-3">
                 <CgEditBlackPoint /> <p>Lomba</p>
               </Link>
             </li>
             <li className="w-full text-slate-600">
               <Link
-                href={"/admin/competitioncategories"}
+                href={"/dashboard/profile"}
                 className="flex items-center gap-3"
               >
-                <BiCategoryAlt /> <p>Kategori Lomba</p>
+                <BiUserCircle /> <p>Profil</p>
               </Link>
             </li>
             <hr className="border border-gray-400/10 w-full my-4" />
@@ -84,4 +78,4 @@ const DashboardAdminTemplate = ({ title, children }) => {
   );
 };
 
-export default DashboardAdminTemplate;
+export default DashboardUserTemplate;

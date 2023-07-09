@@ -16,12 +16,13 @@ const Button = ({ color, size, additionals, isSquare = false, ...props }) => {
         white: "bg-white text-softyellow hover:bg-kuning hover:text-white",
         orentransparent: "bg-oren/10 text-oren hover:shadow-lg",
         oren: "bg-oren text-white hover:scale-95 ttransition-all duration-300",
+        dark: "bg-slate-800 text-white hover:scale-95 ttransition-all duration-300",
       },
       size: {
-        sm: "px-5 py-1 text-sm",
+        sm: "px-5 py-1 text-sm font-semibold  ",
         base: "px-4 py-2",
         md: "lg:px-8 py-2 font-semibold px-4",
-        lg: "px-10 py-3 text-lg font-bold",
+        lg: "lg:px-10 lg:py-3 px-4 py-2 text-lg font-bold ",
       },
     }
   );
