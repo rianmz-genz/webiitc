@@ -17,9 +17,15 @@ import GetDetailCompetitionsApi from "@/api/homepage/GetDetailCompetitionApi";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { FiX } from "react-icons/fi";
+import Input from "@/components/atoms/Input";
 const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [isHitApi, setIsHitApi] = useState(true);
   const [competition, setCompetition] = useState({});
+  const [isChoose, setIsChoose] = useState(false);
+  const [tc, setTc] = useState("");
+  const [name, setName] = useState("");
+  const [isJoin, setIsJoin] = useState(false);
+  const [isCreate, setIsCreate] = useState(false);
   const router = useRouter();
   useEffect(() => {
     getOneCompetition();
@@ -33,12 +39,14 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
       })
       .catch((err) => console.log(err));
   };
-  const handleJoin = () => {
+  const handleChoose = () => {
     const token = Cookies.get("token");
     if (!token) return router.push("/login");
     if (token) {
+      setIsChoose(true);
     }
   };
+
   return (
     <>
       <Head>
@@ -46,7 +54,76 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         <meta name="title" content="IITC" />
       </Head>
       <main className="overflow-hidden">
-        <PopUpChoose />
+        {/* choose */}
+        <PopUp isModal={isChoose} onClose={() => setIsChoose(false)}>
+          <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
+            Buat atau bergabung dengan tim
+          </Text>
+          <div className="bg-slate-100 rounded-md p-6 my-6">
+            <BsFillPeopleFill className="text-5xl text-slate-800" />
+          </div>
+          <div className="flex space-x-4 w-full">
+            <Button
+              isSquare
+              additionals={"w-full"}
+              onClick={() => {
+                setIsChoose(false);
+                setIsJoin(true);
+              }}
+              color={"dark"}
+            >
+              Bergabung
+            </Button>
+            <Button
+              onClick={() => {
+                setIsCreate(true);
+                setIsChoose(false);
+              }}
+              isSquare
+              additionals={"w-full"}
+              color={"oren"}
+            >
+              Buat
+            </Button>
+          </div>
+        </PopUp>
+        {/* join */}
+        <PopUp isModal={isJoin} onClose={() => setIsJoin(false)}>
+          <div className="absolute top-4 left-4 flex items-center space-x-2">
+            <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
+            <Text>Bergabung dengan tim</Text>
+          </div>
+          <form>
+            <div className="w-full my-3">
+              <Text>Tim Kode</Text>
+              <Input />
+            </div>
+            <div className="flex space-x-4 w-full">
+              <Button isSquare additionals={"w-full"} color={"oren"}>
+                Gabung
+              </Button>
+            </div>
+          </form>
+        </PopUp>
+        {/* create */}
+        <PopUp isModal={isCreate} onClose={() => setIsCreate(false)}>
+          <div className="absolute top-4 left-4 flex items-center space-x-2">
+            <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
+            <Text>Buat tim baru</Text>
+          </div>
+          <form>
+            <div className="w-full my-3">
+              <Text>Nama Tim</Text>
+              <Input />
+            </div>
+            <div className="flex space-x-4 w-full">
+              <Button isSquare additionals={"w-full"} color={"oren"}>
+                Buat
+              </Button>
+            </div>
+          </form>
+        </PopUp>
+
         <div className="w-11/12 mx-auto py-6">
           <Button
             onClick={() => setIsCompetitionDetail(false)}
@@ -108,8 +185,12 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                         {competition?.competitionPrice.toLocaleString("id-ID")}
                       </Text>
                     </div>
-                    <Button size={"lg"} additionals={"flex items-center"}>
-                      Join <BsGridFill className="ml-1" />
+                    <Button
+                      onClick={handleChoose}
+                      size={"lg"}
+                      additionals={"flex items-center"}
+                    >
+                      Ikuti Lomha
                     </Button>
                   </div>
                   <Text
@@ -175,23 +256,21 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
 
 export default CompetitionDetails;
 
-const PopUpChoose = () => {
+const PopUp = ({ onClose, isModal, children }) => {
   return (
-    <div className="bg-dark/10 backdrop-blur-md w-full fixed h-screen z-20 flex justify-center items-center">
+    <div
+      className={`${
+        isModal ? "visible opacity-100" : "invisible opacity-0"
+      } transition-all duration-300 bg-dark/10 backdrop-blur-md w-full fixed h-screen z-20 flex justify-center items-center`}
+    >
       <div className="w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative">
-        <button className="bg-red/10 text-red rounded-full p-1 absolute top-3 right-3">
+        <button
+          onClick={onClose}
+          className="bg-red/10 text-red rounded-full p-1 absolute top-3 right-3"
+        >
           <FiX />
         </button>
-        <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
-          Buat atau bergabung dengan tim
-        </Text>
-        <div className="bg-slate-100 rounded-md p-6 my-6">
-          <BsFillPeopleFill className="text-5xl text-slate-800" />
-        </div>
-        <div className="flex space-x-4">
-          <Button color={"dark"}>Bergabung</Button>
-          <Button color={"oren"}>Buat</Button>
-        </div>
+        {children}
       </div>
     </div>
   );
