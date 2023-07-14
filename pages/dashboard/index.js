@@ -4,6 +4,7 @@ import Text from "@/components/atoms/Text";
 import DashboardUserTemplate from "@/components/pagetemplate/DashboardUser";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { BiHomeAlt } from "react-icons/bi";
 import { BsFillPeopleFill } from "react-icons/bs";
@@ -64,7 +65,7 @@ const DashboardUser = () => {
               <BsFillPeopleFill className="text-dark" />
               <Text>1/3</Text>
             </div>
-            <Link href={""} className="underline">
+            <Link href={`/team?t=1`} className="underline">
               Detail
             </Link>
           </div>

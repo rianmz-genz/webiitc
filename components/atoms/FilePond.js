@@ -1,14 +1,19 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const FileInput = ({ image, setImage }) => {
+const FileInput = ({
+  image,
+  setImage,
+  className = "bg-white",
+  placeholder = "Pilih file",
+}) => {
   const handleFileChange = (event) => {
     setImage(event.target.files[0]);
     console.log(event);
   };
 
   return (
-    <div className="mb-4 mt-2">
+    <div className={` mb-4 mt-2`}>
       <input
         required
         type="file"
@@ -20,7 +25,7 @@ const FileInput = ({ image, setImage }) => {
         htmlFor="file-input"
         className={`block ${
           !image && "p-4"
-        } bg-white rounded-md cursor-pointer`}
+        } ${className}  rounded-md cursor-pointer`}
       >
         {image ? (
           <Image
@@ -31,7 +36,7 @@ const FileInput = ({ image, setImage }) => {
             alt={`gambar -${image?.target?.value}`}
           />
         ) : (
-          <p>Pilih file</p>
+          <p>{placeholder}</p>
         )}
       </label>
     </div>
