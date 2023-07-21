@@ -5,8 +5,6 @@ import UrlTeam from "../routes/team";
 const JoinTeamApi = async ({ name, competitionSlug }) => {
   const data = {
     name: name,
-    title: "Belum ada",
-    avatar: null,
   };
   try {
     const res = await axios({
