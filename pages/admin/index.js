@@ -14,24 +14,6 @@ import {
 } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { IoMdArrowBack } from "react-icons/io";
-export async function getServerSideProps(context) {
-  const token = context.req.cookies.adminKey;
-  if (token) {
-    return {
-      redirect: {
-        destination: "/admin/competition",
-        permanent: false,
-      },
-    };
-  }
-
-  // Lanjutkan eksekusi jika token tersedia
-  // ...
-
-  return {
-    props: {},
-  };
-}
 const LoginAdmin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
