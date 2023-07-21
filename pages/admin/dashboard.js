@@ -7,25 +7,6 @@ import { CgEditBlackPoint } from "react-icons/cg";
 import { BiCategoryAlt } from "react-icons/bi";
 import DashboardAdminTemplate from "@/components/pagetemplate/DashboardAdmin";
 
-export async function getServerSideProps(context) {
-  const token = context.req.cookies.adminKey;
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  // Lanjutkan eksekusi jika token tersedia
-  // ...
-
-  return {
-    props: {},
-  };
-}
-
 const DashboardAdmin = () => {
   return (
     <DashboardAdminTemplate title={"Dashboard"}>
