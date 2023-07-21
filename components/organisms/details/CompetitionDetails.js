@@ -66,6 +66,8 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         setIsSuccess(true);
         setName("");
         setIsHitJoin(false);
+        router.push(`/team?i=${res.data.team.id}&sl=${competitionSlug}`);
+        return;
       } else {
         setMessage(res.message);
         setIsWrong(true);
