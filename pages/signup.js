@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillWarning, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
 const Signup = () => {
