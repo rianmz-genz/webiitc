@@ -6,30 +6,13 @@ import InputPhone from "@/components/atoms/InputPhone";
 import Text from "@/components/atoms/Text";
 import InputTitle from "@/components/molecules/InputTitle";
 import AuthPage from "@/components/pagetemplate/AuthPage";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillWarning, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
-export async function getServerSideProps(context) {
-  const token = context.req.cookies.token;
-  if (token) {
-    return {
-      redirect: {
-        destination: "/dashboard/user",
-        permanent: false,
-      },
-    };
-  }
-
-  // Lanjutkan eksekusi jika token tersedia
-  // ...
-
-  return {
-    props: {},
-  };
-}
 const Signup = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -43,6 +26,13 @@ const Signup = () => {
   const [Message, setMessage] = useState("");
   const [isUsed, setIsUsed] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    const token = Cookies.get("token");
+    console.log(token);
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [router]);
   const validateNumber = (state) => {
     const regex = /^[0-9]+$/;
     return regex.test(state) ? true : false;
@@ -112,16 +102,16 @@ const Signup = () => {
             size={"base"}
           >
             <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
-            Back
+            Kembali
           </Button>
         </Link>
         <Text size={"mdtitle"} weight={"bold"}>
-          Sign Up
+          Daftar
         </Text>
         <Text additionals={"mb-4 mt-2"}>
-          Have an account?
+          Sudah memiliki akun?
           <Link href={"/login"} className="text-oren hover:underline ml-1">
-            Sign In
+            Masuk
           </Link>
         </Text>
         <div className="space-y-3 mb-4">
@@ -155,7 +145,7 @@ const Signup = () => {
             title={"Password"}
             type="password"
             value={password}
-            placeholder="Enter your password"
+            placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <InputTitle
@@ -163,7 +153,7 @@ const Signup = () => {
             type="password"
             title={"Confirm Password"}
             value={confirmPassword}
-            placeholder="Re-enter your password"
+            placeholder="Konfirmasi password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>

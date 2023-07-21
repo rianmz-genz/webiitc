@@ -12,12 +12,17 @@ import {
 } from "react-icons/bs";
 import StackCard from "@/components/atoms/StackCard";
 import JuknisItem from "@/components/atoms/JukinisItem";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import {
+  AiOutlineCheckCircle,
+  AiOutlineLoading3Quarters,
+} from "react-icons/ai";
 import GetDetailCompetitionsApi from "@/api/homepage/GetDetailCompetitionApi";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { FiX } from "react-icons/fi";
+import { FiX, FiXCircle } from "react-icons/fi";
 import Input from "@/components/atoms/Input";
+import Alert from "@/components/atoms/Alert";
+import JoinTeamApi from "@/api/team/JoinTeam";
 const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [isHitApi, setIsHitApi] = useState(true);
   const [competition, setCompetition] = useState({});
@@ -26,6 +31,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [name, setName] = useState("");
   const [isJoin, setIsJoin] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
+  const [isHitJoin, setIsHitJoin] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isWrong, setIsWrong] = useState(false);
   const router = useRouter();
   useEffect(() => {
     getOneCompetition();
@@ -47,6 +56,28 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
     }
   };
 
+  const onJoinTeam = (e) => {
+    e.preventDefault();
+    setIsHitJoin(true);
+    JoinTeamApi({ name, competitionSlug }).then((res) => {
+      console.log(res);
+      if (res.status == 1) {
+        setMessage(res.message);
+        setIsSuccess(true);
+        setName("");
+        setIsHitJoin(false);
+        router.push(`/team?i=${res.data.team.id}&sl=${competitionSlug}`);
+        return;
+      } else {
+        setMessage(res.message);
+        setIsWrong(true);
+        setIsHitJoin(false);
+        setName("");
+      }
+    });
+    console.log({ competitionSlug, name });
+  };
+
   return (
     <>
       <Head>
@@ -54,6 +85,14 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         <meta name="title" content="IITC" />
       </Head>
       <main className="overflow-hidden">
+        <Alert onClose={() => setIsSuccess(false)} isOpen={isSuccess}>
+          <AiOutlineCheckCircle className="text-green-400 text-xl " />
+          <p>{message}</p>
+        </Alert>
+        <Alert onClose={() => setIsWrong(false)} isOpen={isWrong}>
+          <FiXCircle className="text-red text-xl " />
+          <p>{message}</p>
+        </Alert>
         {/* choose */}
         <PopUp isModal={isChoose} onClose={() => setIsChoose(false)}>
           <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
@@ -111,14 +150,22 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
             <Text>Buat tim baru</Text>
           </div>
-          <form>
+          <form onSubmit={onJoinTeam}>
             <div className="w-full my-3">
               <Text>Nama Tim</Text>
-              <Input />
+              <Input
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="flex space-x-4 w-full">
               <Button isSquare additionals={"w-full"} color={"oren"}>
-                Buat
+                {isHitJoin ? (
+                  <AiOutlineLoading3Quarters className="text-xl mx-auto animate-spin" />
+                ) : (
+                  "Buat"
+                )}
               </Button>
             </div>
           </form>

@@ -14,32 +14,21 @@ import {
 } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { IoMdArrowBack } from "react-icons/io";
-export async function getServerSideProps(context) {
-  const token = context.req.cookies.token;
-  if (token) {
-    return {
-      redirect: {
-        destination: "/dashboard",
-        permanent: false,
-      },
-    };
-  }
-
-  // Lanjutkan eksekusi jika token tersedia
-  // ...
-
-  return {
-    props: {},
-  };
-}
 const Login = () => {
+  const router = useRouter();
+  useEffect(() => {
+    const token = Cookies.get("token");
+    console.log(token);
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [router]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHitApi, setIsHitApi] = useState(false);
   const [isSucces, setIsSucces] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [Message, setMessage] = useState("");
-  const router = useRouter();
   const handleLogin = (e) => {
     e.preventDefault();
     setIsHitApi(true);
@@ -49,7 +38,7 @@ const Login = () => {
         setIsSucces(true);
         setMessage(res.message);
         Cookies.set("token", res.data.access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
-        router.push("/dashboard/user");
+        router.push("/dashboard");
       } else if (res.status == 0) {
         setIsWrong(true);
         setMessage(res.message);
@@ -78,16 +67,16 @@ const Login = () => {
             size={"base"}
           >
             <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
-            Back
+            Kembali
           </Button>
         </Link>
         <Text size={"mdtitle"} weight={"bold"}>
-          Sign In
+          Masuk
         </Text>
         <Text additionals={"mb-4 mt-2"}>
-          Don&apos;t have an account?
+          Belum memiliki akun?
           <Link href={"/signup"} className="text-oren hover:underline ml-1">
-            Sign Up
+            Daftar
           </Link>
         </Text>
         <div className="space-y-3 mb-4">
@@ -96,7 +85,7 @@ const Login = () => {
             title={"Email"}
             value={email}
             required={true}
-            placeholder="Enter your email"
+            placeholder="Masukan email Kamu"
             onChange={(e) => setEmail(e.target.value)}
           />
           <InputTitle
@@ -104,7 +93,7 @@ const Login = () => {
             title={"Password"}
             type="password"
             value={password}
-            placeholder="Enter your password"
+            placeholder="Masukan password Kamu"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

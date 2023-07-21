@@ -1,6 +1,4 @@
-import GetToken from "@/api/utils/GetToken";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { urlGetCompetitions } from "../routes/homepage/GetCompetitions";
 const GetCompetitionsApi = async () => {
   try {
