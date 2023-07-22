@@ -13,6 +13,7 @@ import Head from "next/head";
 import { useState } from "react";
 import axios from "axios";
 import GetCompetitionsApi from "@/api/homepage/GetCompetitionsApi";
+import Timeline from "@/components/organisms/home/Timeline";
 
 export async function getServerSideProps() {
   try {
@@ -63,7 +64,7 @@ export default function Home({ competitions }) {
         setCompetitionName={setCompetitionName}
         setIsCompetitionDetails={setIsCompetitionDetail}
       />
-      <TimelineSection />
+      <Timeline />
       <FaqSection />
       <Footer />
     </main>
