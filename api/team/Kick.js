@@ -1,17 +1,12 @@
-import React from "react";
-import UrlTeam from "../routes/team";
+import GetToken from "@/api/utils/GetToken";
 import axios from "axios";
-import GetToken from "../utils/GetToken";
+import UrlTeam from "../routes/team";
 
-const JoinApi = async ({ code }) => {
-  const data = {
-    code,
-  };
+const KickApi = async ({ teamId, memberId }) => {
   try {
     const res = await axios({
-      method: "PUT",
-      baseURL: `${UrlTeam}/join`,
-      data,
+      method: "DELETE",
+      baseURL: `${UrlTeam}/${teamId}/members/${memberId}`,
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
@@ -23,5 +18,4 @@ const JoinApi = async ({ code }) => {
     return error.response.data;
   }
 };
-
-export default JoinApi;
+export default KickApi;

@@ -26,7 +26,7 @@ const DashboardUserTemplate = ({ title, children }) => {
       <main className="bg-sslate w-full min-h-screen flex lg:flex-row flex-col">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-1 bg-blue-400/10 rounded-md fixed top-3 right-3 lg:hidden visible"
+          className="p-1 bg-blue-400/10 rounded-md fixed top-3 right-3 z-50 lg:hidden visible"
         >
           {isOpen ? (
             <FiX className="text-2xl text-red" />
@@ -38,11 +38,11 @@ const DashboardUserTemplate = ({ title, children }) => {
         <nav
           className={`${
             isOpen ? "block" : "lg:block hidden"
-          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start`}
+          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start z-20`}
         >
           <Image
             className="w-24"
-            src={"/images/LOGO/LOGO IIT COMPETITION PNG.png"}
+            src={"/images/LOGO/LOGOFIX.png"}
             alt="logo iitc"
             width={1080}
             height={1080}

@@ -13,7 +13,7 @@ const FileInput = ({
   };
 
   return (
-    <div className={` mb-4 mt-2`}>
+    <div className={` mb-4 mt-2 ring-1 rounded-md ring-slate-300`}>
       <input
         required
         type="file"

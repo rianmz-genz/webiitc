@@ -6,7 +6,7 @@ const Alert = ({ children, isOpen, onClose }) => {
   return (
     <div className={`relative`}>
       <div
-        className={`bg-white z-50 absolute px-4 py-2 top-2 lg:top-8 transition-all duration-300 rounded-md  flex gap-2 shadow-md items-center ${
+        className={`bg-white z-50 fixed px-4 py-2 top-2 lg:top-8 transition-all duration-300 rounded-md  flex gap-2 shadow-md items-center ${
           isOpen ? "lg:right-8 right-2 visible" : " invisible -right-full"
         }`}
       >

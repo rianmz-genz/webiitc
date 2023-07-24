@@ -7,11 +7,7 @@ const AuthPage = ({ children, title, onSubmit, description }) => {
     <>
       <Head>
         <title>{title}</title>
-        <link
-          rel="icon"
-          type="image/png"
-          href="images/LOGO/LOGO IIT COMPETITION PNG.png"
-        />
+        <link rel="icon" type="image/png" href="images/LOGO/LOGOFIX.png" />
         <meta name="description" content={description} />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
@@ -19,7 +15,7 @@ const AuthPage = ({ children, title, onSubmit, description }) => {
         <meta property="og:description" content={description} />
         <meta
           property="og:image"
-          content="https://raw.githubusercontent.com/rianmz-genz/webiitc/main/public/images/LOGO/LOGO IIT COMPETITION PNG.png"
+          content="https://raw.githubusercontent.com/rianmz-genz/webiitc/main/public/images/LOGO/LOGOFIX.png"
         />
       </Head>
       <Container>

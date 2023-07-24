@@ -39,7 +39,7 @@ const DashboardUser = () => {
         setTeams(res.data.teams);
         console.log(res.data.teams);
       })
-      .catch((err) => console.log(res));
+      .catch((err) => console.log(err));
   }, []);
   return (
     <DashboardUserTemplate>

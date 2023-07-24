@@ -38,6 +38,7 @@ const Login = () => {
         setIsSucces(true);
         setMessage(res.message);
         Cookies.set("token", res.data.access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
+        Cookies.set("email", email, { expires: 2 }); // Cookie berakhir dalam 7 hari
         router.push("/dashboard");
       } else if (res.status == 0) {
         setIsWrong(true);
