@@ -23,6 +23,7 @@ import { FiX, FiXCircle } from "react-icons/fi";
 import Input from "@/components/atoms/Input";
 import Alert from "@/components/atoms/Alert";
 import JoinTeamApi from "@/api/team/JoinTeam";
+import JoinApi from "@/api/team/Join";
 const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [isHitApi, setIsHitApi] = useState(true);
   const [competition, setCompetition] = useState({});
@@ -32,7 +33,9 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [isJoin, setIsJoin] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [isHitJoin, setIsHitJoin] = useState(false);
+  const [isHitJoinTeam, setIsHitJoinTeam] = useState(false);
   const [message, setMessage] = useState("");
+  const [code, setCode] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const router = useRouter();
@@ -56,7 +59,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
     }
   };
 
-  const onJoinTeam = (e) => {
+  const onCreateTeam = (e) => {
     e.preventDefault();
     setIsHitJoin(true);
     JoinTeamApi({ name, competitionSlug }).then((res) => {
@@ -76,6 +79,28 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
       }
     });
     console.log({ competitionSlug, name });
+  };
+  const handleJoinTeam = (e) => {
+    e.preventDefault();
+    setIsHitJoinTeam(true);
+    JoinApi({ code })
+      .then((res) => {
+        console.log(res);
+        if (res.status == 1) {
+          setMessage(res.message);
+          setIsSuccess(true);
+          setCode("");
+          setIsHitJoinTeam(false);
+          router.push(`/dashboard`);
+          return;
+        } else {
+          setMessage(res.message);
+          setIsWrong(true);
+          setIsHitJoinTeam(false);
+          setCode("");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -132,14 +157,22 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
             <Text>Bergabung dengan tim</Text>
           </div>
-          <form>
+          <form onSubmit={handleJoinTeam}>
             <div className="w-full my-3">
               <Text>Tim Kode</Text>
-              <Input />
+              <Input
+                value={code}
+                placeholder="Kode"
+                onChange={(e) => setCode(e.target.value)}
+              />
             </div>
             <div className="flex space-x-4 w-full">
               <Button isSquare additionals={"w-full"} color={"oren"}>
-                Gabung
+                {isHitJoinTeam ? (
+                  <AiOutlineLoading3Quarters className="text-xl mx-auto animate-spin" />
+                ) : (
+                  "Gabung"
+                )}
               </Button>
             </div>
           </form>
@@ -150,7 +183,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
             <Text>Buat tim baru</Text>
           </div>
-          <form onSubmit={onJoinTeam}>
+          <form onSubmit={onCreateTeam}>
             <div className="w-full my-3">
               <Text>Nama Tim</Text>
               <Input
