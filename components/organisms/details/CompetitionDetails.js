@@ -123,7 +123,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
           <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
             Buat atau bergabung dengan tim
           </Text>
-          <div className="bg-slate-100 rounded-md p-6 my-6">
+          <div className="bg-slate-200 rounded-md p-6 my-6">
             <BsFillPeopleFill className="text-5xl text-slate-800" />
           </div>
           <div className="flex space-x-4 w-full">
@@ -154,7 +154,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         {/* join */}
         <PopUp isModal={isJoin} onClose={() => setIsJoin(false)}>
           <div className="absolute top-4 left-4 flex items-center space-x-2">
-            <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
+            <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-200 text-slate-800" />
             <Text>Bergabung dengan tim</Text>
           </div>
           <form onSubmit={handleJoinTeam}>
@@ -180,7 +180,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         {/* create */}
         <PopUp isModal={isCreate} onClose={() => setIsCreate(false)}>
           <div className="absolute top-4 left-4 flex items-center space-x-2">
-            <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-100 text-slate-800" />
+            <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-200 text-slate-800" />
             <Text>Buat tim baru</Text>
           </div>
           <form onSubmit={onCreateTeam}>

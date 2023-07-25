@@ -191,7 +191,7 @@ const EditCompetition = ({ categories }) => {
         </DashboardCard>
         <div className="flex justify-center items-start w-11/12 mx-auto lg:space-x-3 lg:flex-row flex-col">
           <DashboardCard className="w-full space-y-3 flex flex-col">
-            <div className="p-1 bg-slate-100 rounded-md w-fit">
+            <div className="p-1 bg-slate-200 rounded-md w-fit">
               <AiOutlineEdit className="text-xl" />
             </div>
             <InputTitle
@@ -275,7 +275,7 @@ const EditCompetition = ({ categories }) => {
             <p>Cover</p>
             <FileInput image={cover} setImage={setCover} />
             <DashboardCard className="w-full">
-              <div className="p-1 bg-slate-100 rounded-md w-fit">
+              <div className="p-1 bg-slate-200 rounded-md w-fit">
                 <IoIosStats className="text-xl" />
               </div>
               <DynamicInput array={juknis} setArray={setJuknis} />

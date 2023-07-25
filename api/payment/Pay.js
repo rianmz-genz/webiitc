@@ -1,18 +1,15 @@
 import GetToken from "@/api/utils/GetToken";
 import axios from "axios";
-import UrlTeam from "../routes/team";
+import UrlPayment from "../routes/payment";
 
-const EditTeamApi = async ({ name, teamId, avatar, title, submission }) => {
+const PayApi = async ({ proveOfPayment, id }) => {
   const data = {
-    name,
-    avatar,
-    title,
-    submission,
+    proveOfPayment,
   };
   try {
     const res = await axios({
       method: "POST",
-      baseURL: `${UrlTeam}/${teamId}/update`,
+      baseURL: `${UrlPayment}/${id}`,
       data,
       headers: {
         Authorization: GetToken({ isAdmin: false }),
@@ -26,4 +23,4 @@ const EditTeamApi = async ({ name, teamId, avatar, title, submission }) => {
     return error.response.data;
   }
 };
-export default EditTeamApi;
+export default PayApi;
