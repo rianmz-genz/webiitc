@@ -45,9 +45,9 @@ const DashboardUser = () => {
     <DashboardUserTemplate>
       <DashboardCard>
         <ul className="flex items-center gap-2">
-          <p>
+          <Link href={"/"}>
             <BiHomeAlt className="text-gray-400" />
-          </p>
+          </Link>
           <p>
             <MdArrowForwardIos className="text-xs text-gray-400" />
           </p>
@@ -55,22 +55,31 @@ const DashboardUser = () => {
         </ul>
         <div className="flex justify-between items-center mt-2">
           <h1 className="text-2xl fomt-semibold">Lomba Yang Diikuti</h1>
+          {teams.length > 0 && (
+            <Link href={"/"}>
+              <Button>Daftar lomba</Button>
+            </Link>
+          )}
         </div>
       </DashboardCard>
       <ul className="flex flex-col space-y-4">
-        {teams.map((item, idx) => (
-          <TeamCard
-            key={idx}
-            avatar={item.avatar}
-            competitionName={item.competitionName}
-            teamName={item.teamName}
-            currentMembers={item.currentMembers}
-            maxMembers={item.maxMembers}
-            id={item.teamId}
-            slug={item.cSlug}
-            isSubmit={item.isSubmit}
-          />
-        ))}
+        {teams?.length == 0 ? (
+          <EmptyTeam />
+        ) : (
+          teams.map((item, idx) => (
+            <TeamCard
+              key={idx}
+              avatar={item.avatar}
+              competitionName={item.competitionName}
+              teamName={item.teamName}
+              currentMembers={item.currentMembers}
+              maxMembers={item.maxMembers}
+              id={item.teamId}
+              slug={item.cSlug}
+              isSubmit={item.isSubmit}
+            />
+          ))
+        )}
       </ul>
     </DashboardUserTemplate>
   );
@@ -124,5 +133,24 @@ const TeamCard = (props) => {
         </div>
       )}
     </li>
+  );
+};
+
+const EmptyTeam = () => {
+  return (
+    <DashboardCard>
+      <div className="w-full flex justify-center items-center mt-36 flex-col">
+        <Text size={"title"} color={"text-black"}>
+          Tidak ada lomba yang diikuti
+        </Text>
+        <p className="text-md mt-4 mb-6">
+          Kamu belum mengikuti lomba, segera daftarkan tim kamu dan jadilah
+          juara!
+        </p>
+        <Link href={"/"}>
+          <Button>Daftar lomba</Button>
+        </Link>
+      </div>
+    </DashboardCard>
   );
 };
