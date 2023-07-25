@@ -2,11 +2,12 @@ import GetToken from "@/api/utils/GetToken";
 import axios from "axios";
 import UrlTeam from "../routes/team";
 
-const EditTeamApi = async ({ name, teamId, avatar, title }) => {
+const EditTeamApi = async ({ name, teamId, avatar, title, submission }) => {
   const data = {
     name,
     avatar,
     title,
+    submission,
   };
   try {
     const res = await axios({
