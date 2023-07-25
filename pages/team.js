@@ -11,7 +11,7 @@ import {
   AiOutlineDelete,
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
-import { FiX } from "react-icons/fi";
+import { FiHome, FiX } from "react-icons/fi";
 import Image from "next/image";
 import { FilePond } from "filepond";
 import Input from "@/components/atoms/Input";
@@ -25,6 +25,8 @@ import EditTeamApi from "@/api/team/Edit";
 import Alert from "@/components/atoms/Alert";
 import DeleteTeamApi from "@/api/team/Delete";
 import KickApi from "@/api/team/Kick";
+import { BsFileEarmarkCheck } from "react-icons/bs";
+import Link from "next/link";
 const userMail = Cookies.get("email");
 console.log(userMail);
 
@@ -34,15 +36,14 @@ const TeamPage = () => {
   const [isAlert, setIsAlert] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [competition, setCompetition] = useState({});
-  const [isHitTeam, setIsHitTeam] = useState(true);
   const [isHitCompetition, setIsHitCompetition] = useState(true);
+  const [isHitTeam, setIsHitTeam] = useState(true);
   const [team, setTeam] = useState({});
   const [copied, setCopied] = useState(false);
   const [isCsr, setIsCsr] = useState(false);
 
   // edit
   const [teamName, setTeamName] = useState("");
-  const [teamTitle, setTeamTitle] = useState("");
   const [image, setImage] = useState(null);
   const [isHitEdit, setIsHitEdit] = useState(false);
 
@@ -62,6 +63,11 @@ const TeamPage = () => {
   const [isHitKick, setIsHitKick] = useState(false);
   const [kickName, setKickName] = useState("");
   const [kicId, setKicId] = useState("");
+
+  //submit
+  const [teamTitle, setTeamTitle] = useState("-");
+  const [submission, setSubmission] = useState(null);
+
   useEffect(() => {
     setIsCsr(true);
     if (teamId) {
@@ -120,9 +126,6 @@ const TeamPage = () => {
   const handlePopUpEdit = () => {
     setIsEditing(true);
     setTeamName(team.name);
-    if (team.title) {
-      setTeamTitle(team.title);
-    }
   };
   const handleDeleteTeam = () => {
     setIsHitDelete(true);
@@ -173,8 +176,100 @@ const TeamPage = () => {
     setIsKick(true);
     setKicId(id);
   };
+  const handleOpenSubmit = () => {
+    if (team.isActive == "VALID") {
+      setIsPaidOf(true);
+      if (team.title) {
+        setTeamTitle(team.title);
+      }
+    } else {
+      setIsAlert(true);
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsHitEdit(true);
+    EditTeamApi({ teamId, submission, title: teamTitle, name: team.name })
+      .then((res) => {
+        console.log(res);
+        if (res.status == 1) {
+          setIsHitEdit(false);
+          setIsPaidOf(false);
+          setIsSucces(true);
+          setMessage(res.message);
+          getDetailTeam();
+          setTimeout(() => {
+            setIsSucces(false);
+          }, 2000);
+        } else {
+          setIsHitEdit(false);
+          setIsPaidOf(false);
+          setIsWrong(true);
+          setMessage(res.message);
+          setTimeout(() => {
+            setIsWrong(false);
+          }, 2000);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
+      {/* submit */}
+      <PopUp
+        isModal={isPaidOf}
+        onClose={() => {
+          setIsPaidOf(false);
+        }}
+      >
+        <form
+          onSubmit={handleSubmit}
+          className="w-full flex flex-col items-center"
+        >
+          <div className="flex items-center space-x-2 mb-3">
+            <div className="bg-slate-200 rounded p-2 text-xl font-bold">
+              <BsFileEarmarkCheck />
+            </div>
+            <Text
+              size={"smalltitle"}
+              additionals={"my-3"}
+              color={"text-black"}
+              weight={"bold"}
+            >
+              Submit Project
+            </Text>
+          </div>
+          <Input
+            required
+            placeholder="Judul Project"
+            value={teamTitle}
+            onChange={(e) => setTeamTitle(e.target.value)}
+          />
+
+          <input
+            className="block w-full mt-4 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
+            id="small_size"
+            accept=".zip"
+            type="file"
+            onChange={(e) => setSubmission(e.target.files[0])}
+          ></input>
+          <label
+            className="block mt-1 text-sm font-medium text-gray-900 "
+            htmlFor="small_size"
+          >
+            File Project .zip
+          </label>
+          <div className="flex space-x-4 w-full mt-4">
+            <Button isSquare additionals={"w-full"} color={"oren"}>
+              {isHitEdit ? (
+                <AiOutlineLoading3Quarters className="text-xl mx-auto text-white animate-spin" />
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </div>
+        </form>
+      </PopUp>
       {/* kick */}
       <PopUp isModal={isKick} onClose={() => setIsKick(false)}>
         <Text
@@ -236,25 +331,24 @@ const TeamPage = () => {
             color={"text-black"}
             weight={"bold"}
           >
-            Lengkapi Pembayaran!
+            {!team.isActive ? "Lengkapi Pembayaran!" : "Harap menunggu"}
           </Text>
           <Text additionals={"text-center"}>
-            Lengkapi pembayaran kamu terlebih dahulu sebelum melanjutkan ke step
-            selanjutnya. Silahkan klik tombol bayar sekarang untuk melakukan
-            pembayaran & konfirmasi pembayaran!
+            {team.isActive == null
+              ? "Lengkapi pembayaran kamu terlebih dahulu sebelum melanjutkan ke step selanjutnya. Silahkan klik tombol bayar sekarang untuk melakukan pembayaran & konfirmasi pembayaran!"
+              : "Pembayaran sedang diperiksa oleh admin"}
           </Text>
           <div className="flex space-x-4 w-full mt-4">
-            <Button
-              onClick={() => setIsAlert(false)}
-              isSquare
-              additionals={"w-full"}
-              color={"dark"}
-            >
-              Batal
-            </Button>
-            <Button isSquare additionals={"w-full"} color={"oren"}>
-              Bayar Sekarang
-            </Button>
+            {team.isActive == null && (
+              <Link
+                href={`/payment?i=${team.id}&sl=${cSlug}`}
+                className="w-full"
+              >
+                <Button isSquare additionals={"w-full"} color={"oren"}>
+                  Bayar Sekarang
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </PopUp>
@@ -269,11 +363,6 @@ const TeamPage = () => {
             placeholder="Nama Tim"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
-          />
-          <Input
-            placeholder="Judul Karya"
-            value={teamTitle}
-            onChange={(e) => setTeamTitle(e.target.value)}
           />
           <FileInput
             placeholder="Pilih Avatar Team"
@@ -300,12 +389,18 @@ const TeamPage = () => {
             <p>{Message}</p>
           </Alert>
           <ul className="flex w-11/12 mx-auto space-x-3 items-center">
+            <li>
+              <Link href={"/dashboard"}>
+                <FiHome className="text-blue-400 text-xl" />
+              </Link>
+            </li>
+            <li className="text-black/70">&gt;</li>
             <li className="text-black/70">Team</li>
             <li className="text-black/70">&gt;</li>
             <li className="text-oren">{team.name}</li>
           </ul>
           {isHitCompetition ? (
-            <div className="w-11/12 mx-auto h-96 rounded-md animate-pulse bg-slate-100"></div>
+            <div className="w-11/12 mx-auto h-96 rounded-md animate-pulse bg-slate-200"></div>
           ) : (
             <div className="flex gap-6 w-11/12 border-b pb-8 mx-auto items-start justify-between relative md:flex-row flex-col">
               <img
@@ -316,7 +411,7 @@ const TeamPage = () => {
                 className="md:w-4/12 w-full rounded-md md:sticky top-3"
               />
               <div className="md:w-8/12 w-full relative">
-                {StatusPayment(false)}
+                {StatusPayment(team.isActive)}
                 <div>
                   <p className="text-sm text-black/60">Lomba yang diikuti</p>
                   <Text color={"text-black font-bold"} size={"title"}>
@@ -357,9 +452,16 @@ const TeamPage = () => {
                     ))}
                   </ul>
                 </div>
-                <Button isSquare color={"oren"} additionals={"w-full mt-6"}>
-                  Submit
-                </Button>
+                {isCsr && userMail == team?.leader?.email && (
+                  <Button
+                    onClick={() => handleOpenSubmit()}
+                    isSquare
+                    color={"oren"}
+                    additionals={"w-full mt-6"}
+                  >
+                    {team.isSubmit ? "Edit" : "Submit"}
+                  </Button>
+                )}
               </div>
             </div>
           )}
@@ -401,7 +503,7 @@ const TeamPage = () => {
                     className="w-36 h-36 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="w-36 h-36 rounded-full bg-slate-100"></div>
+                  <div className="w-36 h-36 rounded-full bg-slate-200 animate-pulse"></div>
                 )}
                 <div className="flex justify-between items-center">
                   <div>
@@ -487,9 +589,9 @@ const PopUp = ({ onClose, isModal, children }) => {
   );
 };
 
-const StatusPayment = (status) => {
+export const StatusPayment = (status) => {
   switch (status) {
-    case false:
+    case null:
       return (
         <div className="absolute top-0 right-0 bg-red/20 px-2 py-1 rounded-full">
           <Text additionals={"text-red"} size={"small"}>
@@ -497,7 +599,15 @@ const StatusPayment = (status) => {
           </Text>
         </div>
       );
-    case true:
+    case "PENDING":
+      return (
+        <div className="absolute top-0 right-0 bg-yellow-400/20 px-2 py-1 rounded-full">
+          <Text additionals={"text-yellow-400"} size={"small"}>
+            Di Proses
+          </Text>
+        </div>
+      );
+    case "VALID":
       return (
         <div className="absolute top-0 right-0 bg-green-400/20 px-2 py-1 rounded-full">
           <Text additionals={"text-green-400"} size={"small"}>
@@ -521,7 +631,7 @@ const MemberItem = ({ avatar, name, email, leaderEmail, onKick }) => {
             className="w-24 h-24 rounded-full object-cover"
           />
         ) : (
-          <div className="w-24 h-24 rounded-full bg-slate-100"></div>
+          <div className="w-24 h-24 rounded-full bg-slate-200 animate-pulse"></div>
         )}
         <div>
           <Text size={"smalltitle"}>{name}</Text>
