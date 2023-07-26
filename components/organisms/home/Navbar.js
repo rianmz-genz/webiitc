@@ -13,7 +13,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <header className="fixed top-3 z-10 w-11/12">
+    <header className="fixed top-3 z-20 w-11/12">
       {/* navbar lg */}
       <div className="w-full flex z-30 top-6 bg-white bg-opacity-50 justify-center backdrop-blur-md rounded-full px-4 py-2">
         <Container className="flex w-full justify-between items-center">
