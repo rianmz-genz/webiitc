@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const NavLink = ({ children, target, isSmall = false, isWhite = false }) => {
@@ -28,25 +29,33 @@ const NavLink = ({ children, target, isSmall = false, isWhite = false }) => {
   }, [target]);
   return (
     <li>
-      <a
+      <Link
+        scroll={false}
         href={target}
-        className={`${isSmall ? "text-sm" : "text-xl"} text-poppins transition-all duration-300 ${
+        className={`${
+          isSmall ? "text-sm" : "text-xl"
+        } text-poppins transition-all duration-300 ${
           isActive
             ? "font-semibold text-kuning dark:text-kuning"
             : "dark:hover:text-kuning"
-        } ${isWhite ? "text-white dark:text-white" : "text-black dark:text-black"} hover:text-kuning`}
-        // onClick={(e) => {
-        //   e.preventDefault();
-        //   if (document && window) {
-        //     const targetElement = document.querySelector(target);
-        //     if (targetElement) {
-        //       window.scrollTo(0, targetElement.offsetTop - headerHeight);
-        //     }
-        //   }
-        // }}
+        } ${
+          isWhite ? "text-white dark:text-white" : "text-black dark:text-black"
+        } hover:text-kuning`}
+        onClick={(e) => {
+          e.preventDefault();
+          if (document && window) {
+            const targetElement = document.querySelector(target);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - headerHeight,
+                behavior: "smooth",
+              });
+            }
+          }
+        }}
       >
         {children}
-      </a>
+      </Link>
     </li>
   );
 };
