@@ -16,7 +16,7 @@ const HeroSection = () => {
       <Container className="flex flex-col-reverse lg:flex-row h-[90vh] items-center justify-center z-10">
         <Navbar />
 
-        <p className="font-black text-slate-800 z-10 text-2xl lg:text-4xl leading-10 lg:w-6/12 text-center -mt-10">
+        <p className="font-black text-slate-800 z-10 text-2xl md:text-3xl lg:text-4xl leading-10 md:w-8/12 lg:w-6/12 text-center -mt-10">
           <span className="text-transparent bg-gradient-to-tr from-orange-500 to bg-yellow-300 bg-clip-text">
             Buktikan
           </span>{" "}
