@@ -9,7 +9,7 @@ const HeroSection = () => {
     <section id="hero" className="relative overflow-hidden h-screen shadow">
       <div className="absolute inset-0 ">
         <div
-          className=" w-full bg-cover  bg-no-repeat h-screen max-h-screen bg-center"
+          className=" w-full bg-cover  bg-no-repeat h-screen max-h-screen mt-20 bg-left opacity-70 lg:bg-center"
           style={{
             backgroundImage: "url('/images/Website/Artboard 1@4x.png')",
           }}
