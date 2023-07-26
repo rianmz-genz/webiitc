@@ -234,9 +234,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   className="w-full lg:w-5/12 lg:sticky top-6 rounded-lg"
                 />
                 <article className="w-11/12 my-12 lg:my-0 lg:w-6/12">
-                  <Text size={"bigtitle"} color={"black"} additionals={"mb-4"}>
-                    {competition?.name}
-                  </Text>
+                  <h1 className="text-4xl font-bold uppercase text-slate-900 mb-3">
+                    {competition?.name}{" "}
+                  </h1>
+
                   <LeftRightText
                     leftText={"Category"}
                     rightText={competition?.categories?.map((item, index) =>
@@ -255,24 +256,25 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                     leftText={"Team"}
                     rightText={`Max ${competition?.maxMembers} Anggota`}
                   />
-                  <div className="flex justify-between items-center my-6">
-                    <div>
+                  <div className="flex flex-col lg:flex-row justify-start lg:justify-between lg:items-center mt-5  w-full">
+                    <div className="flex lg:flex-col flex-row gap-2">
                       <Text size={"description"} weight={"semi"}>
-                        HTM
+                        HTM :{""}
                       </Text>
-                      <Text size={"title"} weight={"semi"} color={"black"}>
+                      <p className="text-slate-900 font-bold lg:text-3xl ">
                         Rp.{" "}
                         {competition?.competitionPrice.toLocaleString("id-ID")}
-                      </Text>
+                      </p>
                     </div>
                     <Button
                       onClick={handleChoose}
                       size={"lg"}
-                      additionals={"flex items-center"}
+                      additionals={"lg:w-auto w-full text-center mt-4"}
                     >
                       Ikuti Lomha
                     </Button>
                   </div>
+                  <div className="p-1  w-full border-b mt-5 " />
                   <Text
                     size={"description"}
                     additionals={"mt-8"}
