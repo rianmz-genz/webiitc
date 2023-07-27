@@ -1,66 +1,77 @@
-import React from "react";
+import React, { useRef } from "react";
 import Circle from "./Circle";
 import timelineData, { endDate, startDate } from "./timelineData";
 import FlashParagraph from "@/components/atoms/FlashParagraph";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 const Timeline = () => {
   const currentDate = new Date();
   const currentPercentage = Math.round(
     ((currentDate - startDate) / (endDate - startDate)) * 100
   );
-  // console.log(currentDate.getDate(), startDate.getDate());
+
   const { importantDates, modalContent } = timelineData;
+  const timelineRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (timelineRef.current) {
+      timelineRef.current.scrollLeft -= 100; // Adjust the number as needed
+    }
+  };
+
+  const scrollRight = () => {
+    if (timelineRef.current) {
+      timelineRef.current.scrollLeft += 100; // Adjust the number as needed
+    }
+  };
 
   return (
     <div
-      className={`p-10  bg-slate-700 min-h-screen flex justify-center items-center flex-col w-full`}
+      className={`p-10  bg-slate-700 min-h-screen flex   justify-center items-center flex-col w-full`}
     >
       <div className="flex flex-col gap-3 items-center text-center">
         <FlashParagraph value={"Don't forget your misson"} />
         <h1 className="font-semibold text-white text-3xl">
           Timeline kami dalam lomba ini
+          {currentPercentage}
         </h1>
         <p className="text-slate-300">jangan sampai terlewat </p>
       </div>
-      <div className="flex justify-center items-center mt-12 w-full">
-        {/* timeline line */}
-        <div className="w-full bg-slate-800 flex items-center relative">
-          {/* timeline terlewat */}
-          <div
-            className={`p-[3px] bg-oren`}
-            style={{ width: `${currentPercentage + 1}%` }}
-          ></div>
-
-          {/* circle pada tanggal 10 */}
+      <div className="flex items-center justify-between w-full">
+        <button
+          onClick={scrollLeft}
+          className="w-12 h-12 bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
+        >
+          <AiOutlineArrowLeft size={20} />
+        </button>
+        <button
+          onClick={scrollRight}
+          className="w-12 h-12 bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
+        >
+          <AiOutlineArrowRight size={20} />
+        </button>
+      </div>
+      <div
+        className={`w-full h-[300px] -mt-20 flex items-center overflow-x-scroll relative scroll-smooth scrollbar-hide `}
+        ref={timelineRef}
+      >
+        <div className="w-[2000px] z-0 bg-slate-800 h-1 absolute p-1"></div>
+        {/* timeline terlewat */}
+        <div
+          className={`p-[3px] z-10  bg-orange`}
+          style={{ width: `${currentPercentage + 1}%` }}
+        ></div>
+        {importantDates.map((date, index) => (
           <Circle
-            date={importantDates[0]}
-            currentPercentage={currentPercentage}
-            modalContent={
-              modalContent[importantDates[0].toISOString().slice(0, 10)]
-            }
+            key={index}
+            index={index}
+            date={date}
             importantDates={importantDates}
-          />
-
-          {/* circle pada tanggal 20 */}
-          <Circle
-            date={importantDates[1]}
             currentPercentage={currentPercentage}
-            modalContent={
-              modalContent[importantDates[1].toISOString().slice(0, 10)]
-            }
-            importantDates={importantDates}
+            modalContent={modalContent[date.toISOString().slice(0, 10)]}
           />
-
-          {/* circle pada tanggal 30 */}
-          <Circle
-            date={importantDates[2]}
-            currentPercentage={currentPercentage}
-            modalContent={
-              modalContent[importantDates[2].toISOString().slice(0, 10)]
-            }
-            importantDates={importantDates}
-          />
-        </div>
+        ))}
+        {/* circle pada tanggal 10 */}
       </div>
     </div>
   );
