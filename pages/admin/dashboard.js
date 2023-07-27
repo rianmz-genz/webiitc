@@ -81,7 +81,7 @@ const TeamCard = ({ avatar, name, title, isActive, code }) => {
         <div className="w-full h-36 rounded-t-md bg-slate-200 animate-pulse"></div>
       )}
       <div className="p-4 relative">
-        {StatusPayment("PENDING")}
+        {StatusPayment(isActive)}
         <p className="text-sm line-clamp-2 mt-3">{name}</p>
         <p className="text-lg line-clamp-3">{title}</p>
         <p className="text-sm">#{code}</p>
