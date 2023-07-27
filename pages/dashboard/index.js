@@ -11,6 +11,7 @@ import { BiHomeAlt } from "react-icons/bi";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { FiPlus } from "react-icons/fi";
 import { MdArrowForwardIos } from "react-icons/md";
+import { getTwoChar } from "../team";
 
 // export async function getServerSideProps(context) {
 //   const token = context.req.cookies.token;
@@ -53,7 +54,7 @@ const DashboardUser = () => {
           </p>
           <p className="text-blue-600 text-sm">Lomba</p>
         </ul>
-        <div className="flex justify-between items-center mt-2">
+        <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
           <h1 className="text-2xl fomt-semibold">Lomba Yang Diikuti</h1>
           {teams.length > 0 && (
             <Link href={"/"}>
@@ -89,23 +90,49 @@ export default DashboardUser;
 
 const TeamCard = (props) => {
   return (
-    <li className="w-11/12 mx-auto bg-white shadow shadow-black/5 rounded-md px-8 py-4 flex justify-between items-start">
-      {props.avatar ? (
-        <img
-          src={props.avatar}
-          alt="Competition Image"
-          width={1080}
-          height={1080}
-          className="w-28 object-cover h-28 rounded-md"
-        />
-      ) : (
-        <div className="w-28 object-cover h-28 rounded-md bg-slate-300"></div>
-      )}
-      <div className="mx-4 flex-1">
+    <li className="w-11/12 mx-auto bg-white shadow shadow-black/5 rounded-md lg:px-8 p-4 lg:py-4 flex lg:flex-row flex-col justify-between items-start">
+      <div className="max-lg:w-full relative">
+        {props.avatar ? (
+          <img
+            src={props.avatar}
+            alt="Competition Image"
+            width={1080}
+            height={1080}
+            className="lg:w-28 w-full h-28 object-cover lg:h-28 rounded-md"
+          />
+        ) : (
+          <div className="lg:w-28 w-full h-28 rounded-md bg-slate-100 flex justify-center items-center">
+            {getTwoChar(props.teamName)}
+          </div>
+        )}
+        <div className="absolute right-0 -bottom-3  lg:hidden">
+          {props.isSubmit ? (
+            <div className="px-4 py-2 bg-green-400/20 rounded-full backdrop-blur-md">
+              <Text size={"small"} additionals={"text-green-600"}>
+                Sudah Submit
+              </Text>
+            </div>
+          ) : (
+            <div className="px-4 py-2 bg-oren/10 rounded-full backdrop-blur-md">
+              <Text
+                color={"text-black"}
+                size={"small"}
+                additionals={"text-oren"}
+              >
+                Belum Submit
+              </Text>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="lg:mx-4 lg:my-0 my-3 flex-1 w-full">
         <Text color={"text-black"}>{props.competitionName}</Text>
+
         <Text color={"text-black"} size={"cardtitle"} weight={"semi"}>
           {props.teamName}
         </Text>
+
         <div className="flex space-x-2 items-center ">
           <BsFillPeopleFill className="text-dark" />
           <Text>
@@ -120,13 +147,13 @@ const TeamCard = (props) => {
         </Link>
       </div>
       {props.isSubmit ? (
-        <div className="px-4 py-2 bg-green-400/20 rounded-full">
+        <div className="px-4 py-2 bg-green-400/20 rounded-full max-lg:hidden">
           <Text size={"small"} additionals={"text-green-600"}>
             Sudah Submit
           </Text>
         </div>
       ) : (
-        <div className="px-4 py-2 bg-oren/10 rounded-full">
+        <div className="px-4 py-2 bg-oren/10 rounded-full max-lg:hidden">
           <Text color={"text-black"} size={"small"} additionals={"text-oren"}>
             Belum Submit
           </Text>
