@@ -14,6 +14,7 @@ import {
   AiFillWarning,
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
+import { getTwoChar } from "./team";
 
 const Payment = () => {
   const [isSucces, setIsSucces] = useState(false);
@@ -25,6 +26,7 @@ const Payment = () => {
   const [competition, setCompetition] = useState({});
   const [isHitCompetition, setIsHitCompetition] = useState(true);
   const [team, setTeam] = useState({});
+  const [isCsr, setIsCsr] = useState(false);
   const router = useRouter();
   const id = router.query?.i;
   const cSlug = router.query?.sl;
@@ -50,6 +52,7 @@ const Payment = () => {
       GetDetailCompetitionsApi({ slug: cSlug })
         .then((res) => {
           console.log(res);
+          setIsCsr(true);
           setCompetition(res.data?.competition);
           setIsHitCompetition(false);
         })
@@ -138,27 +141,29 @@ const Payment = () => {
           <p>{Message}</p>
         </Alert>
 
-        <div className="flex justify-between items-center my-8">
-          <div className="flex items-center justify-start space-x-3">
+        <div className="flex justify-between items-center my-8 w-full">
+          <div className="flex lg:items-center items-start justify-start space-x-3 lg:flex-row flex-col w-full">
             {team.avatar ? (
               <img
                 src={team.avatar}
                 alt="Buaya"
                 width={1080}
                 height={1080}
-                className="w-24 h-24 rounded-full object-cover"
+                className="lg:w-24 w-full h-24 rounded-md lg:rounded-full object-cover"
               />
             ) : (
-              <div className="w-24 h-24 rounded-full bg-slate-200 animate-pulse"></div>
+              <div className="lg:w-24 w-full h-24 rounded-md lg:rounded-full bg-slate-100 animate-pulse flex justify-center items-center">
+                {isCsr && getTwoChar(team.name)}
+              </div>
             )}
-            <div>
+            <div className="max-lg:mt-3">
               <Text size={"smalltitle"} color={"black"}>
                 Tim {team.name}
               </Text>
               <Text>Kapten {team?.leader?.name}</Text>
             </div>
           </div>
-          <div className=" text-green-500">Pembayaran</div>
+          <div className=" text-green-500 max-lg:hidden">Pembayaran</div>
         </div>
 
         {/* <div className="mb-6">
@@ -170,7 +175,7 @@ const Payment = () => {
 
         <div className="py-6 border-y flex justify-center items-center space-x-3">
           {/* <Logo /> */}
-          <Text color={"black"} size={"cardtitle"} weight={"bold"}>
+          <Text color={"black"} size={"cardtitle"}>
             Metode Pembayaran
           </Text>
         </div>
@@ -191,7 +196,7 @@ const Payment = () => {
         </ul>
         <FileInput
           placeholder="Upload bukti pembayaran"
-          className="bg-slate-200"
+          className="bg-slate-100"
           image={image}
           setImage={setImage}
         />
