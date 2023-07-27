@@ -55,12 +55,13 @@ const Timeline = () => {
         className={`w-full h-[300px] -mt-20 flex items-center overflow-x-scroll relative scroll-smooth scrollbar-hide `}
         ref={timelineRef}
       >
-        <div className="w-[2000px] z-0 bg-slate-800 h-1 absolute p-1"></div>
+        <div className="w-[2000px]  bg-slate-800 h-1 absolute p-1"></div>
         {/* timeline terlewat */}
         <div
-          className={`p-[3px] z-10  bg-orange`}
-          style={{ width: `${currentPercentage + 1}%` }}
+          className={`absolute  h-2 bg-oren`}
+          style={{ width: `${currentPercentage}%` }}
         ></div>
+
         {importantDates.map((date, index) => (
           <Circle
             key={index}
