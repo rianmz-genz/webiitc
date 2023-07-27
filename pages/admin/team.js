@@ -15,12 +15,18 @@ const TeamDetailAdmin = () => {
   const [isApprove, setIsApprove] = useState(false);
   const [counter, setCounter] = useState(false);
   const [isHitApi, setisHitApi] = useState(false);
+  const [done, setDone] = useState(false);
   const [reason, setReason] = useState("");
+  const [image, setImage] = useState("");
   const id = router.query.i;
   useEffect(() => {
     GetDetailTeamAdminApi({ id }).then((res) => {
       console.log(res);
       setTeam(res.data?.team);
+      if (res.data?.team?.isActive == "VALID") {
+        setImage(res?.data?.team?.transferReceipt);
+        setDone(true);
+      }
     });
   }, [router.isReady]);
   useEffect(() => {
@@ -58,7 +64,7 @@ const TeamDetailAdmin = () => {
           {StatusPayment(team?.isActive)}
           {team?.avatar ? (
             <img
-              src={team?.avatar}
+              src={image ? image : team?.avatar}
               alt="pembayaran tim"
               width={1080}
               height={1080}
@@ -84,33 +90,37 @@ const TeamDetailAdmin = () => {
           />
         </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            setIsApprove(true);
-            setCounter(true);
-          }}
-          className={` ${
-            isApprove && counter && "ring-2 ring-green-600"
-          } bg-green-500/20  text-green-500 flex px-6 py-3 rounded-md w-full mt-6 justify-center items-center transition-all duration-300`}
-        >
-          <BiCheckCircle className="text-xl mr-2" />
-          <p>Terima Pembayaran</p>
-        </button>
+        {!done && (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                setIsApprove(true);
+                setCounter(true);
+              }}
+              className={` ${
+                isApprove && counter && "ring-2 ring-green-600"
+              } bg-green-500/20  text-green-500 flex px-6 py-3 rounded-md w-full mt-6 justify-center items-center transition-all duration-300`}
+            >
+              <BiCheckCircle className="text-xl mr-2" />
+              <p>Terima Pembayaran</p>
+            </button>
 
-        <button
-          type="button"
-          onClick={() => {
-            setIsApprove(false);
-            setCounter(true);
-          }}
-          className={` ${
-            !isApprove && counter && "ring-2 ring-red"
-          } bg-red/20 text-red flex px-6 py-3 rounded-md w-full mt-3 justify-center items-center transition-all duration-300`}
-        >
-          <FiXCircle className="text-xl mr-2" />
-          <p>Tolak Pembayaran</p>
-        </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsApprove(false);
+                setCounter(true);
+              }}
+              className={` ${
+                !isApprove && counter && "ring-2 ring-red"
+              } bg-red/20 text-red flex px-6 py-3 rounded-md w-full mt-3 justify-center items-center transition-all duration-300`}
+            >
+              <FiXCircle className="text-xl mr-2" />
+              <p>Tolak Pembayaran</p>
+            </button>
+          </>
+        )}
 
         {counter && (
           <>
