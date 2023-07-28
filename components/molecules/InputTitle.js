@@ -2,11 +2,15 @@ import React from "react";
 import Input from "../atoms/Input";
 import Text from "../atoms/Text";
 
-const InputTitle = ({ title, ...props }) => {
+const InputTitle = ({ placeholder, title, ...props }) => {
   return (
     <div>
       <Text additionals={"mb-1"}>{title}</Text>
-      <Input v={"base"} {...props} />
+      <Input
+        placeholder={placeholder ? placeholder : ""}
+        v={"base"}
+        {...props}
+      />
     </div>
   );
 };
