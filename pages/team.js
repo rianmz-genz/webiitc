@@ -41,6 +41,7 @@ const TeamPage = () => {
   const [team, setTeam] = useState({});
   const [copied, setCopied] = useState(false);
   const [isCsr, setIsCsr] = useState(false);
+  const [email, setEmail] = useState("");
 
   // edit
   const [teamName, setTeamName] = useState("");
@@ -72,6 +73,7 @@ const TeamPage = () => {
     setIsCsr(true);
     if (teamId) {
       getDetailTeam();
+      setEmail(Cookies.get("email"));
     }
 
     if (cSlug) {
@@ -125,7 +127,7 @@ const TeamPage = () => {
   };
   const handlePopUpEdit = () => {
     setIsEditing(true);
-    setTeamName(team.name);
+    setTeamName(team.name ? team.name : email);
   };
   const handleDeleteTeam = () => {
     setIsHitDelete(true);
@@ -398,7 +400,7 @@ const TeamPage = () => {
             <li className="text-black/70">&gt;</li>
             <li className="text-black/70">Team</li>
             <li className="text-black/70">&gt;</li>
-            <li className="text-oren">{team.name}</li>
+            <li className="text-oren">{team.name ? team.name : email}</li>
           </ul>
           {isHitCompetition ? (
             <div className="w-11/12 mx-auto h-96 rounded-md animate-pulse bg-slate-200"></div>
@@ -507,13 +509,13 @@ const TeamPage = () => {
                   />
                 ) : (
                   <div className="lg:w-36 h-36 flex justify-center items-center w-full rounded-md bg-slate-200 animate-pulse">
-                    {getTwoChar(team.name)}
+                    {getTwoChar(team.name ? team.name : email)}
                   </div>
                 )}
                 <div className="flex justify-between items-center">
                   <div>
                     <Text size={"title"} color={"text-black"}>
-                      {team.name}
+                      {team.name ? team.name : email}
                     </Text>
                     <Text>
                       {team.members?.length + 1}/{competition.maxMembers}{" "}
