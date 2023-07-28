@@ -3,6 +3,7 @@ import Logo from "@/components/atoms/Logo";
 import Text from "@/components/atoms/Text";
 import Container from "@/components/molecules/Container";
 import NavLink from "@/components/molecules/NavLink";
+import Image from "next/image";
 import React from "react";
 import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 
@@ -14,7 +15,13 @@ const Footer = () => {
           <div className="w-11/12 flex flex-col md:flex-row justify-start md:justify-between items-center border-b pb-12 border-[#71777D]">
             {/* left side */}
             <div className="space-y-5 w-full text-center md:text-start">
-              <Logo>IITC</Logo>
+              <Image
+                className="w-20 p-2"
+                src="/images/8.png"
+                width={1080}
+                height={1080}
+                alt="Logo IIT Competition"
+              />
               <Text additionals={"md:w-6/12"} size={"small"} color={"white"}>
                 mencari generasi dengan potensi yang luar biasa pada bidang
                 tertentu
