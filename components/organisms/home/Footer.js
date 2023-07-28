@@ -1,10 +1,10 @@
-import Button from '@/components/atoms/Button';
-import Logo from '@/components/atoms/Logo';
-import Text from '@/components/atoms/Text';
-import Container from '@/components/molecules/Container';
-import NavLink from '@/components/molecules/NavLink';
-import React from 'react';
-import { AiOutlineMail, AiOutlinePhone } from 'react-icons/ai';
+import Button from "@/components/atoms/Button";
+import Logo from "@/components/atoms/Logo";
+import Text from "@/components/atoms/Text";
+import Container from "@/components/molecules/Container";
+import NavLink from "@/components/molecules/NavLink";
+import React from "react";
+import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -13,9 +13,9 @@ const Footer = () => {
         <footer className="w-full pt-12 pb-5 md:pb-16 bg-darkblue flex justify-center items-center flex-col">
           <div className="w-11/12 flex flex-col md:flex-row justify-start md:justify-between items-center border-b pb-12 border-[#71777D]">
             {/* left side */}
-            <div className="space-y-5 md:w-6/12 text-center md:text-start">
+            <div className="space-y-5 w-full text-center md:text-start">
               <Logo>IITC</Logo>
-              <Text additionals={'md:w-6/12'} size={'small'} color={'white'}>
+              <Text additionals={"md:w-6/12"} size={"small"} color={"white"}>
                 mencari generasi dengan potensi yang luar biasa pada bidang
                 tertentu
               </Text>
@@ -39,43 +39,25 @@ const Footer = () => {
                   FAQ
                 </NavLink>
               </ul>
-              <div className="flex space-x-2 my-5 md:my-0 text-white items-center justify-center md:justify-start">
-                <AiOutlineMail />
-                <Text color={'white'} size={'small'}>
-                  adminiitc@gmail.com
-                </Text>
-                <AiOutlinePhone />
-                <Text color={'white'} size={'small'}>
-                  +6288177162
-                </Text>
+              <div className="flex md:flex-row flex-col space-y-3 md:space-y-0 md:space-x-2 my-5 md:my-0 text-white items-center justify-center md:justify-start">
+                <div className="flex items-center space-x-2">
+                  <AiOutlineMail />
+                  <Text color={"white"} size={"small"}>
+                    iitc.intermedia@gmail.com
+                  </Text>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <AiOutlinePhone />
+                  <Text color={"white"} size={"small"}>
+                    +628985485275(IITC) | +6283189827491(Fotin)
+                  </Text>
+                </div>
               </div>
             </div>
-            {/* right side */}
-            <form className="flex justify-center items-end md:w-6/12 px-10 flex-col space-y-2 mt-5 md:mt-0">
-              <label className="flex space-y-2 flex-col">
-                <Text
-                  size={'description'}
-                  color={'white'}
-                  additionals={'hidden md:block'}
-                >
-                  Get the freshest news from us
-                </Text>
-                <div className="flex items-center justify-center md:justify-start lg:space-x-3 flex-wrap gap-3">
-                  <input
-                    type="text"
-                    placeholder="your email address"
-                    className="bg-white px-2 py-2 rounded-md focus:outline-none text-sm"
-                  />
-                  <Button isSquare color={'oren'} size={'md'}>
-                    Subscribe
-                  </Button>
-                </div>
-              </label>
-            </form>
           </div>
           {/* bottom */}
-          <div className="w-11/12 flex  justify-between mt-6 lg:flex-row text-[#92989F] items-center flex-col">
-            <ul className="flex space-x-4 items-center">
+          <div className="w-11/12 flex  justify-center mt-6 lg:flex-row text-[#92989F] items-center flex-col">
+            {/* <ul className="flex space-x-4 items-center">
               <li className="border-none md:border-x border-[#92989F] text-xs px-3">
                 <a href="#">Terms & Conditions</a>
               </li>
@@ -88,8 +70,8 @@ const Footer = () => {
               <li className="boeder-none md:border-r border-[#92989F] text-xs pr-3">
                 <a href="#">Legal</a>
               </li>
-            </ul>
-            <p className="text-xs my-10 md:text-md">
+            </ul> */}
+            <p className="text-sm my-3 md:text-md">
               Develop with love © Intermedia 2023. All right reserved
             </p>
           </div>
