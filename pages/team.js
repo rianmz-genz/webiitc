@@ -536,7 +536,11 @@ const TeamPage = () => {
                           color={"dark"}
                           size={"sm"}
                           isSquare
-                          additionals={"flex items-center space-x-1"}
+                          additionals={`flex items-center space-x-1 ${
+                            team.isActive == "VALID" &&
+                            team.isSubmit &&
+                            "hidden"
+                          }`}
                           onClick={() => setIsDelete(true)}
                         >
                           <p>Hapus</p>
@@ -697,7 +701,5 @@ const getTitlePopUpMessage = (status) => {
 };
 
 export const getTwoChar = (value) => {
-  const start = value?.charAt(0);
-  const end = value?.charAt(value.length - 1);
-  return `${start}${end}`;
+  return value?.substring(0, 2);
 };

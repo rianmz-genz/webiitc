@@ -105,15 +105,15 @@ const TeamCard = (props) => {
             {getTwoChar(props.teamName)}
           </div>
         )}
-        <div className="absolute right-0 -bottom-3  lg:hidden">
+        <div className="absolute right-0 -bottom-full  lg:hidden">
           {props.isSubmit ? (
-            <div className="px-4 py-2 bg-green-400/20 rounded-full backdrop-blur-md">
+            <div className="px-4 py-2 bg-green-400/20 rounded-full">
               <Text size={"small"} additionals={"text-green-600"}>
                 Sudah Submit
               </Text>
             </div>
           ) : (
-            <div className="px-4 py-2 bg-oren/10 rounded-full backdrop-blur-md">
+            <div className="px-4 py-2 bg-oren/10 rounded-full">
               <Text
                 color={"text-black"}
                 size={"small"}

@@ -15,6 +15,8 @@ import {
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
 import { getTwoChar } from "./team";
+import { FiCheckCircle, FiCopy } from "react-icons/fi";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 const Payment = () => {
   const [isSucces, setIsSucces] = useState(false);
@@ -106,6 +108,7 @@ const Payment = () => {
       })
       .catch((err) => console.log(err));
   };
+  const [copied, setCopied] = useState(false);
   return (
     <>
       <div
@@ -183,14 +186,24 @@ const Payment = () => {
         <ul className="space-y-6 my-6 border-b pb-6">
           {paymentMethods.map((item, idx) => (
             <li key={idx} className="flex justify-between items-center">
-              <Image
+              <img
                 src={item.img}
                 alt={item.value}
                 width={1080}
                 height={1080}
                 className="w-28"
               />
-              <Text>{item.value}</Text>
+              <div className="flex items-center space-x-1">
+                <Text>{copied ? "Disalin" : item.value}</Text>
+                <CopyToClipboard
+                  text={item.value}
+                  onCopy={() => setCopied(true)}
+                >
+                  <div className="bg-blue-400/20 text-blue-400 p-2 text-xl rounded hover:cursor-pointer">
+                    {copied ? <FiCheckCircle /> : <FiCopy />}
+                  </div>
+                </CopyToClipboard>
+              </div>
             </li>
           ))}
         </ul>
@@ -226,11 +239,7 @@ export default Payment;
 
 const paymentMethods = [
   {
-    img: "/images/dana.png",
-    value: "088812718721",
-  },
-  {
-    img: "/images/mandiri.png",
-    value: "12345-12170-1281",
+    img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg",
+    value: "1800011997048",
   },
 ];

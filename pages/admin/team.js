@@ -64,7 +64,7 @@ const TeamDetailAdmin = () => {
           {StatusPayment(team?.isActive)}
           {team?.avatar ? (
             <img
-              src={image ? image : team?.avatar}
+              src={team?.avatar}
               alt="pembayaran tim"
               width={1080}
               height={1080}
