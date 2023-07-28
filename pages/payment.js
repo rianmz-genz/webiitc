@@ -185,7 +185,10 @@ const Payment = () => {
 
         <ul className="space-y-6 my-6 border-b pb-6">
           {paymentMethods.map((item, idx) => (
-            <li key={idx} className="flex justify-between items-center">
+            <li
+              key={idx}
+              className="flex justify-center space-x-3 items-center"
+            >
               <img
                 src={item.img}
                 alt={item.value}
@@ -194,7 +197,10 @@ const Payment = () => {
                 className="w-28"
               />
               <div className="flex items-center space-x-1">
-                <Text>{copied ? "Disalin" : item.value}</Text>
+                <div className="mr-3">
+                  <Text>{copied ? "Disalin" : `${item.value}`}</Text>
+                  <Text size={"small"}>{!copied && `${item.an}`}</Text>
+                </div>
                 <CopyToClipboard
                   text={item.value}
                   onCopy={() => setCopied(true)}
@@ -241,5 +247,6 @@ const paymentMethods = [
   {
     img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg",
     value: "1800011997048",
+    an: "an PUTRI OKTAVIANINGSIH",
   },
 ];
