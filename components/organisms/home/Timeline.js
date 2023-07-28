@@ -27,6 +27,7 @@ const Timeline = () => {
 
   return (
     <div
+      id="timeline"
       className={`p-10  bg-slate-700 min-h-screen flex   justify-center items-center flex-col w-full`}
     >
       <div className="flex flex-col gap-3 items-center text-center">
