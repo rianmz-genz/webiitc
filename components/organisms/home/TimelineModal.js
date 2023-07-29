@@ -8,7 +8,7 @@ function TimelineModal({
   importantDates,
   click,
 }) {
-  console.log(importantDates);
+  //console.log(importantDates);
   return (
     <div className={`${className}`} onClick={click}>
       <div className="flex  flex-col items-center justify-start bg-oren w-56 rounded-md overflow-hidden shadow-lg">
