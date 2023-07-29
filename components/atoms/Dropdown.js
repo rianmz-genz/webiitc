@@ -9,10 +9,10 @@ const Dropdown = ({ options, title, placeholder }) => {
     setIsOpen(!isOpen);
   };
   const handleSelect = (id) => {
-    console.log(id);
+    //console.log(id);
     const selectOption = options.find((option) => option.id == id);
     setSelected(selectOption);
-    console.log(selected);
+    //console.log(selected);
     setIsOpen(false);
   };
 
