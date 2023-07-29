@@ -17,7 +17,7 @@ const Navbar = () => {
   useEffect(() => {
     const tokenC = Cookies.get("token");
     setToken(tokenC ? true : false);
-    console.log(tokenC ? true : false);
+    //console.log(tokenC ? true : false);
   }, []);
   return (
     <header className="fixed top-3 z-20 w-11/12">
