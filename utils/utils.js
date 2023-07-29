@@ -11,7 +11,7 @@ export function variant(base, variants) {
     variantEntries.forEach(([name, value]) => {
       variantClasses.push(variants[name][value]);
     });
-    // console.log(...variantClasses, base)
+    // //console.log(...variantClasses, base)
     return cn(base, ...variantClasses);
   };
 }
@@ -33,7 +33,6 @@ export default function getPlusDate({ plusDate }) {
 
 // Fungsi untuk memformat tanggal ke dalam format yang diinginkan
 function formatDate(date) {
-  console.log(date);
   const year = date.getFullYear();
   const month = String(date.getMonth()).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
