@@ -1,23 +1,28 @@
 import React from "react";
 import Text from "./Text";
 
-function InputRadio() {
+function InputRadio({ gender, setGender }) {
+  const handleChange = (event) => {
+    setGender(event.target.value);
+  };
+
   return (
     <div>
       <Text additionals={"mb-2"}>Jenis Kelamin</Text>
-      <fieldset className="grid grid-cols-2 gap-4">
+      <fieldset className="grid md:grid-cols-2 gap-4">
         <div>
           <input
             type="radio"
-            name="DeliveryOption"
-            value="DeliveryStandard"
-            id="DeliveryStandard"
+            name="genderOption"
+            value="male"
+            id="GenderMale"
             className="peer hidden [&:checked_+_label_svg]:block"
-            checked
+            checked={gender === "male"}
+            onChange={handleChange}
           />
 
           <label
-            htmlFor="DeliveryStandard"
+            htmlFor="GenderMale"
             className="block cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-oren peer-checked:ring-1 peer-checked:ring-oren"
           >
             <div className="flex items-center justify-between">
@@ -42,14 +47,16 @@ function InputRadio() {
         <div>
           <input
             type="radio"
-            name="DeliveryOption"
-            value="DeliveryPriority"
-            id="DeliveryPriority"
+            name="genderOption"
+            value="female"
+            id="GenderFemale"
             className="peer hidden [&:checked_+_label_svg]:block"
+            checked={gender === "female"}
+            onChange={handleChange}
           />
 
           <label
-            htmlFor="DeliveryPriority"
+            htmlFor="GenderFemale"
             className="block cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-oren peer-checked:ring-1 peer-checked:ring-oren"
           >
             <div className="flex items-center justify-between">
