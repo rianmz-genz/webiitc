@@ -36,29 +36,28 @@ const Payment = () => {
     setIsHitTeam(true);
     GetDetailTeam({ id })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setTeam(res.data?.team);
         setIsHitTeam(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   useEffect(() => {
     if (id) {
       getDetailTeam();
     }
-    console.log(cSlug);
+    //console.log(cSlug);
     if (cSlug) {
       setIsHitCompetition(true);
-      GetDetailCompetitionsApi({ slug: cSlug })
-        .then((res) => {
-          console.log(res);
-          setIsCsr(true);
-          setCompetition(res.data?.competition);
-          setIsHitCompetition(false);
-        })
-        .catch((err) => console.log(err));
+      GetDetailCompetitionsApi({ slug: cSlug }).then((res) => {
+        //console.log(res);
+        setIsCsr(true);
+        setCompetition(res.data?.competition);
+        setIsHitCompetition(false);
+      });
+      // .catch((err) => //console.log(err));
     }
   }, [router.isReady]);
   const months = [
@@ -94,19 +93,18 @@ const Payment = () => {
   const handlePay = (e) => {
     e.preventDefault();
     setIsHitPay(true);
-    PayApi({ id, proveOfPayment: image })
-      .then((res) => {
-        console.log(res);
-        setMessage(res.message);
-        if (res.status == 1) {
-          setIsSucces(true);
-          router.replace(`/team?i=${id}&sl=${cSlug}`);
-        } else {
-          setIsWrong(true);
-          setIsHitPay(false);
-        }
-      })
-      .catch((err) => console.log(err));
+    PayApi({ id, proveOfPayment: image }).then((res) => {
+      //console.log(res);
+      setMessage(res.message);
+      if (res.status == 1) {
+        setIsSucces(true);
+        router.replace(`/team?i=${id}&sl=${cSlug}`);
+      } else {
+        setIsWrong(true);
+        setIsHitPay(false);
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
   const [copied, setCopied] = useState(false);
   return (
