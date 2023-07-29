@@ -11,10 +11,8 @@ const GetAllTeamApi = async () => {
         Authorization: GetToken({ isAdmin: true }),
       },
     });
-    console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
     return error.response.data;
   }
 };
