@@ -74,7 +74,7 @@ const DashboardUser = () => {
               key={idx}
               avatar={item.avatar}
               competitionName={item.competitionName}
-              teamName={item.teamName ? item.name : email}
+              teamName={item.teamName ? item.teamName : email}
               currentMembers={item.currentMembers}
               maxMembers={item.maxMembers}
               id={item.teamId}

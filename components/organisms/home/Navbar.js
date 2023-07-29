@@ -17,6 +17,7 @@ const Navbar = () => {
   useEffect(() => {
     const tokenC = Cookies.get("token");
     setToken(tokenC ? true : false);
+    console.log(tokenC ? true : false);
   }, []);
   return (
     <header className="fixed top-3 z-20 w-11/12">
@@ -48,9 +49,15 @@ const Navbar = () => {
             </div>
           </nav>
           <div className="hidden lg:block">
-            <Link href={"/signup"}>
-              <Button>Daftar</Button>
-            </Link>
+            {token ? (
+              <Link href={"/dashboard"}>
+                <Button additionals={"w-full"}>Dashboard</Button>
+              </Link>
+            ) : (
+              <Link href={"/signup"}>
+                <Button additionals={"w-full"}>Daftar</Button>
+              </Link>
+            )}
           </div>
         </Container>
       </div>
