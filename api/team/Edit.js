@@ -19,10 +19,10 @@ const EditTeamApi = async ({ name, teamId, avatar, title, submission }) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(res.data);
+    //console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return error.response.data;
   }
 };
