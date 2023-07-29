@@ -73,7 +73,7 @@ const EditCompetition = ({ categories }) => {
   const [message, setMessage] = useState("");
   useEffect(() => {
     GetDetailCompetitionsApi({ slug: router?.query?.cmpt }).then((res) => {
-      console.log(res);
+      //console.log(res);
       const compt = res?.data.competition;
       setDeadline(`${getPlusDate({ plusDate: parseInt(compt.deadline) })}`);
       setName(compt.name);
@@ -97,7 +97,7 @@ const EditCompetition = ({ categories }) => {
         selectedCategories.filter((category) => category != id)
       );
     }
-    console.log(selectedCategories);
+    //console.log(selectedCategories);
   };
   const handleEditCompetition = () => {
     setIsHitApi(true);
@@ -116,7 +116,7 @@ const EditCompetition = ({ categories }) => {
       guideBookLink: guidebook,
       criteria: juknis,
     }).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 1) {
         setCover(null);
         setName("");

@@ -28,7 +28,7 @@ import KickApi from "@/api/team/Kick";
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import Link from "next/link";
 const userMail = Cookies.get("email");
-console.log(userMail);
+//console.log(userMail);
 
 const TeamPage = () => {
   const router = useRouter();
@@ -41,6 +41,7 @@ const TeamPage = () => {
   const [team, setTeam] = useState({});
   const [copied, setCopied] = useState(false);
   const [isCsr, setIsCsr] = useState(false);
+  const [email, setEmail] = useState("");
 
   // edit
   const [teamName, setTeamName] = useState("");
@@ -72,60 +73,64 @@ const TeamPage = () => {
     setIsCsr(true);
     if (teamId) {
       getDetailTeam();
+      setEmail(Cookies.get("email"));
     }
 
     if (cSlug) {
       setIsHitCompetition(true);
-      GetDetailCompetitionsApi({ slug: cSlug })
-        .then((res) => {
-          setCompetition(res.data?.competition);
-          setIsHitCompetition(false);
-        })
-        .catch((err) => console.log(err));
+      GetDetailCompetitionsApi({ slug: cSlug }).then((res) => {
+        setCompetition(res.data?.competition);
+        setIsHitCompetition(false);
+      });
+      // .catch((err) => //console.log(err));
     }
   }, [router]);
   const getDetailTeam = () => {
     setIsHitTeam(true);
     GetDetailTeam({ id: teamId })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setTeam(res.data?.team);
         setIsHitTeam(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const handleEditTeam = (e) => {
     e.preventDefault();
     setIsHitEdit(true);
-    EditTeamApi({ name: teamName, avatar: image, teamId, title: teamTitle })
-      .then((res) => {
-        console.log(res);
-        if (res.status == 1) {
-          setIsHitEdit(false);
-          setIsEditing(false);
-          setIsSucces(true);
-          setMessage(res.message);
-          getDetailTeam();
-          setTimeout(() => {
-            setIsSucces(false);
-          }, 2000);
-        } else {
-          setIsHitEdit(false);
-          setIsEditing(false);
-          setIsWrong(true);
-          setMessage(res.message);
-          setTimeout(() => {
-            setIsWrong(false);
-          }, 2000);
-        }
-      })
-      .catch((err) => console.log(err));
+    EditTeamApi({
+      name: teamName,
+      avatar: image,
+      teamId,
+      title: teamTitle,
+    }).then((res) => {
+      //console.log(res);
+      if (res.status == 1) {
+        setIsHitEdit(false);
+        setIsEditing(false);
+        setIsSucces(true);
+        setMessage(res.message);
+        getDetailTeam();
+        setTimeout(() => {
+          setIsSucces(false);
+        }, 2000);
+      } else {
+        setIsHitEdit(false);
+        setIsEditing(false);
+        setIsWrong(true);
+        setMessage(res.message);
+        setTimeout(() => {
+          setIsWrong(false);
+        }, 2000);
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
   const handlePopUpEdit = () => {
     setIsEditing(true);
-    setTeamName(team.name);
+    setTeamName(team.name ? team.name : email);
   };
   const handleDeleteTeam = () => {
     setIsHitDelete(true);
@@ -189,9 +194,9 @@ const TeamPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsHitEdit(true);
-    EditTeamApi({ teamId, submission, title: teamTitle, name: team.name })
-      .then((res) => {
-        console.log(res);
+    EditTeamApi({ teamId, submission, title: teamTitle, name: team.name }).then(
+      (res) => {
+        //console.log(res);
         if (res.status == 1) {
           setIsHitEdit(false);
           setIsPaidOf(false);
@@ -210,8 +215,12 @@ const TeamPage = () => {
             setIsWrong(false);
           }, 2000);
         }
-      })
-      .catch((err) => console.log(err));
+      }
+    );
+    // .catch((err) => //console.log(err));
+  };
+  const buttonBayar = () => {
+    return team.isActive == null || team.isActive == "INVALID";
   };
   return (
     <>
@@ -331,15 +340,13 @@ const TeamPage = () => {
             color={"text-black"}
             weight={"bold"}
           >
-            {!team.isActive ? "Lengkapi Pembayaran!" : "Harap menunggu"}
+            {getTitlePopUpMessage(team?.isActive)}
           </Text>
           <Text additionals={"text-center"}>
-            {team.isActive == null
-              ? "Lengkapi pembayaran kamu terlebih dahulu sebelum melanjutkan ke step selanjutnya. Silahkan klik tombol bayar sekarang untuk melakukan pembayaran & konfirmasi pembayaran!"
-              : "Pembayaran sedang diperiksa oleh admin"}
+            {getPopUpMessage(team?.isActive)}
           </Text>
           <div className="flex space-x-4 w-full mt-4">
-            {team.isActive == null && (
+            {buttonBayar() && (
               <Link
                 href={`/payment?i=${team.id}&sl=${cSlug}`}
                 className="w-full"
@@ -391,13 +398,13 @@ const TeamPage = () => {
           <ul className="flex w-11/12 mx-auto space-x-3 items-center">
             <li>
               <Link href={"/dashboard"}>
-                <FiHome className="text-blue-400 text-xl" />
+                <FiHome className="text-blue-400" />
               </Link>
             </li>
             <li className="text-black/70">&gt;</li>
             <li className="text-black/70">Team</li>
             <li className="text-black/70">&gt;</li>
-            <li className="text-oren">{team.name}</li>
+            <li className="text-oren">{team.name ? team.name : email}</li>
           </ul>
           {isHitCompetition ? (
             <div className="w-11/12 mx-auto h-96 rounded-md animate-pulse bg-slate-200"></div>
@@ -471,7 +478,7 @@ const TeamPage = () => {
             <AiOutlineLoading3Quarters className="text-xl mx-auto text-black/70 animate-spin" />
           ) : (
             <div className="w-11/12 mx-auto mt-8">
-              <div className="flex w-full space-x-6 relative justify-start items-center pb-8 border-b">
+              <div className="flex lg:flex-row flex-col w-full lg:space-x-6 space-y-3 lg:space-y-0 relative justify-start items-start lg:items-center pb-8 border-b">
                 <CopyToClipboard
                   text={team.code}
                   onCopy={() => setCopied(true)}
@@ -479,7 +486,9 @@ const TeamPage = () => {
                   <Button
                     isSquare
                     color={"green"}
-                    additionals={"flex items-center space-x-2 absolute right-0"}
+                    additionals={
+                      "flex items-center space-x-2 lg:absolute lg:right-0"
+                    }
                   >
                     {copied ? (
                       <>
@@ -500,15 +509,17 @@ const TeamPage = () => {
                     alt="Buaya"
                     width={1080}
                     height={1080}
-                    className="w-36 h-36 rounded-full object-cover"
+                    className="lg:w-36 h-36 w-full rounded-md object-cover"
                   />
                 ) : (
-                  <div className="w-36 h-36 rounded-full bg-slate-200 animate-pulse"></div>
+                  <div className="lg:w-36 h-36 flex justify-center items-center w-full rounded-md bg-slate-200 animate-pulse">
+                    {getTwoChar(team.name ? team.name : email)}
+                  </div>
                 )}
                 <div className="flex justify-between items-center">
                   <div>
                     <Text size={"title"} color={"text-black"}>
-                      {team.name}
+                      {team.name ? team.name : email}
                     </Text>
                     <Text>
                       {team.members?.length + 1}/{competition.maxMembers}{" "}
@@ -531,7 +542,11 @@ const TeamPage = () => {
                           color={"dark"}
                           size={"sm"}
                           isSquare
-                          additionals={"flex items-center space-x-1"}
+                          additionals={`flex items-center space-x-1 ${
+                            team.isActive == "VALID" &&
+                            team.isSubmit &&
+                            "hidden"
+                          }`}
                           onClick={() => setIsDelete(true)}
                         >
                           <p>Hapus</p>
@@ -599,6 +614,14 @@ export const StatusPayment = (status) => {
           </Text>
         </div>
       );
+    case "INVALID":
+      return (
+        <div className="absolute top-0 right-0 bg-red/20 px-2 py-1 rounded-full">
+          <Text additionals={"text-red"} size={"small"}>
+            Gagal Bayar
+          </Text>
+        </div>
+      );
     case "PENDING":
       return (
         <div className="absolute top-0 right-0 bg-yellow-400/20 px-2 py-1 rounded-full">
@@ -620,18 +643,20 @@ export const StatusPayment = (status) => {
 
 const MemberItem = ({ avatar, name, email, leaderEmail, onKick }) => {
   return (
-    <li className="flex justify-between items-center">
-      <div className="flex items-center justify-start space-x-3">
+    <li className="flex justify-between items-center lg:flex-row flex-col">
+      <div className="flex items-start lg:items-center justify-start lg:space-x-3 space-y-2 lg:space-y-0 lg:flex-row flex-col w-full">
         {avatar ? (
           <img
             src={avatar}
             alt="Buaya"
             width={1080}
             height={1080}
-            className="w-24 h-24 rounded-full object-cover"
+            className="lg:w-24 w-full h-24 rounded-md object-cover"
           />
         ) : (
-          <div className="w-24 h-24 rounded-full bg-slate-200 animate-pulse"></div>
+          <div className="lg:w-24 w-full h-24 rounded-md bg-slate-200 animate-pulse flex justify-center items-center">
+            {getTwoChar(name)}
+          </div>
         )}
         <div>
           <Text size={"smalltitle"}>{name}</Text>
@@ -639,7 +664,11 @@ const MemberItem = ({ avatar, name, email, leaderEmail, onKick }) => {
         </div>
       </div>
       {leaderEmail == userMail && (
-        <Button onClick={onKick} color={"red"}>
+        <Button
+          additionals={"max-lg:w-full max-lg:mt-3"}
+          onClick={onKick}
+          color={"red"}
+        >
           Kick
         </Button>
       )}
@@ -653,4 +682,30 @@ const NoMembers = () => {
       <Text>Belum memiliki anggota</Text>
     </div>
   );
+};
+
+const getPopUpMessage = (status) => {
+  switch (status) {
+    case null:
+      return "Lengkapi pembayaran terlebih dahulu sebelum melanjutkan ke step selanjutnya. Silahkan klik tombol bayar sekarang untuk melakukan pembayaran & konfirmasi pembayaran!";
+    case "PENDING":
+      return "Pembayaran sedang diperiksa oleh admin";
+    case "INVALID":
+      return "Pembayaran Kamu ditolak, mohon untuk mengirimkan nota yang benar!";
+  }
+};
+
+const getTitlePopUpMessage = (status) => {
+  switch (status) {
+    case null:
+      return "Lengkapi pembayaran";
+    case "PENDING":
+      return "Harap menunggu";
+    case "INVALID":
+      return "Pembayaran ditolak";
+  }
+};
+
+export const getTwoChar = (value) => {
+  return value?.substring(0, 2);
 };

@@ -10,7 +10,7 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
-  const isFirstIndex = date === importantDates[0];
+  const isFirstIndex = date === importantDates[0] && importantDates[1];
   const isAtLastIndex = date === importantDates[importantDates.length - 1];
 
   const handleMouseEnter = () => {
@@ -36,18 +36,23 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
       onClick={handleClick}
     >
       {/* circle inside */}
-      <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+      <div
+        className={`${
+          isClicked || isHovered ? "bg-oren" : "bg-slate-700"
+        } w-2 h-2 rounded-full`}
+      ></div>
 
       {/* Tooltip */}
       <div className="relative">
         {(isHovered || isClicked) && (
           <TimelineModal
+            click={handleClick}
             className={`absolute mt-5 ${
               isAtLastIndex
                 ? "right-[50%]"
                 : "-left-32 right-0" && isFirstIndex
                 ? "left-[50%]"
-                : "-left-32 right-0"
+                : "-left-[32%] right-0"
             }`}
             importantDates={modalContent?.date}
             title={modalContent?.title}

@@ -1,11 +1,17 @@
 import React from "react";
 import { BiGitBranch } from "react-icons/bi";
 
-function TimelineModal({ className, title, description, importantDates }) {
-  console.log(importantDates);
+function TimelineModal({
+  className,
+  title,
+  description,
+  importantDates,
+  click,
+}) {
+  //console.log(importantDates);
   return (
-    <div className={`${className}`}>
-      <div className="flex flex-col items-center justify-start bg-oren w-56 rounded-md overflow-hidden shadow-md">
+    <div className={`${className}`} onClick={click}>
+      <div className="flex  flex-col items-center justify-start bg-oren w-56 rounded-md overflow-hidden shadow-lg">
         <div className="flex p-2 text-white gap-3">
           <div className="p-2 bg-slate-800 rounded-md h-fit">
             <BiGitBranch size={35} />

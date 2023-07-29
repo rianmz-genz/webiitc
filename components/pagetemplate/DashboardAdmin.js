@@ -21,7 +21,7 @@ const DashboardAdminTemplate = ({ title, children }) => {
       <main className="bg-sslate w-full min-h-screen flex lg:flex-row flex-col">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-1 bg-blue-400/10 rounded-md fixed top-3 right-3 lg:hidden visible"
+          className="p-1 bg-blue-400/10 rounded-md fixed top-3 right-3 lg:hidden visible z-50"
         >
           {isOpen ? (
             <FiX className="text-2xl text-red" />
@@ -33,7 +33,7 @@ const DashboardAdminTemplate = ({ title, children }) => {
         <nav
           className={`${
             isOpen ? "block" : "lg:block hidden"
-          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start`}
+          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start z-40`}
         >
           <Image
             className="w-24"

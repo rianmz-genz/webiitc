@@ -14,6 +14,9 @@ import {
   AiFillWarning,
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
+import { getTwoChar } from "./team";
+import { FiCheckCircle, FiCopy } from "react-icons/fi";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 const Payment = () => {
   const [isSucces, setIsSucces] = useState(false);
@@ -25,6 +28,7 @@ const Payment = () => {
   const [competition, setCompetition] = useState({});
   const [isHitCompetition, setIsHitCompetition] = useState(true);
   const [team, setTeam] = useState({});
+  const [isCsr, setIsCsr] = useState(false);
   const router = useRouter();
   const id = router.query?.i;
   const cSlug = router.query?.sl;
@@ -32,28 +36,28 @@ const Payment = () => {
     setIsHitTeam(true);
     GetDetailTeam({ id })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setTeam(res.data?.team);
         setIsHitTeam(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   useEffect(() => {
     if (id) {
       getDetailTeam();
     }
-    console.log(cSlug);
+    //console.log(cSlug);
     if (cSlug) {
       setIsHitCompetition(true);
-      GetDetailCompetitionsApi({ slug: cSlug })
-        .then((res) => {
-          console.log(res);
-          setCompetition(res.data?.competition);
-          setIsHitCompetition(false);
-        })
-        .catch((err) => console.log(err));
+      GetDetailCompetitionsApi({ slug: cSlug }).then((res) => {
+        //console.log(res);
+        setIsCsr(true);
+        setCompetition(res.data?.competition);
+        setIsHitCompetition(false);
+      });
+      // .catch((err) => //console.log(err));
     }
   }, [router.isReady]);
   const months = [
@@ -89,20 +93,20 @@ const Payment = () => {
   const handlePay = (e) => {
     e.preventDefault();
     setIsHitPay(true);
-    PayApi({ id, proveOfPayment: image })
-      .then((res) => {
-        console.log(res);
-        setMessage(res.message);
-        if (res.status == 1) {
-          setIsSucces(true);
-          router.replace(`/team?i=${id}&sl=${cSlug}`);
-        } else {
-          setIsWrong(true);
-          setIsHitPay(false);
-        }
-      })
-      .catch((err) => console.log(err));
+    PayApi({ id, proveOfPayment: image }).then((res) => {
+      //console.log(res);
+      setMessage(res.message);
+      if (res.status == 1) {
+        setIsSucces(true);
+        router.replace(`/team?i=${id}&sl=${cSlug}`);
+      } else {
+        setIsWrong(true);
+        setIsHitPay(false);
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
+  const [copied, setCopied] = useState(false);
   return (
     <>
       <div
@@ -138,27 +142,29 @@ const Payment = () => {
           <p>{Message}</p>
         </Alert>
 
-        <div className="flex justify-between items-center my-8">
-          <div className="flex items-center justify-start space-x-3">
+        <div className="flex justify-between items-center my-8 w-full">
+          <div className="flex lg:items-center items-start justify-start space-x-3 lg:flex-row flex-col w-full">
             {team.avatar ? (
               <img
                 src={team.avatar}
                 alt="Buaya"
                 width={1080}
                 height={1080}
-                className="w-24 h-24 rounded-full object-cover"
+                className="lg:w-24 w-full h-24 rounded-md lg:rounded-full object-cover"
               />
             ) : (
-              <div className="w-24 h-24 rounded-full bg-slate-200 animate-pulse"></div>
+              <div className="lg:w-24 w-full h-24 rounded-md lg:rounded-full bg-slate-100 animate-pulse flex justify-center items-center">
+                {isCsr && getTwoChar(team.name)}
+              </div>
             )}
-            <div>
+            <div className="max-lg:mt-3">
               <Text size={"smalltitle"} color={"black"}>
                 Tim {team.name}
               </Text>
               <Text>Kapten {team?.leader?.name}</Text>
             </div>
           </div>
-          <div className=" text-green-500">Pembayaran</div>
+          <div className=" text-green-500 max-lg:hidden">Pembayaran</div>
         </div>
 
         {/* <div className="mb-6">
@@ -170,28 +176,44 @@ const Payment = () => {
 
         <div className="py-6 border-y flex justify-center items-center space-x-3">
           {/* <Logo /> */}
-          <Text color={"black"} size={"cardtitle"} weight={"bold"}>
+          <Text color={"black"} size={"cardtitle"}>
             Metode Pembayaran
           </Text>
         </div>
 
         <ul className="space-y-6 my-6 border-b pb-6">
           {paymentMethods.map((item, idx) => (
-            <li key={idx} className="flex justify-between items-center">
-              <Image
+            <li
+              key={idx}
+              className="flex justify-center space-x-3 items-center"
+            >
+              <img
                 src={item.img}
                 alt={item.value}
                 width={1080}
                 height={1080}
                 className="w-28"
               />
-              <Text>{item.value}</Text>
+              <div className="flex items-center space-x-1">
+                <div className="mr-3">
+                  <Text>{copied ? "Disalin" : `${item.value}`}</Text>
+                  <Text size={"small"}>{!copied && `${item.an}`}</Text>
+                </div>
+                <CopyToClipboard
+                  text={item.value}
+                  onCopy={() => setCopied(true)}
+                >
+                  <div className="bg-blue-400/20 text-blue-400 p-2 text-xl rounded hover:cursor-pointer">
+                    {copied ? <FiCheckCircle /> : <FiCopy />}
+                  </div>
+                </CopyToClipboard>
+              </div>
             </li>
           ))}
         </ul>
         <FileInput
           placeholder="Upload bukti pembayaran"
-          className="bg-slate-200"
+          className="bg-slate-100"
           image={image}
           setImage={setImage}
         />
@@ -221,11 +243,8 @@ export default Payment;
 
 const paymentMethods = [
   {
-    img: "/images/dana.png",
-    value: "088812718721",
-  },
-  {
-    img: "/images/mandiri.png",
-    value: "12345-12170-1281",
+    img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg",
+    value: "1800011997048",
+    an: "an PUTRI OKTAVIANINGSIH",
   },
 ];

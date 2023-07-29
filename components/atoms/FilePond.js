@@ -9,7 +9,7 @@ const FileInput = ({
 }) => {
   const handleFileChange = (event) => {
     setImage(event.target.files[0]);
-    console.log(event);
+    //console.log(event);
   };
 
   return (

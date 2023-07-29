@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { BsHourglassSplit } from 'react-icons/bs';
+import { useState, useEffect } from "react";
+import { BsHourglassSplit } from "react-icons/bs";
 
 const Countdown = () => {
-  const targetDate = new Date('August 7, 2023 00:00:00').getTime();
+  const targetDate = new Date("August 31, 2023 00:00:00").getTime();
   const [countdown, setCountdown] = useState({
-    days: '',
-    hours: '',
-    minutes: '',
-    seconds: '',
+    days: "",
+    hours: "",
+    minutes: "",
+    seconds: "",
   });
   const [isMounted, setIsMounted] = useState(false);
 

@@ -7,10 +7,8 @@ const GetAllCategoryApi = async () => {
     const res = await axios({
       baseURL: urlCompetitionCategory,
     });
-    console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
     return error.response.data;
   }
 };

@@ -16,10 +16,8 @@ const PayApi = async ({ proveOfPayment, id }) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
     return error.response.data;
   }
 };

@@ -36,29 +36,28 @@ const CompetitionCategory = () => {
     e.preventDefault();
     if (isHitApi) return;
     setIsHitApi(true);
-    CreateCategoryApi({ competitionName })
-      .then((res) => {
-        console.log(res);
-        setIsHitApi(false);
-        if (res.status == 1) {
-          setMessage(Message);
-          setIsSucces(true);
-          getAll();
-          setIsModal(false);
-          setCompetitionName("");
-          setMessage(res.message);
-          setTimeout(() => {
-            setIsSucces(false);
-          }, 3000);
-        } else if (res.status == 0) {
-        }
-      })
-      .catch((err) => console.log(err));
+    CreateCategoryApi({ competitionName }).then((res) => {
+      //console.log(res);
+      setIsHitApi(false);
+      if (res.status == 1) {
+        setMessage(Message);
+        setIsSucces(true);
+        getAll();
+        setIsModal(false);
+        setCompetitionName("");
+        setMessage(res.message);
+        setTimeout(() => {
+          setIsSucces(false);
+        }, 3000);
+      } else if (res.status == 0) {
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
   const onEdit = (e) => {
     e.preventDefault();
     EditCategoryApi({ id, name: competitionName }).then((res) => {
-      console.log(res);
+      //console.log(res);
       setIsModalEdit(false);
       getAll();
     });
@@ -66,7 +65,7 @@ const CompetitionCategory = () => {
   const onDelete = (e) => {
     e.preventDefault();
     DeleteCategoryApi({ id }).then((res) => {
-      console.log(res);
+      //console.log(res);
       setIsDelete(false);
       getAll();
     });

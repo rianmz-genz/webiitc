@@ -1,17 +1,17 @@
 import axios from "axios";
-import React from "react";
-import UrlTeam from "../routes/team";
 import GetToken from "../utils/GetToken";
+import UrlIndividu from "../routes/team/individu";
 
-const GetDetailTeam = async ({ id }) => {
+const JoinIndividuApi = async ({ competitionSlug }) => {
   try {
     const res = await axios({
-      method: "GET",
-      baseURL: `${UrlTeam}/${id}`,
+      method: "POST",
+      baseURL: `${UrlIndividu}/${competitionSlug}`,
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
     });
+    //console.log(res.data);
     return res.data;
   } catch (error) {
     //console.log(error);
@@ -19,4 +19,4 @@ const GetDetailTeam = async ({ id }) => {
   }
 };
 
-export default GetDetailTeam;
+export default JoinIndividuApi;

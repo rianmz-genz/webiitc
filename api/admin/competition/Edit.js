@@ -30,9 +30,7 @@ const EditCompetitionApi = async ({
     formData.append("guideBookLink", guideBookLink);
     formData.append("criteria", JSON.stringify(criteria));
     // Menggunakan metode forEach()
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
+    formData.forEach((value, key) => {});
     const res = await axios({
       method: "POST",
       baseURL: `${urlGetCompetitions}/${slug}`,
@@ -44,7 +42,6 @@ const EditCompetitionApi = async ({
     });
     return res.data;
   } catch (error) {
-    console.log(error);
     return error.response.data;
   }
 };

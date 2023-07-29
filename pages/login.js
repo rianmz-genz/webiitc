@@ -18,7 +18,7 @@ const Login = () => {
   const router = useRouter();
   useEffect(() => {
     const token = Cookies.get("token");
-    console.log(token);
+    //console.log(token);
     if (token) {
       router.push("/dashboard");
     }
@@ -61,16 +61,16 @@ const Login = () => {
         onSubmit={handleLogin}
         title={"Daftar IITC"}
       >
-        <Link href={"/"}>
-          <Button
-            additionals={"flex lg:absolute top-8 lg:mb-0 mb-4 items-center"}
-            color={"silver"}
-            size={"base"}
-          >
-            <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
-            Kembali
-          </Button>
-        </Link>
+        <Button
+          onClick={() => router.push("/")}
+          additionals={"flex lg:absolute top-8 lg:mb-0 mb-4 items-center"}
+          color={"silver"}
+          size={"base"}
+        >
+          <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
+          Kembali
+        </Button>
+
         <Text size={"mdtitle"} weight={"bold"}>
           Masuk
         </Text>
