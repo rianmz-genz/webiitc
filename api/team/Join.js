@@ -16,10 +16,10 @@ const JoinApi = async ({ code }) => {
         Authorization: GetToken({ isAdmin: false }),
       },
     });
-    console.log(res.data);
+    //console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return error.response.data;
   }
 };
