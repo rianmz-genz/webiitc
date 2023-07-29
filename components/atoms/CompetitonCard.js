@@ -24,7 +24,7 @@ const CompetitonCard = ({
       setIsCompetitionDetail(true);
     }
   };
-  console.log(category, title);
+  //console.log(category, title);
   return (
     <li className="rounded-xl relative w-full overflow-hidden shadow transition-all duration-300 hover:shadow-lg">
       {isAdmin && (
