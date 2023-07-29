@@ -36,12 +36,11 @@ const DashboardUser = () => {
   const [teams, setTeams] = useState([]);
   const [email, setEmail] = useState("");
   useEffect(() => {
-    GetMineTeam()
-      .then((res) => {
-        setTeams(res.data.teams);
-        console.log(res.data.teams);
-      })
-      .catch((err) => console.log(err));
+    GetMineTeam().then((res) => {
+      setTeams(res.data.teams);
+      //console.log(res.data.teams);
+    });
+    // .catch((err) => //console.log(err));
     setEmail(Cookies.get("email"));
   }, []);
   return (

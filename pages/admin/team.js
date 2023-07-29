@@ -21,7 +21,7 @@ const TeamDetailAdmin = () => {
   const id = router.query.i;
   useEffect(() => {
     GetDetailTeamAdminApi({ id }).then((res) => {
-      console.log(res);
+      //console.log(res);
       setTeam(res.data?.team);
       if (res.data?.team?.isActive == "VALID") {
         setImage(res?.data?.team?.transferReceipt);
@@ -30,13 +30,13 @@ const TeamDetailAdmin = () => {
     });
   }, [router.isReady]);
   useEffect(() => {
-    console.log(team);
+    //console.log(team);
   }, [team]);
   const handleSubmit = (e) => {
     e.preventDefault();
     setisHitApi(true);
     PaymentValidationApi({ isApprove, reason, id }).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 1) {
         router.push("/admin/dashboard");
       }

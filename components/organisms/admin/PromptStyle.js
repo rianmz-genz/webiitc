@@ -5,7 +5,7 @@ const MAX_KEYWORDS = 4;
 
 function PromptStyle({ keywords, setKeywords }) {
   const [inputValue, setInputValue] = useState("");
-  console.log(inputValue);
+  //console.log(inputValue);
   function deleteWord(index) {
     const newKeywords = [...keywords];
     newKeywords.splice(index, 1);
@@ -35,11 +35,11 @@ function PromptStyle({ keywords, setKeywords }) {
   function checkLetter(event) {
     const val = event.target.value;
     if (keywords.length > 0 && val.length == 0) {
-      console.log(typeof event.key);
+      //console.log(typeof event.key);
       if (event.key == "Backspace") {
         const deletedArray = [...keywords];
         deletedArray.pop();
-        console.log(deletedArray);
+        //console.log(deletedArray);
         setKeywords(deletedArray);
         return;
       }

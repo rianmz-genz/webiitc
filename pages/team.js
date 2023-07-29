@@ -28,7 +28,7 @@ import KickApi from "@/api/team/Kick";
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import Link from "next/link";
 const userMail = Cookies.get("email");
-console.log(userMail);
+//console.log(userMail);
 
 const TeamPage = () => {
   const router = useRouter();
@@ -78,52 +78,55 @@ const TeamPage = () => {
 
     if (cSlug) {
       setIsHitCompetition(true);
-      GetDetailCompetitionsApi({ slug: cSlug })
-        .then((res) => {
-          setCompetition(res.data?.competition);
-          setIsHitCompetition(false);
-        })
-        .catch((err) => console.log(err));
+      GetDetailCompetitionsApi({ slug: cSlug }).then((res) => {
+        setCompetition(res.data?.competition);
+        setIsHitCompetition(false);
+      });
+      // .catch((err) => //console.log(err));
     }
   }, [router]);
   const getDetailTeam = () => {
     setIsHitTeam(true);
     GetDetailTeam({ id: teamId })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setTeam(res.data?.team);
         setIsHitTeam(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const handleEditTeam = (e) => {
     e.preventDefault();
     setIsHitEdit(true);
-    EditTeamApi({ name: teamName, avatar: image, teamId, title: teamTitle })
-      .then((res) => {
-        console.log(res);
-        if (res.status == 1) {
-          setIsHitEdit(false);
-          setIsEditing(false);
-          setIsSucces(true);
-          setMessage(res.message);
-          getDetailTeam();
-          setTimeout(() => {
-            setIsSucces(false);
-          }, 2000);
-        } else {
-          setIsHitEdit(false);
-          setIsEditing(false);
-          setIsWrong(true);
-          setMessage(res.message);
-          setTimeout(() => {
-            setIsWrong(false);
-          }, 2000);
-        }
-      })
-      .catch((err) => console.log(err));
+    EditTeamApi({
+      name: teamName,
+      avatar: image,
+      teamId,
+      title: teamTitle,
+    }).then((res) => {
+      //console.log(res);
+      if (res.status == 1) {
+        setIsHitEdit(false);
+        setIsEditing(false);
+        setIsSucces(true);
+        setMessage(res.message);
+        getDetailTeam();
+        setTimeout(() => {
+          setIsSucces(false);
+        }, 2000);
+      } else {
+        setIsHitEdit(false);
+        setIsEditing(false);
+        setIsWrong(true);
+        setMessage(res.message);
+        setTimeout(() => {
+          setIsWrong(false);
+        }, 2000);
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
   const handlePopUpEdit = () => {
     setIsEditing(true);
@@ -191,9 +194,9 @@ const TeamPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsHitEdit(true);
-    EditTeamApi({ teamId, submission, title: teamTitle, name: team.name })
-      .then((res) => {
-        console.log(res);
+    EditTeamApi({ teamId, submission, title: teamTitle, name: team.name }).then(
+      (res) => {
+        //console.log(res);
         if (res.status == 1) {
           setIsHitEdit(false);
           setIsPaidOf(false);
@@ -212,8 +215,9 @@ const TeamPage = () => {
             setIsWrong(false);
           }, 2000);
         }
-      })
-      .catch((err) => console.log(err));
+      }
+    );
+    // .catch((err) => //console.log(err));
   };
   const buttonBayar = () => {
     return team.isActive == null || team.isActive == "INVALID";

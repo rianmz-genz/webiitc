@@ -47,15 +47,14 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   }, []);
   const getOneCompetition = () => {
     setIsHitApi(true);
-    GetDetailCompetitionsApi({ slug: competitionSlug })
-      .then((res) => {
-        setIsHitApi(false);
-        if (res.data?.competition?.maxMembers == 1) {
-          setIsIndividu(true);
-        }
-        setCompetition(res.data?.competition);
-      })
-      .catch((err) => console.log(err));
+    GetDetailCompetitionsApi({ slug: competitionSlug }).then((res) => {
+      setIsHitApi(false);
+      if (res.data?.competition?.maxMembers == 1) {
+        setIsIndividu(true);
+      }
+      setCompetition(res.data?.competition);
+    });
+    // .catch((err) => //console.log(err));
   };
   const handleChoose = () => {
     const token = Cookies.get("token");
@@ -69,7 +68,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
     e.preventDefault();
     setIsHitJoin(true);
     JoinTeamApi({ name, competitionSlug }).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 1) {
         setMessage(res.message);
         setIsSuccess(true);
@@ -84,34 +83,33 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         setName("");
       }
     });
-    console.log({ competitionSlug, name });
+    //console.log({ competitionSlug, name });
   };
   const handleJoinTeam = (e) => {
     e.preventDefault();
     setIsHitJoinTeam(true);
-    JoinApi({ code })
-      .then((res) => {
-        console.log(res);
-        if (res.status == 1) {
-          setMessage(res.message);
-          setIsSuccess(true);
-          setCode("");
-          setIsHitJoinTeam(false);
-          router.push(`/dashboard`);
-          return;
-        } else {
-          setMessage(res.message);
-          setIsWrong(true);
-          setIsHitJoinTeam(false);
-          setCode("");
-        }
-      })
-      .catch((err) => console.log(err));
+    JoinApi({ code }).then((res) => {
+      //console.log(res);
+      if (res.status == 1) {
+        setMessage(res.message);
+        setIsSuccess(true);
+        setCode("");
+        setIsHitJoinTeam(false);
+        router.push(`/dashboard`);
+        return;
+      } else {
+        setMessage(res.message);
+        setIsWrong(true);
+        setIsHitJoinTeam(false);
+        setCode("");
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
   const handleJoinIndividu = () => {
     setIsHitIndividu(true);
     JoinIndividuApi({ competitionSlug }).then((res) => {
-      console.log(res);
+      //console.log(res);
       setMessage(res.message);
       if (res.status == 1) {
         setIsSuccess(true);
@@ -321,7 +319,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   </Text>
                   <ul className="flex gap-3 flex-wrap mt-2 mb-8">
                     {competition?.techStacks.map((stack, index) => {
-                      console.log(stack);
+                      //console.log(stack);
                       return <StackCard key={index}>{stack}</StackCard>;
                     })}
                   </ul>

@@ -12,14 +12,14 @@ const DynamicInput = ({ array, setArray }) => {
     const totalPercentage = percentages.reduce((accumulator, currentValue) => {
       return accumulator + currentValue;
     }, 0);
-    console.log(totalPercentage);
+    //console.log(totalPercentage);
     const percentageInt = parseInt(percentage);
     if (
       isNaN(percentageInt) ||
       percentageInt > 100 ||
       totalPercentage + percentageInt > 100
     ) {
-      return console.log(isNaN(percentageInt));
+      return; //console.log(isNaN(percentageInt));
     }
     const data = {
       name: inputTitle,

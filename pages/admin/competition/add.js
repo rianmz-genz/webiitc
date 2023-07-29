@@ -73,7 +73,7 @@ const AddCompetition = ({ categories }) => {
         selectedCategories.filter((category) => category != id)
       );
     }
-    console.log(selectedCategories);
+    //console.log(selectedCategories);
   };
   const handleAddCompetition = () => {
     setIsHitApi(true);
@@ -90,7 +90,7 @@ const AddCompetition = ({ categories }) => {
       guideBookLink: guidebook,
       criteria: juknis,
     };
-    console.log(data);
+    //console.log(data);
     CreateCompetitionApi({
       cover,
       name,
@@ -104,7 +104,7 @@ const AddCompetition = ({ categories }) => {
       guideBookLink: guidebook,
       criteria: juknis,
     }).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 1) {
         setCover(null);
         setName("");

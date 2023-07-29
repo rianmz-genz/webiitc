@@ -1,3 +1,4 @@
+import SendEmailApi from "@/api/auth/Email";
 import RegisterApi from "@/api/auth/RegisterApi";
 import { Button, Container } from "@/components";
 import Alert from "@/components/atoms/Alert";
@@ -28,7 +29,7 @@ const Signup = () => {
   const router = useRouter();
   useEffect(() => {
     const token = Cookies.get("token");
-    console.log(token);
+    //console.log(token);
     if (token) {
       router.push("/dashboard");
     }
@@ -60,10 +61,19 @@ const Signup = () => {
       phone: parseInt(phone),
     }).then((res) => {
       if (res.status == 1) {
-        setIsSucces(true);
         setMessage(res.message);
-        setIsHitApi(false);
-        return router.push("/login");
+        SendEmailApi({ email }).then((res) => {
+          if (res != false) {
+            setIsSucces(true);
+            setIsHitApi(false);
+            return router.push("/login");
+          } else {
+            setIsUsed(true);
+            setMessage("Email telah digunakan");
+            setIsHitApi(false);
+            setEmail("");
+          }
+        });
       } else {
         setIsUsed(true);
         setMessage("Email telah digunakan");
