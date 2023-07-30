@@ -11,8 +11,8 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
   const [isClicked, setIsClicked] = useState(false);
 
   const isToday = new Date().setHours(0, 0, 0, 0) === date.setHours(0, 0, 0, 0);
-  const showTooltip = isHovered || isClicked || isToday;
 
+  const showTooltip = isHovered || isClicked || isToday > nextDate;
   const isFirstIndex = date === importantDates[0] && importantDates[1];
   const isAtLastIndex = date === importantDates[importantDates.length - 1];
 
@@ -32,7 +32,7 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
     <div
       className={`absolute flex  w-4 h-4 ${
         currentPercentage >= percentage - 1 ? "bg-oren" : "bg-slate-800"
-      } rounded-full flex items-center justify-center`}
+      } rounded-full flex items-center justify-center lg:cursor-pointer`}
       style={{ left: `${percentage}%` }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -41,8 +41,8 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
       {/* circle inside */}
       <div
         className={`${
-          isClicked || isHovered ? "bg-yellow-300" : "bg-slate-700"
-        } w-2 h-2 rounded-full`}
+          isClicked || isHovered ? "bg-yellow-300" : "bg-yellow-200"
+        } w-2 h-2 rounded-full `}
       ></div>
 
       {/* Tooltip */}

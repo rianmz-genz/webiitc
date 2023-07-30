@@ -10,6 +10,7 @@ import {
   BsFillPeopleFill,
   BsGridFill,
 } from "react-icons/bs";
+import { BiSolidDashboard } from "react-icons/bi";
 import StackCard from "@/components/atoms/StackCard";
 import JuknisItem from "@/components/atoms/JukinisItem";
 import {
@@ -239,10 +240,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
           </form>
         </PopUp>
 
-        <div className="w-11/12 mx-auto py-6">
+        <div className="lg:w-11/12 mx-auto lg:py-6 px-6 lg:px-0">
           <Button
             onClick={() => setIsCompetitionDetail(false)}
-            additionals={"flex items-center"}
+            additionals={"flex items-center md:mt-5 "}
             color={"silver"}
             size={"base"}
           >
@@ -266,10 +267,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   width={1080}
                   height={1080}
                   alt="competition image"
-                  className="w-full lg:w-4/12 lg:sticky top-6 rounded-lg h-[70vh] object-center object-cover"
+                  className="w-full md:h-[50vh] lg:w-4/12  top-6 rounded-xl lg:h-[70vh] object-center object-cover"
                 />
-                <article className="w-11/12 my-12 lg:my-0 lg:w-6/12">
-                  <h1 className="text-5xl font-medium tracking-wider  uppercase text-slate-900 mb-7">
+                <article className=" my-12 lg:my-0 lg:w-6/12">
+                  <h1 className="text-2xl md:text-5xl font-bold md:font-medium md:tracking-wider  uppercase text-slate-900 mb-5 md:mb-7">
                     {competition?.name}{" "}
                   </h1>
 
@@ -306,10 +307,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                       onClick={handleChoose}
                       size={"lg"}
                       additionals={
-                        "lg:w-auto w-full text-center mt-4 cursor-not-allowed"
+                        "lg:w-auto w-full  md:py-5 lg:py-0 text-center mt-4 cursor-not-allowed"
                       }
                     >
-                      Pendaftaran belum dibuka
+                      Ikuti Lomba
                     </Button>
                   </div>
                   <div className="p-1  w-full border-b mt-5 " />
@@ -320,7 +321,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   >
                     Tech Stack
                   </Text>
-                  <ul className="flex gap-3 flex-wrap mt-2 mb-8">
+                  <ul className="flex gap-3 flex-wrap   mt-2 mb-8">
                     {competition?.techStacks.map((stack, index) => {
                       //console.log(stack);
                       return <StackCard key={index}>{stack}</StackCard>;
@@ -329,7 +330,9 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   <Text size={"description"} weight={"semi"}>
                     Deskripsi
                   </Text>
-                  <Text additionals={"mt-2"}>{competition?.description}</Text>
+                  <Text additionals={"mt-2 text-justify md:text-left"}>
+                    {competition?.description}
+                  </Text>
                   <Text
                     additionals={"mt-8"}
                     size={"description"}
@@ -339,16 +342,18 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   </Text>
                   <div className="mt-4 flex items-center mb-8">
                     <div className="border-oren border rounded-full p-3">
-                      <BsFillJournalBookmarkFill className="text-oren text-3xl" />
+                      <BsFillJournalBookmarkFill className="text-oren text-xl md:text-3xl" />
                     </div>
                     <div className="w-full ml-3">
-                      <Text weight={"semi"}>{competition?.name}</Text>
-                      <Text size={"sm"}>Guide Book</Text>
+                      <Text weight={"semi"} additionals={"text-xs md:text-xl"}>
+                        {competition?.name}
+                      </Text>
+                      <Text additionals={"text-xs md:text-md"}>Guide Book</Text>
                     </div>
                     <a
                       href={competition?.guideBookLink}
                       download
-                      className="bg-oren/10 text-oren px-4 py-2 rounded-full"
+                      className="bg-oren/10 text-oren px-4 text-xs font-semibold md:text-md py-2 hover:bg-orange-200 hover:text-orange-500 hover:px-3 hover:py-1.5 transition-all duration-200 rounded-full"
                     >
                       Download
                     </a>
@@ -356,7 +361,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   <Text size={"description"} weight={"semi"}>
                     Juknis
                   </Text>
-                  <ul className="mt-2 space-y-1 w-full">
+                  <ul className="mt-2 space-y-1 w-full mb-20">
                     {competition?.criteria.map((item, index) => (
                       <JuknisItem key={index} w={item?.percentage}>
                         {item?.name}
