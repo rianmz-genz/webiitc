@@ -55,7 +55,7 @@ const Timeline = () => {
         className={`w-full h-[300px] -mt-20 flex items-center overflow-x-scroll relative scroll-smooth scrollbar-hide `}
         ref={timelineRef}
       >
-        <div className="w-[2000px]  bg-slate-800 h-1 absolute p-1"></div>
+        <div className="w-[2500px]  bg-slate-800 h-1 absolute p-1"></div>
         {/* timeline terlewat */}
         <div
           className={`absolute  h-2 bg-oren`}
@@ -72,7 +72,6 @@ const Timeline = () => {
             modalContent={modalContent[date.toISOString().slice(0, 10)]}
           />
         ))}
-        {/* circle pada tanggal 10 */}
       </div>
     </div>
   );
