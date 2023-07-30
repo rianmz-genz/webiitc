@@ -50,6 +50,7 @@ function Profile() {
         setName(user.name || "");
         setEmail(user.email || "");
         setPhone(user.phone || "");
+        setLoading(false);
         setStudentId(user.participant.student_id_number || "");
         setInstitution(user.participant.institution || "");
         setGrade(user.participant.grade || "");
@@ -66,7 +67,6 @@ function Profile() {
         if (user.participant.twibbon) {
           setTwibbon(user.participant.twibbon);
         }
-        setLoading(false);
       })
 
       .catch((err) => console.log(err));
