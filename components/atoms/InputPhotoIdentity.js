@@ -5,10 +5,6 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      acceptedFiles.forEach((file) => {
-        console.log("File MIME Type: ", file.type);
-      });
-      // Check if the dropped item is a File object and has a type that starts with 'image/'
       if (
         acceptedFiles[0] instanceof File &&
         acceptedFiles[0].type.startsWith("image/")
@@ -25,11 +21,17 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
   });
 
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
     if (photo) {
       URL.revokeObjectURL(photo.preview);
     }
   }, [photo]);
+
+  // If photo is not set but initialPhotoUrl is available, set the initialPhotoUrl as photo
+  useEffect(() => {
+    if (!photo && initialPhotoUrl) {
+      setPhoto({ preview: initialPhotoUrl });
+    }
+  }, [initialPhotoUrl, photo, setPhoto]);
 
   return (
     <div
@@ -40,15 +42,12 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
       <p className="text-start">
         {isDragActive ? <span>Letakan disini</span> : <span>Pilih File</span>}
       </p>
-      {!photo && initialPhotoUrl && (
-        <img
-          src={initialPhotoUrl}
-          className="h-24 w-auto"
-          alt="Initial Preview"
-        />
-      )}
       {photo && (
-        <img src={photo.preview} className="h-24 w-auto" alt="New Preview" />
+        <img
+          src={photo.preview ? photo.preview : initialPhotoUrl}
+          className="h-24 w-auto"
+          alt="New Preview"
+        />
       )}
     </div>
   );
