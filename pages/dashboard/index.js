@@ -12,6 +12,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { FiPlus } from "react-icons/fi";
 import { MdArrowForwardIos } from "react-icons/md";
 import { getTwoChar } from "../team";
+import Head from "next/head";
 
 // export async function getServerSideProps(context) {
 //   const token = context.req.cookies.token;
@@ -44,46 +45,52 @@ const DashboardUser = () => {
     setEmail(Cookies.get("email"));
   }, []);
   return (
-    <DashboardUserTemplate>
-      <DashboardCard>
-        <ul className="flex items-center gap-2">
-          <Link href={"/"}>
-            <BiHomeAlt className="text-gray-400" />
-          </Link>
-          <p>
-            <MdArrowForwardIos className="text-xs text-gray-400" />
-          </p>
-          <p className="text-blue-600 text-sm">Lomba</p>
-        </ul>
-        <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
-          <h1 className="text-2xl fomt-semibold">Lomba Yang Diikuti</h1>
-          {teams.length > 0 && (
+    <>
+      <Head>
+        <title>IITC Dashboard</title>
+        <meta name="title" content="IITC Dashboard" />
+      </Head>
+      <DashboardUserTemplate>
+        <DashboardCard>
+          <ul className="flex items-center gap-2">
             <Link href={"/"}>
-              <Button>Daftar lomba</Button>
+              <BiHomeAlt className="text-gray-400" />
             </Link>
+            <p>
+              <MdArrowForwardIos className="text-xs text-gray-400" />
+            </p>
+            <p className="text-blue-600 text-sm">Lomba</p>
+          </ul>
+          <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
+            <h1 className="text-2xl fomt-semibold">Lomba Yang Diikuti</h1>
+            {teams.length > 0 && (
+              <Link href={"/"}>
+                <Button>Daftar lomba</Button>
+              </Link>
+            )}
+          </div>
+        </DashboardCard>
+        <ul className="flex flex-col space-y-4">
+          {teams?.length == 0 ? (
+            <EmptyTeam />
+          ) : (
+            teams.map((item, idx) => (
+              <TeamCard
+                key={idx}
+                avatar={item.avatar}
+                competitionName={item.competitionName}
+                teamName={item.teamName ? item.teamName : email}
+                currentMembers={item.currentMembers}
+                maxMembers={item.maxMembers}
+                id={item.teamId}
+                slug={item.cSlug}
+                isSubmit={item.isSubmit}
+              />
+            ))
           )}
-        </div>
-      </DashboardCard>
-      <ul className="flex flex-col space-y-4">
-        {teams?.length == 0 ? (
-          <EmptyTeam />
-        ) : (
-          teams.map((item, idx) => (
-            <TeamCard
-              key={idx}
-              avatar={item.avatar}
-              competitionName={item.competitionName}
-              teamName={item.teamName ? item.teamName : email}
-              currentMembers={item.currentMembers}
-              maxMembers={item.maxMembers}
-              id={item.teamId}
-              slug={item.cSlug}
-              isSubmit={item.isSubmit}
-            />
-          ))
-        )}
-      </ul>
-    </DashboardUserTemplate>
+        </ul>
+      </DashboardUserTemplate>
+    </>
   );
 };
 
