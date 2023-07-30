@@ -12,7 +12,7 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
 
   const isToday = new Date().setHours(0, 0, 0, 0) === date.setHours(0, 0, 0, 0);
 
-  const showTooltip = isHovered || isClicked || isToday > nextDate;
+  const showTooltip = isHovered || isClicked || isToday;
   const isFirstIndex = date === importantDates[0] && importantDates[1];
   const isAtLastIndex = date === importantDates[importantDates.length - 1];
 
