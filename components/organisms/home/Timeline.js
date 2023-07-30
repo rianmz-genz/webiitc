@@ -33,7 +33,6 @@ const Timeline = () => {
         <FlashParagraph value={"Don't forget your misson"} />
         <h1 className="font-semibold text-white text-3xl">
           Timeline kami dalam lomba ini
-          {currentPercentage}
         </h1>
         <p className="text-slate-300">jangan sampai terlewat </p>
       </div>
