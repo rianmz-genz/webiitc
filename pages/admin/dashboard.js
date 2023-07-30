@@ -17,13 +17,12 @@ const DashboardAdmin = () => {
     getTeams();
   }, []);
   const getTeams = () => {
-    GetAllTeamApi()
-      .then((res) => {
-        console.log(res);
-        setTeams(res.data.teams.reverse());
-        setIsHitApi(false);
-      })
-      .catch((err) => console.log(err));
+    GetAllTeamApi().then((res) => {
+      //console.log(res);
+      setTeams(res.data.teams.reverse());
+      setIsHitApi(false);
+    });
+    // .catch((err) => //console.log(err));
   };
   return (
     <DashboardAdminTemplate title={"Dashboard"}>

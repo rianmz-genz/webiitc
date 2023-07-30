@@ -23,7 +23,7 @@ const AdminLomba = ({ competitions }) => {
   const onDelete = (e) => {
     e.preventDefault();
     DeleteCompetitionApi({ slug }).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 1) {
         setIsDelete(false);
         router.reload();

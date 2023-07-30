@@ -19,11 +19,12 @@ import {
 import GetDetailCompetitionsApi from "@/api/homepage/GetDetailCompetitionApi";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { FiX, FiXCircle } from "react-icons/fi";
+import { FiLogIn, FiX, FiXCircle } from "react-icons/fi";
 import Input from "@/components/atoms/Input";
 import Alert from "@/components/atoms/Alert";
 import JoinTeamApi from "@/api/team/JoinTeam";
 import JoinApi from "@/api/team/Join";
+import JoinIndividuApi from "@/api/team/Individu";
 const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [isHitApi, setIsHitApi] = useState(true);
   const [competition, setCompetition] = useState({});
@@ -38,18 +39,22 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
   const [code, setCode] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
+  const [isIndividu, setIsIndividu] = useState(false);
+  const [isHitIndividu, setIsHitIndividu] = useState(false);
   const router = useRouter();
   useEffect(() => {
     getOneCompetition();
   }, []);
   const getOneCompetition = () => {
     setIsHitApi(true);
-    GetDetailCompetitionsApi({ slug: competitionSlug })
-      .then((res) => {
-        setIsHitApi(false);
-        setCompetition(res.data?.competition);
-      })
-      .catch((err) => console.log(err));
+    GetDetailCompetitionsApi({ slug: competitionSlug }).then((res) => {
+      setIsHitApi(false);
+      if (res.data?.competition?.maxMembers == 1) {
+        setIsIndividu(true);
+      }
+      setCompetition(res.data?.competition);
+    });
+    // .catch((err) => //console.log(err));
   };
   const handleChoose = () => {
     const token = Cookies.get("token");
@@ -63,7 +68,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
     e.preventDefault();
     setIsHitJoin(true);
     JoinTeamApi({ name, competitionSlug }).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 1) {
         setMessage(res.message);
         setIsSuccess(true);
@@ -78,29 +83,42 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         setName("");
       }
     });
-    console.log({ competitionSlug, name });
+    //console.log({ competitionSlug, name });
   };
   const handleJoinTeam = (e) => {
     e.preventDefault();
     setIsHitJoinTeam(true);
-    JoinApi({ code })
-      .then((res) => {
-        console.log(res);
-        if (res.status == 1) {
-          setMessage(res.message);
-          setIsSuccess(true);
-          setCode("");
-          setIsHitJoinTeam(false);
-          router.push(`/dashboard`);
-          return;
-        } else {
-          setMessage(res.message);
-          setIsWrong(true);
-          setIsHitJoinTeam(false);
-          setCode("");
-        }
-      })
-      .catch((err) => console.log(err));
+    JoinApi({ code }).then((res) => {
+      //console.log(res);
+      if (res.status == 1) {
+        setMessage(res.message);
+        setIsSuccess(true);
+        setCode("");
+        setIsHitJoinTeam(false);
+        router.push(`/dashboard`);
+        return;
+      } else {
+        setMessage(res.message);
+        setIsWrong(true);
+        setIsHitJoinTeam(false);
+        setCode("");
+      }
+    });
+    // .catch((err) => //console.log(err));
+  };
+  const handleJoinIndividu = () => {
+    setIsHitIndividu(true);
+    JoinIndividuApi({ competitionSlug }).then((res) => {
+      //console.log(res);
+      setMessage(res.message);
+      if (res.status == 1) {
+        setIsSuccess(true);
+        router.push("/dashboard");
+        setIsChoose(false);
+      } else {
+        setIsWrong(true);
+      }
+    });
   };
 
   return (
@@ -121,35 +139,52 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         {/* choose */}
         <PopUp isModal={isChoose} onClose={() => setIsChoose(false)}>
           <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
-            Buat atau bergabung dengan tim
+            {isIndividu ? "Mendaftar Lomba" : "Buat atau bergabung dengan tim"}
           </Text>
           <div className="bg-slate-200 rounded-md p-6 my-6">
-            <BsFillPeopleFill className="text-5xl text-slate-800" />
+            {isIndividu ? (
+              <FiLogIn className="text-5xl text-slate-800" />
+            ) : (
+              <BsFillPeopleFill className="text-5xl text-slate-800" />
+            )}
           </div>
-          <div className="flex space-x-4 w-full">
+          {isIndividu ? (
             <Button
               isSquare
               additionals={"w-full"}
               onClick={() => {
-                setIsChoose(false);
-                setIsJoin(true);
+                handleJoinIndividu();
               }}
-              color={"dark"}
+              color={"oren"}
             >
               Bergabung
             </Button>
-            <Button
-              onClick={() => {
-                setIsCreate(true);
-                setIsChoose(false);
-              }}
-              isSquare
-              additionals={"w-full"}
-              color={"oren"}
-            >
-              Buat
-            </Button>
-          </div>
+          ) : (
+            <div className="flex space-x-4 w-full">
+              <Button
+                isSquare
+                additionals={"w-full"}
+                onClick={() => {
+                  setIsChoose(false);
+                  setIsJoin(true);
+                }}
+                color={"dark"}
+              >
+                Bergabung
+              </Button>
+              <Button
+                onClick={() => {
+                  setIsCreate(true);
+                  setIsChoose(false);
+                }}
+                isSquare
+                additionals={"w-full"}
+                color={"oren"}
+              >
+                Buat
+              </Button>
+            </div>
+          )}
         </PopUp>
         {/* join */}
         <PopUp isModal={isJoin} onClose={() => setIsJoin(false)}>
@@ -284,7 +319,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   </Text>
                   <ul className="flex gap-3 flex-wrap mt-2 mb-8">
                     {competition?.techStacks.map((stack, index) => {
-                      console.log(stack);
+                      //console.log(stack);
                       return <StackCard key={index}>{stack}</StackCard>;
                     })}
                   </ul>

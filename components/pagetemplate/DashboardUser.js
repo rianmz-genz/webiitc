@@ -41,7 +41,8 @@ const DashboardUserTemplate = ({ title, children }) => {
           } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start z-20`}
         >
           <Image
-            className="w-24"
+            onClick={() => router.push("/")}
+            className="w-24 cursor-pointer"
             src={"/images/LOGO/LOGOFIX.png"}
             alt="logo iitc"
             width={1080}

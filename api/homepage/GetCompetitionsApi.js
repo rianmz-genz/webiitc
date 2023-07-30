@@ -5,10 +5,8 @@ const GetCompetitionsApi = async () => {
     const res = await axios({
       baseURL: urlGetCompetitions,
     });
-    console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error);
     return error.response.data;
   }
 };

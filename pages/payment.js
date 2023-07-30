@@ -36,29 +36,28 @@ const Payment = () => {
     setIsHitTeam(true);
     GetDetailTeam({ id })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setTeam(res.data?.team);
         setIsHitTeam(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   useEffect(() => {
     if (id) {
       getDetailTeam();
     }
-    console.log(cSlug);
+    //console.log(cSlug);
     if (cSlug) {
       setIsHitCompetition(true);
-      GetDetailCompetitionsApi({ slug: cSlug })
-        .then((res) => {
-          console.log(res);
-          setIsCsr(true);
-          setCompetition(res.data?.competition);
-          setIsHitCompetition(false);
-        })
-        .catch((err) => console.log(err));
+      GetDetailCompetitionsApi({ slug: cSlug }).then((res) => {
+        //console.log(res);
+        setIsCsr(true);
+        setCompetition(res.data?.competition);
+        setIsHitCompetition(false);
+      });
+      // .catch((err) => //console.log(err));
     }
   }, [router.isReady]);
   const months = [
@@ -94,19 +93,18 @@ const Payment = () => {
   const handlePay = (e) => {
     e.preventDefault();
     setIsHitPay(true);
-    PayApi({ id, proveOfPayment: image })
-      .then((res) => {
-        console.log(res);
-        setMessage(res.message);
-        if (res.status == 1) {
-          setIsSucces(true);
-          router.replace(`/team?i=${id}&sl=${cSlug}`);
-        } else {
-          setIsWrong(true);
-          setIsHitPay(false);
-        }
-      })
-      .catch((err) => console.log(err));
+    PayApi({ id, proveOfPayment: image }).then((res) => {
+      //console.log(res);
+      setMessage(res.message);
+      if (res.status == 1) {
+        setIsSucces(true);
+        router.replace(`/team?i=${id}&sl=${cSlug}`);
+      } else {
+        setIsWrong(true);
+        setIsHitPay(false);
+      }
+    });
+    // .catch((err) => //console.log(err));
   };
   const [copied, setCopied] = useState(false);
   return (
@@ -185,7 +183,10 @@ const Payment = () => {
 
         <ul className="space-y-6 my-6 border-b pb-6">
           {paymentMethods.map((item, idx) => (
-            <li key={idx} className="flex justify-between items-center">
+            <li
+              key={idx}
+              className="flex justify-center space-x-3 items-center"
+            >
               <img
                 src={item.img}
                 alt={item.value}
@@ -194,7 +195,10 @@ const Payment = () => {
                 className="w-28"
               />
               <div className="flex items-center space-x-1">
-                <Text>{copied ? "Disalin" : item.value}</Text>
+                <div className="mr-3">
+                  <Text>{copied ? "Disalin" : `${item.value}`}</Text>
+                  <Text size={"small"}>{!copied && `${item.an}`}</Text>
+                </div>
                 <CopyToClipboard
                   text={item.value}
                   onCopy={() => setCopied(true)}
@@ -241,5 +245,6 @@ const paymentMethods = [
   {
     img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg",
     value: "1800011997048",
+    an: "an PUTRI OKTAVIANINGSIH",
   },
 ];

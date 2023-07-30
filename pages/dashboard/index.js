@@ -34,13 +34,14 @@ import { getTwoChar } from "../team";
 
 const DashboardUser = () => {
   const [teams, setTeams] = useState([]);
+  const [email, setEmail] = useState("");
   useEffect(() => {
-    GetMineTeam()
-      .then((res) => {
-        setTeams(res.data.teams);
-        console.log(res.data.teams);
-      })
-      .catch((err) => console.log(err));
+    GetMineTeam().then((res) => {
+      setTeams(res.data.teams);
+      //console.log(res.data.teams);
+    });
+    // .catch((err) => //console.log(err));
+    setEmail(Cookies.get("email"));
   }, []);
   return (
     <DashboardUserTemplate>
@@ -72,7 +73,7 @@ const DashboardUser = () => {
               key={idx}
               avatar={item.avatar}
               competitionName={item.competitionName}
-              teamName={item.teamName}
+              teamName={item.teamName ? item.teamName : email}
               currentMembers={item.currentMembers}
               maxMembers={item.maxMembers}
               id={item.teamId}

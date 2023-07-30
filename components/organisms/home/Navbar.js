@@ -3,15 +3,22 @@ import Logo from "@/components/atoms/Logo";
 import Container from "@/components/molecules/Container";
 import NavItem from "@/components/molecules/NavItem";
 import NavLink from "@/components/molecules/NavLink";
+import Cookies from "js-cookie";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiX, FiMenu } from "react-icons/fi";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [token, setToken] = useState(false);
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  useEffect(() => {
+    const tokenC = Cookies.get("token");
+    setToken(tokenC ? true : false);
+    //console.log(tokenC ? true : false);
+  }, []);
   return (
     <header className="fixed top-3 z-20 w-11/12">
       {/* navbar lg */}
@@ -42,9 +49,15 @@ const Navbar = () => {
             </div>
           </nav>
           <div className="hidden lg:block">
-            <Link href={"/signup"}>
-              <Button>Daftar</Button>
-            </Link>
+            {token ? (
+              <Link href={"/dashboard"}>
+                <Button additionals={"w-full"}>Dashboard</Button>
+              </Link>
+            ) : (
+              <Link href={"/signup"}>
+                <Button additionals={"w-full"}>Daftar</Button>
+              </Link>
+            )}
           </div>
         </Container>
       </div>
@@ -63,9 +76,15 @@ const Navbar = () => {
           <NavLink target="#faq">FAQ</NavLink>
         </NavItem>
         <div className="mt-4 w-full ">
-          <Link href={"/signup"}>
-            <Button additionals={"w-full"}>Daftar</Button>
-          </Link>
+          {token ? (
+            <Link href={"/dashboard"}>
+              <Button additionals={"w-full"}>Dashboard</Button>
+            </Link>
+          ) : (
+            <Link href={"/signup"}>
+              <Button additionals={"w-full"}>Daftar</Button>
+            </Link>
+          )}
         </div>
       </div>
     </header>
