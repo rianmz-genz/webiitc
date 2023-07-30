@@ -253,7 +253,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             <AiOutlineLoading3Quarters className="text-3xl text-silver animate-spin mx-auto my-8" />
           ) : (
             <>
-              <ul className="flex space-x-3 mt-8 mb-10">
+              <ul className="flex space-x-2 lowercase text-slate-700 mt-10 mb-8 text-sm">
                 <li>Competitions</li>
                 <li>/</li>
                 <li>Detail</li>
@@ -266,10 +266,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   width={1080}
                   height={1080}
                   alt="competition image"
-                  className="w-full lg:w-5/12 lg:sticky top-6 rounded-lg"
+                  className="w-full lg:w-4/12 lg:sticky top-6 rounded-lg h-[70vh] object-center object-cover"
                 />
                 <article className="w-11/12 my-12 lg:my-0 lg:w-6/12">
-                  <h1 className="text-4xl font-bold uppercase text-slate-900 mb-3">
+                  <h1 className="text-5xl font-medium tracking-wider  uppercase text-slate-900 mb-7">
                     {competition?.name}{" "}
                   </h1>
 
@@ -293,7 +293,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   />
                   <div className="flex flex-col lg:flex-row justify-start lg:justify-between lg:items-center mt-5  w-full">
                     <div className="flex lg:flex-col flex-row gap-2">
-                      <Text size={"description"} weight={"semi"}>
+                      <Text size={"description"} weight={""}>
                         HTM :{""}
                       </Text>
                       <p className="text-slate-900 font-bold lg:text-3xl ">
