@@ -60,9 +60,11 @@ const Signup = () => {
       password,
       phone: parseInt(phone),
     }).then((res) => {
+      const { verifyEmail } = res.data;
+      const { id, hash } = verifyEmail;
       if (res.status == 1) {
         setMessage(res.message);
-        SendEmailApi({ email }).then((res) => {
+        SendEmailApi({ email, id, hash }).then((res) => {
           if (res != false) {
             setIsSucces(true);
             setIsHitApi(false);
