@@ -6,11 +6,17 @@ function Circle({ date, currentPercentage, modalContent, importantDates }) {
   const percentage = Math.round(
     ((date - startDate) / (endDate - startDate)) * 100
   );
-
+  const today = new Date().toString().substring(0, 16);
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-
+  const x = importantDates.filter(
+    (item) => item.toString().substring(0, 16) < today
+  );
+  console.log(x);
   const isToday = new Date().setHours(0, 0, 0, 0) === date.setHours(0, 0, 0, 0);
+
+  const showTooltip = isHovered || isClicked || isToday || x.includes(date);
+
 
   const showTooltip = isHovered || isClicked || isToday;
   const isFirstIndex = date === importantDates[0] && importantDates[1];
