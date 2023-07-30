@@ -1,7 +1,7 @@
 const timelineData = {
   importantDates: [
     // date hari penting
-    new Date("2023-08-01"),
+    new Date("2023-07-30"),
     new Date("2023-08-15"),
     new Date("2023-09-10"),
     new Date("2023-09-22"),
@@ -11,8 +11,8 @@ const timelineData = {
     new Date("2023-11-01"),
   ],
   modalContent: {
-    "2023-08-01": {
-      date: new Date("2023-08-01").toLocaleString("id-ID", {
+    "2023-07-30": {
+      date: new Date("2023-07-30").toLocaleString("id-ID", {
         weekday: "long",
         day: "numeric",
         month: "long",
