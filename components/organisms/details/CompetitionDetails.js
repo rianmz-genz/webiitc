@@ -302,11 +302,14 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                       </p>
                     </div>
                     <Button
+                      disabled
                       onClick={handleChoose}
                       size={"lg"}
-                      additionals={"lg:w-auto w-full text-center mt-4"}
+                      additionals={
+                        "lg:w-auto w-full text-center mt-4 cursor-not-allowed"
+                      }
                     >
-                      Ikuti Lomha
+                      Pendaftaran belum dibuka
                     </Button>
                   </div>
                   <div className="p-1  w-full border-b mt-5 " />

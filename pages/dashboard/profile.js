@@ -22,6 +22,7 @@ import {
 } from "react-icons/ai";
 import Alert from "@/components/atoms/Alert";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 function Profile() {
   const [userData, setUserData] = useState(null);
@@ -133,6 +134,10 @@ function Profile() {
 
   return (
     <div>
+      <Head>
+        <title>IITC Profile</title>
+        <meta name="title" content="IITC Profile" />
+      </Head>
       <Alert onClose={() => setIsSucces(false)} isOpen={isSucces}>
         {isSucces ? (
           <AiOutlineCheckCircle className="text-green-400 text-xl" />
