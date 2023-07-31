@@ -23,6 +23,24 @@ import {
 import Alert from "@/components/atoms/Alert";
 import { useRouter } from "next/router";
 import Head from "next/head";
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.token;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  // Lanjutkan eksekusi jika token tersedia
+  // ...
+
+  return {
+    props: {},
+  };
+}
 
 function Profile() {
   const [userData, setUserData] = useState(null);
@@ -104,7 +122,7 @@ function Profile() {
       };
 
       const response = await EditUser(data);
-      console.log(response.message);
+      // console.log(response.message);
       if (response.status == 1) {
         setIsSucces(true);
         setMessage(response.message);
