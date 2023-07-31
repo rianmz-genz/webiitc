@@ -19,6 +19,6 @@ export const sendEmail = async (data) => {
     from: process.env.SMTP_FROM_EMAIL,
     ...data,
   });
-  console.log(sending.accepted);
+  // console.log(sending.accepted);
   return sending.accepted;
 };
