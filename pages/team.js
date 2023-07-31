@@ -29,7 +29,24 @@ import { BsFileEarmarkCheck } from "react-icons/bs";
 import Link from "next/link";
 const userMail = Cookies.get("email");
 //console.log(userMail);
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.token;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
+  // Lanjutkan eksekusi jika token tersedia
+  // ...
+
+  return {
+    props: {},
+  };
+}
 const TeamPage = () => {
   const router = useRouter();
   const [isPaidOf, setIsPaidOf] = useState(false);
