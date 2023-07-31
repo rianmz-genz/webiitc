@@ -34,11 +34,14 @@ const Login = () => {
     setIsHitApi(true);
     LoginApi({ email, password }).then((res) => {
       setIsHitApi(false);
+      console.log(res);
+      const { access_token, email_verified_at } = res.data;
       if (res.status == 1) {
         setIsSucces(true);
         setMessage(res.message);
-        Cookies.set("token", res.data.access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
+        Cookies.set("token", access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
         Cookies.set("email", email, { expires: 2 }); // Cookie berakhir dalam 7 hari
+        Cookies.set("valid", email_verified_at != null, { expires: 2 }); // Cookie berakhir dalam 7 hari
         router.push("/dashboard");
       } else if (res.status == 0) {
         setIsWrong(true);
@@ -66,6 +69,7 @@ const Login = () => {
           additionals={"flex lg:absolute top-8 lg:mb-0 mb-4 items-center"}
           color={"silver"}
           size={"base"}
+          type="button"
         >
           <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
           Kembali

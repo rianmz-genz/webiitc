@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BiHomeAlt } from "react-icons/bi";
 import { BsFillPeopleFill } from "react-icons/bs";
-import { FiPlus } from "react-icons/fi";
+import { FiLock, FiPlus } from "react-icons/fi";
 import { MdArrowForwardIos } from "react-icons/md";
 import { getTwoChar } from "../team";
 import Head from "next/head";
@@ -36,9 +36,10 @@ import Head from "next/head";
 const DashboardUser = () => {
   const [teams, setTeams] = useState([]);
   const [email, setEmail] = useState("");
+  const valid = Cookies.get("valid");
   useEffect(() => {
     GetMineTeam().then((res) => {
-      setTeams(res.data.teams);
+      setTeams(res.data?.teams);
       //console.log(res.data.teams);
     });
     // .catch((err) => //console.log(err));
@@ -51,6 +52,16 @@ const DashboardUser = () => {
         <meta name="title" content="IITC Dashboard" />
       </Head>
       <DashboardUserTemplate>
+        {valid == "false" && (
+          <div className="w-full h-screen z-50 bg-black/40 fixed top-0 left-0 backdrop-blur-md flex justify-center items-center">
+            <div className="w-11/12 mx-auto max-w-[500px] p-6 text-center bg-white rounded flex items-center justify-center space-x-2">
+              <FiLock className="text-xl" />
+              <Text size={"smalltitle"} color={"dark"}>
+                Verifikasi Email Terlebih Dahulu
+              </Text>
+            </div>
+          </div>
+        )}
         <DashboardCard>
           <ul className="flex items-center gap-2">
             <Link href={"/"}>
@@ -63,7 +74,7 @@ const DashboardUser = () => {
           </ul>
           <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
             <h1 className="text-2xl fomt-semibold">Lomba Yang Diikuti</h1>
-            {teams.length > 0 && (
+            {teams?.length > 0 && (
               <Link href={"/"}>
                 <Button>Daftar lomba</Button>
               </Link>
@@ -74,7 +85,7 @@ const DashboardUser = () => {
           {teams?.length == 0 ? (
             <EmptyTeam />
           ) : (
-            teams.map((item, idx) => (
+            teams?.map((item, idx) => (
               <TeamCard
                 key={idx}
                 avatar={item.avatar}

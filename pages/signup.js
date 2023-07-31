@@ -60,9 +60,11 @@ const Signup = () => {
       password,
       phone: parseInt(phone),
     }).then((res) => {
+      const { verifyEmail } = res.data;
+      const { id, hash, signature, expires } = verifyEmail;
       if (res.status == 1) {
         setMessage(res.message);
-        SendEmailApi({ email }).then((res) => {
+        SendEmailApi({ email, id, hash, signature, expires }).then((res) => {
           if (res != false) {
             setIsSucces(true);
             setIsHitApi(false);
@@ -110,6 +112,7 @@ const Signup = () => {
             additionals={"flex  mb-4 items-center"}
             color={"silver"}
             size={"base"}
+            type="button"
           >
             <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
             Kembali
