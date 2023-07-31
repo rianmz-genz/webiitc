@@ -21,7 +21,7 @@ export default function Verify() {
   function verifyEmail() {
     setIsHitApi(true);
     VerifyEmailApi({ id: i, hash: h, signature: s, expires: e }).then((res) => {
-      console.log(res);
+      // console.log(res);
       setMessage(res.message);
       if (res.status == 1) {
         setIsHitApi(false);
