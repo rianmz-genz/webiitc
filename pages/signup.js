@@ -60,9 +60,10 @@ const Signup = () => {
       password,
       phone: parseInt(phone),
     }).then((res) => {
-      const { verifyEmail } = res.data;
-      const { id, hash, signature, expires } = verifyEmail;
+      console.log(res)
       if (res.status == 1) {
+        const { verifyEmail } = res.data;
+        const { id, hash, signature, expires } = verifyEmail;
         setMessage(res.message);
         SendEmailApi({ email, id, hash, signature, expires }).then((res) => {
           if (res != false) {
@@ -76,7 +77,7 @@ const Signup = () => {
             setEmail("");
           }
         });
-      } else {
+      } else if(res.status == 0) {
         setIsUsed(true);
         setMessage("Email telah digunakan");
         setIsHitApi(false);

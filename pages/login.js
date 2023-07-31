@@ -37,12 +37,16 @@ const Login = () => {
       console.log(res);
       const { access_token, email_verified_at } = res.data;
       if (res.status == 1) {
-        setIsSucces(true);
-        setMessage(res.message);
-        Cookies.set("token", access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
-        Cookies.set("email", email, { expires: 2 }); // Cookie berakhir dalam 7 hari
-        Cookies.set("valid", email_verified_at != null, { expires: 2 }); // Cookie berakhir dalam 7 hari
-        router.push("/dashboard");
+        if (email_verified_at == null) {
+          setIsWrong(true);
+          setMessage("Harap verfikasi email terlebih dahulu");
+        } else if(email_verified_at != null) {
+          setIsSucces(true);
+          setMessage(res.message);
+          Cookies.set("token", access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
+          Cookies.set("email", email, { expires: 2 }); // Cookie berakhir dalam 7 hari
+          router.push("/dashboard");
+        }
       } else if (res.status == 0) {
         setIsWrong(true);
         setMessage(res.message);

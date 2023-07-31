@@ -52,7 +52,7 @@ const DashboardUser = () => {
         <meta name="title" content="IITC Dashboard" />
       </Head>
       <DashboardUserTemplate>
-        {valid == "false" && (
+        {/* {valid == "false" && (
           <div className="w-full h-screen z-50 bg-black/40 fixed top-0 left-0 backdrop-blur-md flex justify-center items-center">
             <div className="w-11/12 mx-auto max-w-[500px] p-6 text-center bg-white rounded flex items-center justify-center space-x-2">
               <FiLock className="text-xl" />
@@ -61,7 +61,7 @@ const DashboardUser = () => {
               </Text>
             </div>
           </div>
-        )}
+        )} */}
         <DashboardCard>
           <ul className="flex items-center gap-2">
             <Link href={"/"}>
