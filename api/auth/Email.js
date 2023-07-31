@@ -28,6 +28,6 @@ export default async function sendEmailApi({
       return false;
     }
   } catch (error) {
-    console.log("Error:", error.message);
+    // console.log("Error:", error.message);
   }
 }
