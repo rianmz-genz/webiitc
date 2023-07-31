@@ -14,24 +14,24 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { getTwoChar } from "../team";
 import Head from "next/head";
 
-// export async function getServerSideProps(context) {
-//   const token = context.req.cookies.token;
-//   if (!token) {
-//     return {
-//       redirect: {
-//         destination: "/login",
-//         permanent: false,
-//       },
-//     };
-//   }
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.token;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
-//   // Lanjutkan eksekusi jika token tersedia
-//   // ...
+  // Lanjutkan eksekusi jika token tersedia
+  // ...
 
-//   return {
-//     props: {},
-//   };
-// }
+  return {
+    props: {},
+  };
+}
 
 const DashboardUser = () => {
   const [teams, setTeams] = useState([]);
