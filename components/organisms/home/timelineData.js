@@ -1,8 +1,8 @@
 const timelineData = {
   importantDates: [
     // date hari penting
-    new Date("2023-07-29"),
-    new Date("2023-07-31"),
+    new Date("2023-08-01"),
+    new Date("2023-08-15"),
     new Date("2023-09-10"),
     new Date("2023-09-22"),
     new Date("2023-09-28"),
@@ -11,8 +11,8 @@ const timelineData = {
     new Date("2023-11-01"),
   ],
   modalContent: {
-    "2023-07-29": {
-      date: new Date("2023-07-29").toLocaleString("id-ID", {
+    "2023-08-01": {
+      date: new Date("2023-08-01").toLocaleString("id-ID", {
         weekday: "long",
         day: "numeric",
         month: "long",
@@ -21,8 +21,8 @@ const timelineData = {
       title: "Pendaftaran",
       description: "Gelombang 1 pendaftaran dibuka",
     },
-    "2023-07-31": {
-      date: new Date("2023-07-31").toLocaleString("id-ID", {
+    "2023-08-15": {
+      date: new Date("2023-08-15").toLocaleString("id-ID", {
         weekday: "long",
         day: "numeric",
         month: "long",
