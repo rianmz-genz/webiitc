@@ -38,7 +38,7 @@ const DashboardUserTemplate = ({ title, children }) => {
         <nav
           className={`${
             isOpen ? "block" : "lg:block hidden"
-          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start z-20`}
+          } w-full lg:max-w-[250px] bg-white py-12 px-7 h-full fixed flex flex-col items-center justify-start z-20`}
         >
           <Image
             onClick={() => router.push("/")}
