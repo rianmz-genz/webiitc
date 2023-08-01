@@ -35,12 +35,12 @@ const Login = () => {
     LoginApi({ email, password }).then((res) => {
       setIsHitApi(false);
       console.log(res);
-      const { access_token, email_verified_at } = res.data;
       if (res.status == 1) {
+        const { access_token, email_verified_at } = res.data;
         if (email_verified_at == null) {
           setIsWrong(true);
           setMessage("Harap verfikasi email terlebih dahulu");
-        } else if(email_verified_at != null) {
+        } else if (email_verified_at != null) {
           setIsSucces(true);
           setMessage(res.message);
           Cookies.set("token", access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
