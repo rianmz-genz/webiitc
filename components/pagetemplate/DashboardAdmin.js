@@ -9,6 +9,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FiX } from "react-icons/fi";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { FaUserCircle } from "react-icons/fa";
 const DashboardAdminTemplate = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -33,7 +34,7 @@ const DashboardAdminTemplate = ({ title, children }) => {
         <nav
           className={`${
             isOpen ? "block" : "lg:block hidden"
-          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start z-40`}
+          } w-full lg:max-w-[250px] bg-white py-12 px-7 fixed flex flex-col items-center justify-start z-20`}
         >
           <Image
             className="w-24"
@@ -50,6 +51,11 @@ const DashboardAdminTemplate = ({ title, children }) => {
                 className="flex items-center gap-3"
               >
                 <LuLayoutDashboard /> <p>Dashboard</p>
+              </Link>
+            </li>
+            <li className="w-full text-slate-600">
+              <Link href={"/admin/users"} className="flex items-center gap-3">
+                <FaUserCircle /> <p>Users</p>
               </Link>
             </li>
             <li className="w-full text-slate-600">
