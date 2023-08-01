@@ -303,7 +303,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                       </p>
                     </div>
                     <Button
-                      disabled
+                      
                       onClick={handleChoose}
                       size={"lg"}
                       additionals={
