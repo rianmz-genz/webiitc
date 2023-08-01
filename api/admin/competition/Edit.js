@@ -18,7 +18,7 @@ const EditCompetitionApi = async ({
 }) => {
   try {
     const formData = new FormData();
-    formData.append("cover", cover);
+    cover && formData.append("cover", cover);
     formData.append("name", name);
     formData.append("isIndividu", isIndividu);
     formData.append("categories", JSON.stringify(selectedCategories));
