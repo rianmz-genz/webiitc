@@ -13,7 +13,7 @@ const FaqSection = () => {
     {
       q: "Bagaimana cara pendaftaran lomba IITC?",
       a: (
-        <>
+        <div>
           Kamu bisa mendaftar secara online dengan membuat akun pada button
           DAFTAR dipojok kanan atas. lebih lengkapnya ada di{" "}
           <Link
@@ -22,7 +22,7 @@ const FaqSection = () => {
           >
             guidebook pendaftaran
           </Link>
-        </>
+        </div>
       ),
     },
     {
@@ -35,7 +35,7 @@ const FaqSection = () => {
         <div className="flex flex-col">
           Kamu bisa menghubungi kami secara online melalui instagram atau whatsapp kami 
            di{" "}
-           <div className="flex gap-3 mt-2">
+           <div className="flex gap-3 flex-wrap mt-2">
 
           
           <a href="https://www.instagram.com/iitc_intermedia/" className="font-semibold flex items-center gap-2 text-blue-500">
