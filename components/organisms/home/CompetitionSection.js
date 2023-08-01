@@ -4,13 +4,20 @@ import Text from "@/components/atoms/Text";
 import Container from "@/components/molecules/Container";
 import ParagraphSection from "@/components/molecules/ParagraphSection";
 import React from "react";
+import { motion } from "framer-motion";
+
 const CompetitionSection = ({
   setIsCompetitionDetails,
   setCompetitionName,
   competitions,
 }) => {
+  const variants = {
+    hidden: { opacity: 0, y: 20},
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="w-full ">
+    <div className="w-full min-h-screen">
       <Container>
         <section id="lomba" className="py-12 flex justify-center">
           <div className="w-11/12 mx-auto">
@@ -19,20 +26,27 @@ const CompetitionSection = ({
               title={"Pilih lomba yang relevant dengan kamu"}
               description={"pilih lomba yang sesuai dengan kemampuan kamu ya.."}
             />
-            <ol className="rounded-xl w-full mt-12 grid md:grid-cols-3 lg:grid-cols-5 gap-3">
+            <motion.ol
+              className="rounded-xl w-full mt-12 grid md:grid-cols-3 lg:grid-cols-5 gap-3"
+              initial="hidden"
+              animate="visible"
+              variants={variants}
+              transition={{ staggerChildren: 0.2 }}
+            >
               {competitions?.map((competition, index) => (
-                <CompetitonCard
-                  key={index}
-                  setCompetitionName={setCompetitionName}
-                  setIsCompetitionDetail={setIsCompetitionDetails}
-                  category={competition?.categories}
-                  imgSrc={competition?.cover}
-                  maxMembers={competition?.maxMembers}
-                  title={competition?.name}
-                  slug={competition?.slug}
-                />
+                <motion.div key={index}  whileInView={{opacity:[0,1],y:[20,0]}} transition={{type:"spring",duration:[.8],delay:[`0.${index}`]}}>
+                  <CompetitonCard
+                    setCompetitionName={setCompetitionName}
+                    setIsCompetitionDetail={setIsCompetitionDetails}
+                    category={competition?.categories}
+                    imgSrc={competition?.cover}
+                    maxMembers={competition?.maxMembers}
+                    title={competition?.name}
+                    slug={competition?.slug}
+                  />
+                </motion.div>
               ))}
-            </ol>
+            </motion.ol>
           </div>
         </section>
       </Container>

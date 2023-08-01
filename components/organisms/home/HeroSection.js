@@ -17,10 +17,9 @@ const HeroSection = () => {
         <Navbar />
 
         <motion.div
-     
-          initial={{opacity:0}}
-          animate={{opacity:1}}
-          transition={{duration:1}}
+            initial={{opacity:0, y: 20}} // added y here
+            animate={{opacity:1, y: 0}} // and here
+          transition={{duration:.8,type:"spring",stiffness:"100",bounce:0.3}}
         className="font-black text-slate-800 z-10 text-2xl md:text-3xl lg:text-4xl leading-10 md:w-8/12 lg:w-6/12 text-center -mt-10">
           <span className="text-transparent bg-gradient-to-tr from-orange-500 to bg-yellow-300 bg-clip-text">
             Buktikan

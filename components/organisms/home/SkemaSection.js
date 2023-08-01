@@ -1,15 +1,23 @@
-import Button from "@/components/atoms/Button";
 import SkemaCard from "@/components/atoms/SkemaCard";
-import Text from "@/components/atoms/Text";
 import Container from "@/components/molecules/Container";
 import ParagraphSection from "@/components/molecules/ParagraphSection";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { motion, useAnimation } from "framer-motion";
+import React, { useEffect } from "react";
 
 const SkemaSection = () => {
+ 
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start("visible");
+  }, [controls]);
+
+  
   return (
-    <div className="">
+    <motion.div
+      className="min-h-screen w-full "
+      
+    >
       <Container>
         <section id="skema" className="py-12 flex justify-center">
           <div className="w-11/12 mx-auto">
@@ -22,8 +30,17 @@ const SkemaSection = () => {
                 }
               />
             </div>
-            <ol className="bg-silver/40 p-2 rounded-xl w-full mt-12 grid gap-3 md:gap-0 md:grid-cols-4">
-              <SkemaCard
+            <motion.ol
+              className="bg-silver/40 p-2 rounded-xl w-full mt-12 grid gap-3 md:gap-0 md:grid-cols-4"
+  
+            >
+           
+              <motion.div  whileInView={{opacity:[0,1],y:[20,0],}}
+              transition={{duration:.9,delay:0.1,type:"spring",bounce:.4,stiffness:"100"}}
+
+
+              >
+                <SkemaCard
                 buttonHref={
                   "https://scribehow.com/shared/Step-by-step_guide_Signing_up_and_joining_a_competition_on_IITC__rrJ9DfysTWe-A0Se9oppIA"
                 }
@@ -36,8 +53,12 @@ const SkemaSection = () => {
                 modalDescription={
                   "Khusus untuk pendaftaran, info lengkap bisa kalian cek lewat tombol dibawah."
                 }
-              />
-              <SkemaCard
+              /></motion.div>
+              <motion.div whileInView={{opacity:[0,1],y:[20,0],}}
+              transition={{duration:.9,delay:0.2,type:"spring",bounce:.4,stiffness:"100"}}
+              
+              >
+                <SkemaCard
                 imgUrl={"/images/guardicon.png"}
                 title={"Verifikasi Data"}
                 description={"Data diri yang kamu masukan harus valid ya!."}
@@ -58,8 +79,12 @@ const SkemaSection = () => {
                     </ol>
                   </div>
                 }
-              />
-              <SkemaCard
+              /></motion.div>
+              <motion.div  whileInView={{opacity:[0,1],y:[20,0],}}
+              transition={{duration:.9,delay:0.3,type:"spring",bounce:.4,stiffness:"100"}}
+              
+              >
+                <SkemaCard
                 imgUrl={"/images/calendaricon.png"}
                 title={"Pengerjaan & Upload"}
                 description={
@@ -81,8 +106,12 @@ const SkemaSection = () => {
                     </p>
                   </div>
                 }
-              />
-              <SkemaCard
+              /></motion.div>
+              <motion.div  whileInView={{opacity:[0,1],y:[20,0],}}
+              transition={{duration:.9,delay:0.4,type:"spring",bounce:.4,stiffness:"100"}}
+              
+              >
+                <SkemaCard
                 imgUrl={"/images/checklisticon.png"}
                 title={"Pengumuman"}
                 description={"Yang paling ditunggu nih, pengumuman pemenang."}
@@ -98,12 +127,16 @@ const SkemaSection = () => {
                     </span>
                   </p>
                 }
-              />
-            </ol>
+              /></motion.div>
+           
+           
+              
+             
+            </motion.ol>
           </div>
         </section>
       </Container>
-    </div>
+    </motion.div>
   );
 };
 
