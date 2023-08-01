@@ -146,7 +146,7 @@ export default function Users() {
         </Button>
       </PopUp>
       <PopUp
-        className={"overflow-y-scroll scrollbar"}
+        className={"overflow-y-scroll scrollbar h-5/6"}
         isModal={isOpenDetail}
         onClose={() => setIsOpenDetail()}
       >
