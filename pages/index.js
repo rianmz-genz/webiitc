@@ -14,6 +14,7 @@ import { useState } from "react";
 import axios from "axios";
 import GetCompetitionsApi from "@/api/homepage/GetCompetitionsApi";
 import Timeline from "@/components/organisms/home/Timeline";
+import SupportSection from "@/components/organisms/home/SupportSection";
 
 export async function getServerSideProps() {
   try {
@@ -57,6 +58,7 @@ export default function Home({ competitions }) {
         <meta name="title" content="IITC" />
       </Head>
       <HeroSection />
+      <SupportSection />
       <AboutSection />
       <SkemaSection />
       <CompetitionSection
