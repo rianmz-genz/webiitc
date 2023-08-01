@@ -388,7 +388,7 @@ export const PopUp = ({ onClose, isModal, children, className }) => {
       }  transition-all duration-300 bg-dark/10 backdrop-blur-md w-full top-0 left-0 fixed h-screen z-30 flex justify-center items-center`}
     >
       <div
-        className={`${className} h-5/6 w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative`}
+        className={`${className}  w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative`}
       >
         <button
           onClick={onClose}
