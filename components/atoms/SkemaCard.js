@@ -4,6 +4,7 @@ import Link from "next/link";
 import Button from "./Button";
 import Image from "next/image";
 import ModalSkema from "../organisms/home/ModalSkema";
+import { motion } from "framer-motion";
 
 const SkemaCard = ({
   imgUrl,
@@ -22,8 +23,19 @@ const SkemaCard = ({
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+
+  const cardVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } },
+    exit: { opacity: 0, transition: { duration: 0.5 } },
+  };
   return (
-    <li className="w-full hover:bg-white border border-slate-300 md:border-none hover:shadow-2xl transition-all duration-700 p-4 rounded-xl flex flex-col justify-between">
+    <motion.li
+    variants={cardVariants}
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    className="w-full hover:bg-white border border-slate-300 md:border-none hover:shadow-2xl transition-all duration-700 p-4 rounded-xl flex flex-col justify-between">
       <Image
         className="w-3/12 ml-3 drop-shadow-2xl"
         src={imgUrl}
@@ -77,7 +89,7 @@ const SkemaCard = ({
           </div>
         </ModalSkema>
       </div>
-    </li>
+    </motion.li>
   );
 };
 
