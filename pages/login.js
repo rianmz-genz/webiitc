@@ -50,6 +50,7 @@ const Login = () => {
       } else if (res.status == 0) {
         setIsWrong(true);
         setMessage(res.message);
+        console.log(res.message);
       }
     });
   };
