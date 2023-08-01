@@ -70,7 +70,7 @@ const FaqSection = () => {
           <Text size={"title"} additionals={"text-xl md:text-3xl lg:text-4xl"}>
             Frequently Asked Questions?
           </Text>
-          <motion.ul
+          <motion.div
             className="w-11/12 text-xs md:text-md md:w-8/12 flex flex-col space-y-4 my-10"
             initial="hidden"
             animate="visible"
@@ -82,7 +82,7 @@ const FaqSection = () => {
                 <FaqCard question={q} answer={a} />
               </motion.div>
             ))}
-          </motion.ul>
+          </motion.div>
         </section>
       </Container>
     </div>
