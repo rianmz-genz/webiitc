@@ -57,6 +57,7 @@ const CompetitonCard = ({
             <Text size={"small"}>{maxMembers} MAX</Text>
           </div>
           <Button
+            additionals={"w-28 py-2"}
             onClick={isAdmin ? handleCLickButton : handleViewDetailCompetition}
             size={"sm"}
           >
