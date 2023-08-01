@@ -5,6 +5,8 @@ import Link from "next/link";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { AiFillInstagram } from "react-icons/ai";
+import { RiWhatsappFill } from "react-icons/ri";
 
 const FaqSection = () => {
   const faqs = [
@@ -30,11 +32,25 @@ const FaqSection = () => {
     {
       q: "Adakah kontak yang dapat dihubungi?",
       a: (
-        <>
-          Kamu bisa menghubungi kami secara online melalui instagram kami 
+        <div className="flex flex-col">
+          Kamu bisa menghubungi kami secara online melalui instagram atau whatsapp kami 
            di{" "}
-          <a href="https://www.instagram.com/iitc_intermedia/" className="font-semibold text-blue-500">iitc_intermedia</a>
-        </>
+           <div className="flex gap-3 mt-2">
+
+          
+          <a href="https://www.instagram.com/iitc_intermedia/" className="font-semibold flex items-center gap-2 text-blue-500">
+           <AiFillInstagram />
+            iitc_intermedia</a>
+ 
+        
+          <a href="https://wa.me/628985485275" className="font-semibold flex items-center gap-2 text-blue-500">
+           <RiWhatsappFill />
+            
+            +62-898-548-5275</a>
+         
+           </div>
+
+        </div>
       ),
     },
   ];
