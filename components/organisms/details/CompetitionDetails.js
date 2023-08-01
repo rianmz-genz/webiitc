@@ -303,7 +303,6 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                       </p>
                     </div>
                     <Button
-                      
                       onClick={handleChoose}
                       size={"lg"}
                       additionals={
@@ -381,14 +380,16 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
 
 export default CompetitionDetails;
 
-const PopUp = ({ onClose, isModal, children }) => {
+export const PopUp = ({ onClose, isModal, children, className }) => {
   return (
     <div
       className={`${
         isModal ? "visible opacity-100" : "invisible opacity-0"
-      } transition-all duration-300 bg-dark/10 backdrop-blur-md w-full fixed h-screen z-20 flex justify-center items-center`}
+      }  transition-all duration-300 bg-dark/10 backdrop-blur-md w-full top-0 left-0 fixed h-screen z-30 flex justify-center items-center`}
     >
-      <div className="w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative">
+      <div
+        className={`${className} h-5/6 w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative`}
+      >
         <button
           onClick={onClose}
           className="bg-red/10 text-red rounded-full p-1 absolute top-3 right-3"
