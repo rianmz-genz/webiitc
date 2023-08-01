@@ -307,7 +307,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                       onClick={handleChoose}
                       size={"lg"}
                       additionals={
-                        "lg:w-auto w-full  md:py-5 lg:py-0 text-center mt-4 cursor-not-allowed"
+                        "lg:w-auto w-full  md:py-5 lg:py-0 text-center mt-4 "
                       }
                     >
                       Ikuti Lomba
