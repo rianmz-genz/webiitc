@@ -17,6 +17,8 @@ import {
 import { getTwoChar } from "./team";
 import { FiCheckCircle, FiCopy } from "react-icons/fi";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { BiCheckCircle } from "react-icons/bi";
+import { IoCopyOutline } from "react-icons/io5";
 
 const Payment = () => {
   const [isSucces, setIsSucces] = useState(false);
@@ -111,7 +113,7 @@ const Payment = () => {
     <>
       <div
         style={{ backgroundImage: `url('${competition.cover}')` }}
-        className="h-48 bg-cover  relative bg-center bg-no-repeat"
+        className="h-48 bg-cover p-3 relative bg-center bg-no-repeat"
       >
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"></div>
         <div className="w-11/12 max-w-[500px] left-1/2 -translate-x-1/2 absolute bottom-3">
@@ -192,19 +194,25 @@ const Payment = () => {
                 alt={item.value}
                 width={1080}
                 height={1080}
-                className="w-28"
+                className="w-20"
               />
-              <div className="flex items-center space-x-1">
-                <div className="mr-3">
-                  <Text>{copied ? "Disalin" : `${item.value}`}</Text>
+              <div className="flex items-center w-full justify-between space-x-1">
+                <div className="mr-3 text-end w-full">
+                  <Text additionals={"text-green-500"}>
+                    {copied ? "Disalin" : `${item.value}`}
+                  </Text>
                   <Text size={"small"}>{!copied && `${item.an}`}</Text>
                 </div>
                 <CopyToClipboard
                   text={item.value}
                   onCopy={() => setCopied(true)}
                 >
-                  <div className="bg-blue-400/20 text-blue-400 p-2 text-xl rounded hover:cursor-pointer">
-                    {copied ? <FiCheckCircle /> : <FiCopy />}
+                  <div className="hover:cursor-pointer">
+                    {copied ? (
+                      <BiCheckCircle className="text-xl text-green-500" />
+                    ) : (
+                      <IoCopyOutline className="text-xl" />
+                    )}
                   </div>
                 </CopyToClipboard>
               </div>
@@ -213,7 +221,7 @@ const Payment = () => {
         </ul>
         <FileInput
           placeholder="Upload bukti pembayaran"
-          className="bg-slate-100"
+          className="bg-white rounded-xl border border-oren text-center "
           image={image}
           setImage={setImage}
         />

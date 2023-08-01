@@ -140,7 +140,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         {/* choose */}
         <PopUp isModal={isChoose} onClose={() => setIsChoose(false)}>
           <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
-            {isIndividu ? "Mendaftar Lomba" : "Buat atau bergabung dengan tim"}
+            {isIndividu ?  (<div className="text-center">Mendaftar lomba</div>) : (<div className="text-center">Buat atau bergabung dengan tim</div>)}
           </Text>
           <div className="bg-slate-200 rounded-md p-6 my-6">
             {isIndividu ? (
@@ -215,9 +215,9 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         </PopUp>
         {/* create */}
         <PopUp isModal={isCreate} onClose={() => setIsCreate(false)}>
-          <div className="absolute top-4 left-4 flex items-center space-x-2">
+          <div className="absolute top-4 left-4 flex gap-2 items-center space-x-2">
             <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-200 text-slate-800" />
-            <Text>Buat tim baru</Text>
+            <Text additionals={'font-medium'}>Buat tim baru</Text>
           </div>
           <form onSubmit={onCreateTeam}>
             <div className="w-full my-3">
@@ -386,9 +386,9 @@ const PopUp = ({ onClose, isModal, children }) => {
     <div
       className={`${
         isModal ? "visible opacity-100" : "invisible opacity-0"
-      } transition-all duration-300 bg-dark/10 backdrop-blur-md w-full fixed h-screen z-20 flex justify-center items-center`}
+      } transition-all duration-300 bg-dark/10 backdrop-blur-md w-full p-5 fixed h-screen z-20 flex justify-center items-center`}
     >
-      <div className="w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative">
+      <div className="w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col  justify-start items-center relative">
         <button
           onClick={onClose}
           className="bg-red/10 text-red rounded-full p-1 absolute top-3 right-3"

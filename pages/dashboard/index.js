@@ -73,7 +73,7 @@ const DashboardUser = () => {
             <p className="text-blue-600 text-sm">Lomba</p>
           </ul>
           <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
-            <h1 className="text-2xl fomt-semibold">Lomba Yang Diikuti</h1>
+            <h1 className="text-2xl font-semibold ">Lomba Yang Diikuti</h1>
             {teams?.length > 0 && (
               <Link href={"/"}>
                 <Button>Daftar lomba</Button>
@@ -109,7 +109,7 @@ export default DashboardUser;
 
 const TeamCard = (props) => {
   return (
-    <li className="w-11/12 mx-auto bg-white shadow shadow-black/5 rounded-md lg:px-8 p-4 lg:py-4 flex lg:flex-row flex-col justify-between items-start">
+    <li className="w-11/12 mx-auto bg-white shadow shadow-black/5 rounded-lg lg:px-8 p-4 lg:py-4 flex lg:flex-row flex-col justify-between items-start">
       <div className="max-lg:w-full relative">
         {props.avatar ? (
           <img
@@ -117,7 +117,7 @@ const TeamCard = (props) => {
             alt="Competition Image"
             width={1080}
             height={1080}
-            className="lg:w-28 w-full h-28 object-cover lg:h-28 rounded-md"
+            className="lg:w-28 w-full h-28 object-cover lg:h-28 rounded-lg"
           />
         ) : (
           <div className="lg:w-28 w-full h-28 rounded-md bg-slate-100 flex justify-center items-center">
@@ -146,24 +146,31 @@ const TeamCard = (props) => {
       </div>
 
       <div className="lg:mx-4 lg:my-0 my-3 flex-1 w-full">
-        <Text color={"text-black"}>{props.competitionName}</Text>
-
-        <Text color={"text-black"} size={"cardtitle"} weight={"semi"}>
-          {props.teamName}
-        </Text>
-
-        <div className="flex space-x-2 items-center ">
-          <BsFillPeopleFill className="text-dark" />
-          <Text>
-            {props.currentMembers + 1}/{props.maxMembers}
+        {/* <Text additionals={"text-2xl font-bold capitalize"}>
+        </Text> */}
+        <p className="font-bold text-xl uppercase tracking-wider">
+          {props.competitionName}
+        </p>
+        <div className="flex gap-3 items-center justify-start">
+          <Text color={"text-black"} size={"sm"}>
+            {props.teamName}
           </Text>
+
+          <div className="flex space-x-2 items-center text-sm px-3 py-1">
+            <BsFillPeopleFill className="text-dark" />
+            <Text>
+              {props.currentMembers + 1}/{props.maxMembers}
+            </Text>
+          </div>
         </div>
-        <Link
-          href={`/team?i=${props.id}&sl=${props.slug}`}
-          className="underline"
-        >
-          Detail
-        </Link>
+        <div className="mt-3 text-oren font-bold">
+          <Link
+            href={`/team?i=${props.id}&sl=${props.slug}`}
+            className="underline"
+          >
+            Lihat Detail
+          </Link>
+        </div>
       </div>
       {props.isSubmit ? (
         <div className="px-4 py-2 bg-green-400/20 rounded-full max-lg:hidden">
@@ -185,8 +192,8 @@ const TeamCard = (props) => {
 const EmptyTeam = () => {
   return (
     <DashboardCard>
-      <div className="w-full flex justify-center items-center mt-36 flex-col">
-        <Text size={"title"} color={"text-black"}>
+      <div className="w-full flex justify-center items-center  flex-col py-20">
+        <Text size={"title"} color={"text-black"} additionals={"text-center"}>
           Tidak ada lomba yang diikuti
         </Text>
         <p className="text-md mt-4 mb-6">
