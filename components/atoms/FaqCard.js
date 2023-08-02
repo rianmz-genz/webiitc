@@ -18,7 +18,7 @@ const FaqCard = ({ question, answer }) => {
           <FiPlus
             className={`${
               isOpened ? "rotate-45" : "rotate-0"
-            } text-lg tex-dark transition-all duration-300`}
+            } text-lg tex-dark transition-all duration-300 cursor-default lg:cursor-pointer`}
           />
         </button>
       </div>
