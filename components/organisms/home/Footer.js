@@ -88,15 +88,6 @@ const Footer = () => {
               FAQ
             </a>
           </li>
-
-          <li>
-            <a
-              className="text-slate-300 transition hover:text-slate-300/75"
-              href="/login"
-            >
-              Join
-            </a>
-          </li>
         </ul>
 
         <ul className="mt-12 flex justify-center items-center gap-6 md:gap-8">
