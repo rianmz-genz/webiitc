@@ -44,7 +44,7 @@ function ModalSkema({ isOpen, onClose, children }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="text-gray-400  hover:text-gray-500 focus:outline-none "
+                className="text-gray-400 cursor-default lg:cursor-pointer  hover:text-gray-500 focus:outline-none "
               >
                 <AiOutlineClose className="h-6 w-6" aria-hidden="true" />
               </button>

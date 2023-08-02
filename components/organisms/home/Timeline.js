@@ -40,13 +40,13 @@ const Timeline = () => {
       <div className="flex items-center lg:justify-end justify-between lg:gap-3 w-full">
         <button
           onClick={scrollLeft}
-          className="lg:w-12 w-8 h-8 text-sm md:text-md lg:h-12 md:h-8  bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
+          className="cursor-default lg:cursor-pointer lg:w-12 w-8 h-8 text-sm md:text-md lg:h-12 md:h-8  bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
         >
           <AiOutlineArrowLeft size={20} />
         </button>
         <button
           onClick={scrollRight}
-          className="lg:w-12 w-8 h-8 text-sm md:text-md lg:h-12 md:h-8  bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
+          className="cursor-default lg:cursor-pointer lg:w-12 w-8 h-8 text-sm md:text-md lg:h-12 md:h-8  bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
         >
           <AiOutlineArrowRight size={20} />
         </button>
