@@ -61,7 +61,7 @@ const AuthPage = ({ children, title, onSubmit, description }) => {
                 Tunjukan skill kamu sekarang disini.{" "}
               </p>
               <p className="text-white">
-                Manfestasikan semangatmu melalui berbagai acara dan rebutlah
+                Manifestasikan semangatmu melalui berbagai acara dan rebutlah
                 gelar juara.
               </p>
             </div>
