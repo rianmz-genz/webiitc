@@ -63,7 +63,7 @@ const FaqSection = () => {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div className=" w-full">
       <Container>
         <section
           id="faq"
