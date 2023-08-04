@@ -347,7 +347,7 @@ const TeamPage = () => {
       >
         <div className="w-full flex flex-col items-center">
           <Image
-            src={"/images/Logo iitcom.png"}
+            src={"/images/LOGO/LOGOFIX.svg"}
             alt="logo iitc"
             width={1080}
             height={1080}
@@ -488,6 +488,7 @@ const TeamPage = () => {
                 </div>
                 {isCsr && userMail == team?.leader?.email && (
                   <Button
+                    disabled={team?.isActive == "VALID"}
                     onClick={() => handleOpenSubmit()}
                     isSquare
                     color={"oren"}
