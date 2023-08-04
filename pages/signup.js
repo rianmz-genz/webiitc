@@ -60,7 +60,7 @@ const Signup = () => {
       password,
       phone: parseInt(phone),
     }).then((res) => {
-      console.log(res)
+      console.log(res);
       if (res.status == 1) {
         const { verifyEmail } = res.data;
         const { id, hash, signature, expires } = verifyEmail;
@@ -77,7 +77,7 @@ const Signup = () => {
             setEmail("");
           }
         });
-      } else if(res.status == 0) {
+      } else if (res.status == 0) {
         setIsUsed(true);
         setMessage("Email telah digunakan");
         setIsHitApi(false);
@@ -104,7 +104,7 @@ const Signup = () => {
         <p className="text-sm">{Message}</p>
       </Alert>
       <AuthPage
-        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        description={"Daftar IIT Competition dan jadilah juara sejati!"}
         onSubmit={handleSubmit}
         title={"Daftar IITC"}
       >
