@@ -65,7 +65,7 @@ const Login = () => {
         <p>{Message}</p>
       </Alert>
       <AuthPage
-        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        description={"Daftar IIT Competition dan jadilah juara sejati!"}
         onSubmit={handleLogin}
         title={"Daftar IITC"}
       >
