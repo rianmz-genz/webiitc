@@ -27,11 +27,11 @@ const FileInput = ({
         } ${className}  rounded-md cursor-pointer`}
       >
         {image ? (
-          <Image
+          <img
             className="w-full rounded-xl"
             width={1920}
             height={1080}
-            src={URL.createObjectURL(image)}
+            src={typeof image == "string" ? image : URL.createObjectURL(image)}
             alt={`gambar -${image?.target?.value}`}
           />
         ) : (
