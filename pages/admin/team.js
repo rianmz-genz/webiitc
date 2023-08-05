@@ -21,9 +21,9 @@ const TeamDetailAdmin = () => {
   const id = router.query.i;
   useEffect(() => {
     GetDetailTeamAdminApi({ id }).then((res) => {
-      //console.log(res);
+      console.log(res);
       setTeam(res.data?.team);
-      if (res.data?.team?.isActive == "VALID") {
+      if (res.data?.team?.isActive == "PENDING") {
         setImage(res?.data?.team?.transferReceipt);
         setDone(true);
       }
@@ -60,8 +60,8 @@ const TeamDetailAdmin = () => {
           <li>{team?.name}</li>
         </ul>
 
-        <div className="flex items-center space-x-3 relative">
-          {StatusPayment(team?.isActive)}
+        {StatusPayment(team?.isActive)}
+        <div className="flex items-center space-x-3 relative mt-3">
           {team?.avatar ? (
             <img
               src={team?.avatar}
@@ -74,23 +74,31 @@ const TeamDetailAdmin = () => {
             <div className="w-24 h-24 rounded-full bg-slate-200 animate-pulse"></div>
           )}
           <div>
-            <h1 className="text-xl text-black font-bold">{team?.name}</h1>
-            <p>{team?.leader?.name}</p>
+            <h1 className="text-xl text-black font-bold">
+              {team?.name ?? team.competition?.name}
+            </h1>
+            <p>{team?.leader?.name ?? team.leaderName}</p>
           </div>
         </div>
 
         <div className="mt-8">
           <p className="py-3 border-y text-center">Bukti Pembayaran</p>
-          <img
-            src={team?.transferReceipt}
-            alt="bukti pembayaran"
-            width={1080}
-            height={1080}
-            className="w-full rounded-md mt-3"
-          />
+          {team?.transferReceipt ? (
+            <img
+              src={team?.transferReceipt}
+              alt="bukti pembayaran"
+              width={1080}
+              height={1080}
+              className="w-full rounded-md mt-3"
+            />
+          ) : (
+            <div className="w-full rounded-md bg-slate-200 mt-3 flex justify-center items-center h-96">
+              <p>Belum bayar</p>
+            </div>
+          )}
         </div>
 
-        {!done && (
+        {done && (
           <>
             <button
               type="button"
