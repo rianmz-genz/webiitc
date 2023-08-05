@@ -73,7 +73,7 @@ const EditCompetition = ({ categories }) => {
   const [message, setMessage] = useState("");
   useEffect(() => {
     GetDetailCompetitionsApi({ slug: router?.query?.cmpt }).then((res) => {
-      console.log(res);
+      // console.log(res);
       const compt = res?.data.competition;
       setDeadline(compt.deadlineDate);
       setName(compt.name);

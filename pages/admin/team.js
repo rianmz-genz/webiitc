@@ -21,7 +21,7 @@ const TeamDetailAdmin = () => {
   const id = router.query.i;
   useEffect(() => {
     GetDetailTeamAdminApi({ id }).then((res) => {
-      console.log(res);
+      // console.log(res);
       setTeam(res.data?.team);
       if (res.data?.team?.isActive == "PENDING") {
         setImage(res?.data?.team?.transferReceipt);
