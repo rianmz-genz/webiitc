@@ -18,8 +18,8 @@ const DashboardAdmin = () => {
   }, []);
   const getTeams = () => {
     GetAllTeamApi().then((res) => {
-      //console.log(res);
-      setTeams(res.data.teams.reverse());
+      console.log(res);
+      setTeams(res.data.teams?.reverse());
       setIsHitApi(false);
     });
     // .catch((err) => //console.log(err));
@@ -49,7 +49,7 @@ const DashboardAdmin = () => {
               <Link href={`/admin/team?i=${team.id}`} key={idx}>
                 <TeamCard
                   avatar={team.avatar}
-                  name={team.name}
+                  name={team.name ?? team.leaderName}
                   title={team.title}
                   isActive={team.isActive}
                   code={team.code}
@@ -83,7 +83,7 @@ const TeamCard = ({ avatar, name, title, isActive, code }) => {
         {StatusPayment(isActive)}
         <p className="text-sm line-clamp-2 mt-3">{name}</p>
         <p className="text-lg line-clamp-3">{title}</p>
-        <p className="text-sm">#{code}</p>
+        {code && <p className="text-sm">#{code}</p>}
       </div>
     </li>
   );
