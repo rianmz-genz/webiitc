@@ -637,7 +637,7 @@ export const StatusPayment = (status) => {
   switch (status) {
     case null:
       return (
-        <div className=" bg-red/20 px-4 py-2 rounded-full">
+        <div className=" bg-red/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-red"} size={"small"}>
             Belum Bayar
           </Text>
@@ -645,7 +645,7 @@ export const StatusPayment = (status) => {
       );
     case "INVALID":
       return (
-        <div className=" bg-red/20 px-4 py-2 rounded-full">
+        <div className=" bg-red/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-red"} size={"small"}>
             Gagal Bayar
           </Text>
@@ -653,7 +653,7 @@ export const StatusPayment = (status) => {
       );
     case "PENDING":
       return (
-        <div className=" bg-yellow-400/20 px-4 py-2 rounded-full">
+        <div className=" bg-yellow-400/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-yellow-400"} size={"small"}>
             Di Proses
           </Text>
