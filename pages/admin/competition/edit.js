@@ -73,18 +73,18 @@ const EditCompetition = ({ categories }) => {
   const [message, setMessage] = useState("");
   useEffect(() => {
     GetDetailCompetitionsApi({ slug: router?.query?.cmpt }).then((res) => {
-      //console.log(res);
+      console.log(res);
       const compt = res?.data.competition;
-      setDeadline(`${getPlusDate({ plusDate: parseInt(compt.deadline) })}`);
+      setDeadline(compt.deadlineDate);
       setName(compt.name);
-      setResCategories(compt.categories);
+      setResCategories(compt.categories.map((item) => item.name));
       setHtm(compt.competitionPrice);
       setMaxMembers(`${compt.maxMembers}`);
       setIsIndividu(compt.maxMembers == 1);
       setStacks(compt.techStacks);
       setDescription(compt.description);
       setGuidebook(compt.guideBookLink);
-      setResCover(compt.cover);
+      setCover(compt.cover);
       setJuknis(compt.criteria);
     });
   }, [router.isReady]);
@@ -101,10 +101,10 @@ const EditCompetition = ({ categories }) => {
   };
   const handleEditCompetition = () => {
     setIsHitApi(true);
-
+    const coverSend = typeof cover == 'string' ? null : cover
     EditCompetitionApi({
       slug: router.query.cmpt,
-      cover,
+      cover: coverSend,
       name,
       isIndividu: getBinaryByBoolean({ isIndividu }),
       selectedCategories,
@@ -208,6 +208,7 @@ const EditCompetition = ({ categories }) => {
                   <li key={index}>
                     <label className="flex space-x-1">
                       <input
+                        defaultChecked={resCategories.includes(category.name)}
                         type="checkbox"
                         onChange={(e) =>
                           handleAddCategory(e.target.checked, category?.id)
@@ -242,7 +243,10 @@ const EditCompetition = ({ categories }) => {
               <p>Deadline</p>
               <input
                 value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
+                onChange={(e) => {
+                  setDeadline(e.target.value);
+                  console.log(e.target.value);
+                }}
                 type="date"
                 className="w-full px-4 py-2 border rounded-md mt-1 focus:ring-0 focus:outline-none"
                 placeholder="Tanggal"
