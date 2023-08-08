@@ -421,7 +421,7 @@ const TeamPage = () => {
           </Alert>
           <ul className="flex w-11/12 mx-auto bg-white rounded-xl p-5 space-x-3 items-center">
             <li>
-              <Link href={"/dashboard"}>
+              <Link href={"/admin/teams"}>
                 <FiHome className="text-blue-400" />
               </Link>
             </li>
@@ -552,7 +552,7 @@ const TeamPage = () => {
                 </CopyToClipboard>
               </div>
 
-              <ul className="mt-8">
+              <ul className="mt-8 flex flex-col space-y-2">
                 {team?.members?.length > 0 ? (
                   team?.members?.map((item, idx) => (
                     <MemberItem
