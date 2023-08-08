@@ -27,9 +27,28 @@ import DeleteTeamApi from "@/api/team/Delete";
 import KickApi from "@/api/team/Kick";
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import Link from "next/link";
+import StackCard from "@/components/atoms/StackCard";
+import LeftRightText from "@/components/molecules/LeftRightText";
 const userMail = Cookies.get("email");
 //console.log(userMail);
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.token;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
+  // Lanjutkan eksekusi jika token tersedia
+  // ...
+
+  return {
+    props: {},
+  };
+}
 const TeamPage = () => {
   const router = useRouter();
   const [isPaidOf, setIsPaidOf] = useState(false);
@@ -328,7 +347,7 @@ const TeamPage = () => {
       >
         <div className="w-full flex flex-col items-center">
           <Image
-            src={"/images/Logo iitcom.png"}
+            src={"/images/LOGO/LOGOFIX.svg"}
             alt="logo iitc"
             width={1080}
             height={1080}
@@ -395,7 +414,7 @@ const TeamPage = () => {
             <AiFillWarning className="text-red text-xl" />
             <p>{Message}</p>
           </Alert>
-          <ul className="flex w-11/12 mx-auto space-x-3 items-center">
+          <ul className="flex w-11/12 mx-auto bg-white rounded-xl p-5 space-x-3 items-center">
             <li>
               <Link href={"/dashboard"}>
                 <FiHome className="text-blue-400" />
@@ -406,65 +425,74 @@ const TeamPage = () => {
             <li className="text-black/70">&gt;</li>
             <li className="text-oren">{team.name ? team.name : email}</li>
           </ul>
+
           {isHitCompetition ? (
             <div className="w-11/12 mx-auto h-96 rounded-md animate-pulse bg-slate-200"></div>
           ) : (
-            <div className="flex gap-6 w-11/12 border-b pb-8 mx-auto items-start justify-between relative md:flex-row flex-col">
-              <img
-                src={competition?.cover}
-                width={1080}
-                height={1080}
-                alt="Gambar Lomba"
-                className="md:w-4/12 w-full rounded-md md:sticky top-3"
-              />
-              <div className="md:w-8/12 w-full relative">
-                {StatusPayment(team.isActive)}
-                <div>
-                  <p className="text-sm text-black/60">Lomba yang diikuti</p>
-                  <Text color={"text-black font-bold"} size={"title"}>
-                    {competition?.name}
-                  </Text>
+            <div className="flex gap-6 w-11/12 rounded-xl p-5 bg-white border-b  mx-auto items-start justify-between relative md:flex-row flex-col">
+              <div className="flex h-full md:w-6/12 w-full  md:items-start ">
+                <img
+                  src={competition?.cover}
+                  width={1080}
+                  height={1080}
+                  alt="Gambar Lomba"
+                  className="lg:w-11/12 lg:h-[70vh]  object-center object-cover rounded-xl md:sticky top-3"
+                />
+              </div>
+              <div className="md:w-8/12 w-full ">
+                <div className="flex items-center w-full justify-between mb-5 object-contain ">
+                  <p className="uppercase text-slate-400">category lomba</p>
+                  {StatusPayment(team.isActive)}
                 </div>
-                <div className="mt-3">
-                  <p className="text-sm text-black/60">Deskripsi</p>
-                  <Text color={"text-black font-bold"} size={"description"}>
+                <div>
+                  <h1 className="text-2xl md:text-5xl font-bold md:font-medium md:tracking-wider  uppercase text-slate-900 mb-5 md:mb-7">
+                    {competition?.name}{" "}
+                  </h1>
+                  <Text size={"description"} weight={"semi"}>
+                    Deskripsi
+                  </Text>
+
+                  <Text additionals={"mt-2 text-justify md:text-left mb-5"}>
                     {competition?.description}
                   </Text>
-                </div>
-                <div className="mt-3 flex gap-6">
-                  <div>
-                    <p className="text-sm text-black/60">Deadline</p>
-                    <Text color={"text-black font-bold"} size={"description"}>
-                      {competition?.deadline} Hari
-                    </Text>
-                  </div>
 
-                  <div>
-                    <p className="text-sm text-black/60">Harga</p>
-                    <Text color={"text-black font-bold"} size={"description"}>
-                      Rp.{" "}
-                      {competition?.competitionPrice.toLocaleString("id-ID")}
-                    </Text>
+                  <div className="p-1  w-full border-b mt-5 " />
+
+                  <div className="flex flex-col  justify-start  mt-5  w-full">
+                    <div className="flex flex-col  gap-2">
+                      <LeftRightText
+                        leftText={"Deadline"}
+                        rightText={`${competition?.deadline} Hari`}
+                      />
+                      <LeftRightText
+                        leftText={"HTM"}
+                        rightText={`Rp. ${competition?.competitionPrice.toLocaleString(
+                          "id-ID"
+                        )}`}
+                      />
+                    </div>
                   </div>
-                  <ul className="grid grid-rows-2">
-                    <p className="text-sm text-black/60">Stacks</p>
-                    {competition?.techStacks.map((item, idx) => (
-                      <Text
-                        key={idx}
-                        color={"text-black font-bold"}
-                        size={"description"}
-                      >
-                        {item}
-                      </Text>
-                    ))}
+                  <Text
+                    size={"description"}
+                    additionals={"mt-8"}
+                    weight={"semi"}
+                  >
+                    Tech Stack
+                  </Text>
+                  <ul className="flex gap-3 flex-wrap   mt-2 mb-8">
+                    {competition?.techStacks.map((stack, index) => {
+                      //console.log(stack);
+                      return <StackCard key={index}>{stack}</StackCard>;
+                    })}
                   </ul>
                 </div>
                 {isCsr && userMail == team?.leader?.email && (
                   <Button
+                    disabled={team?.isActive == "VALID"}
                     onClick={() => handleOpenSubmit()}
                     isSquare
                     color={"oren"}
-                    additionals={"w-full mt-6"}
+                    additionals={"w-full mt-3"}
                   >
                     {team.isSubmit ? "Edit" : "Submit"}
                   </Button>
@@ -477,22 +505,76 @@ const TeamPage = () => {
           {isHitTeam ? (
             <AiOutlineLoading3Quarters className="text-xl mx-auto text-black/70 animate-spin" />
           ) : (
-            <div className="w-11/12 mx-auto mt-8">
-              <div className="flex lg:flex-row flex-col w-full lg:space-x-6 space-y-3 lg:space-y-0 relative justify-start items-start lg:items-center pb-8 border-b">
+            <div className="w-11/12 mx-auto bg-white rounded-xl p-5 ">
+              <div className="flex lg:flex-row flex-col w-full lg:space-x-6 space-y-3 lg:space-y-0 relative justify-start lg:justify-between items-start lg:items-start pb-8 border-b">
+                <div className="flex w-full gap-3 flex-col lg:flex-row ">
+                  {team.avatar ? (
+                    <img
+                      src={team.avatar}
+                      alt="Buaya"
+                      width={1080}
+                      height={1080}
+                      className="lg:w-36 h-36 w-full rounded-md object-cover"
+                    />
+                  ) : (
+                    <div className="lg:w-36 h-36 flex justify-center items-center w-full rounded-md bg-slate-200 animate-pulse">
+                      {getTwoChar(team.name ? team.name : email)}
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center mb-3">
+                    <div>
+                      <Text
+                        size={"title"}
+                        additionals={"mb-3"}
+                        color={"text-black"}
+                      >
+                        {team.name ? team.name : email}
+                      </Text>
+                      <Text>
+                        {team.members?.length + 1}/{competition.maxMembers}{" "}
+                        Anggota
+                      </Text>
+
+                      {isCsr && userMail == team?.leader?.email && (
+                        <div className="mt-3 flex space-x-1">
+                          <Button
+                            color={"oren"}
+                            size={"sm"}
+                            isSquare
+                            onClick={() => handlePopUpEdit()}
+                            additionals={"flex items-center space-x-1"}
+                          >
+                            <p>Edit</p>
+                            <RiEditLine />
+                          </Button>
+                          <Button
+                            color={"dark"}
+                            size={"sm"}
+                            isSquare
+                            additionals={`flex items-center space-x-1 ${
+                              team.isActive == "VALID" &&
+                              team.isSubmit &&
+                              "hidden"
+                            }`}
+                            onClick={() => setIsDelete(true)}
+                          >
+                            <p>Hapus</p>
+                            <AiOutlineDelete />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
                 <CopyToClipboard
                   text={team.code}
                   onCopy={() => setCopied(true)}
                 >
-                  <Button
-                    isSquare
-                    color={"green"}
-                    additionals={
-                      "flex items-center space-x-2 lg:absolute lg:right-0"
-                    }
-                  >
+                  <Button className="relative group inline-flex justify-center items-center gap-x-3.5 text-center bg-white border hover:border-gray-300 shadow-sm font-mono text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition p-2 pl-4 dark:bg-slate-900 dark:border-gray-800 dark:hover:border-gray-600 dark:shadow-slate-700/[.7] dark:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
                     {copied ? (
                       <>
                         <BiCheckCircle className="text-xl" />
+
                         <p>Di Salin</p>
                       </>
                     ) : (
@@ -503,59 +585,6 @@ const TeamPage = () => {
                     )}
                   </Button>
                 </CopyToClipboard>
-                {team.avatar ? (
-                  <img
-                    src={team.avatar}
-                    alt="Buaya"
-                    width={1080}
-                    height={1080}
-                    className="lg:w-36 h-36 w-full rounded-md object-cover"
-                  />
-                ) : (
-                  <div className="lg:w-36 h-36 flex justify-center items-center w-full rounded-md bg-slate-200 animate-pulse">
-                    {getTwoChar(team.name ? team.name : email)}
-                  </div>
-                )}
-                <div className="flex justify-between items-center">
-                  <div>
-                    <Text size={"title"} color={"text-black"}>
-                      {team.name ? team.name : email}
-                    </Text>
-                    <Text>
-                      {team.members?.length + 1}/{competition.maxMembers}{" "}
-                      Anggota
-                    </Text>
-
-                    {isCsr && userMail == team?.leader?.email && (
-                      <div className="mt-3 flex space-x-1">
-                        <Button
-                          color={"oren"}
-                          size={"sm"}
-                          isSquare
-                          onClick={() => handlePopUpEdit()}
-                          additionals={"flex items-center space-x-1"}
-                        >
-                          <p>Edit</p>
-                          <RiEditLine />
-                        </Button>
-                        <Button
-                          color={"dark"}
-                          size={"sm"}
-                          isSquare
-                          additionals={`flex items-center space-x-1 ${
-                            team.isActive == "VALID" &&
-                            team.isSubmit &&
-                            "hidden"
-                          }`}
-                          onClick={() => setIsDelete(true)}
-                        >
-                          <p>Hapus</p>
-                          <AiOutlineDelete />
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </div>
               </div>
 
               <ul className="mt-8">
@@ -589,7 +618,7 @@ const PopUp = ({ onClose, isModal, children }) => {
     <div
       className={`${
         isModal ? "visible opacity-100" : "invisible opacity-0"
-      } transition-all duration-300 bg-dark/10 backdrop-blur-md w-full fixed h-screen z-50 flex justify-center items-center`}
+      } transition-all duration-300 p-5 bg-dark/10 backdrop-blur-md w-full fixed h-screen z-50 flex justify-center items-center`}
     >
       <div className="w-full max-w-[450px] p-4 bg-white rounded-md flex flex-col justify-start items-center relative">
         <button
@@ -608,7 +637,7 @@ export const StatusPayment = (status) => {
   switch (status) {
     case null:
       return (
-        <div className="absolute top-0 right-0 bg-red/20 px-2 py-1 rounded-full">
+        <div className=" bg-red/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-red"} size={"small"}>
             Belum Bayar
           </Text>
@@ -616,7 +645,7 @@ export const StatusPayment = (status) => {
       );
     case "INVALID":
       return (
-        <div className="absolute top-0 right-0 bg-red/20 px-2 py-1 rounded-full">
+        <div className=" bg-red/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-red"} size={"small"}>
             Gagal Bayar
           </Text>
@@ -624,7 +653,7 @@ export const StatusPayment = (status) => {
       );
     case "PENDING":
       return (
-        <div className="absolute top-0 right-0 bg-yellow-400/20 px-2 py-1 rounded-full">
+        <div className=" bg-yellow-400/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-yellow-400"} size={"small"}>
             Di Proses
           </Text>
@@ -632,7 +661,7 @@ export const StatusPayment = (status) => {
       );
     case "VALID":
       return (
-        <div className="absolute top-0 right-0 bg-green-400/20 px-2 py-1 rounded-full">
+        <div className=" bg-green-400/20 px-4 py-2 rounded-full w-fit">
           <Text additionals={"text-green-400"} size={"small"}>
             Sudah Bayar
           </Text>

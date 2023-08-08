@@ -31,7 +31,9 @@ const Button = ({ color, size, additionals, isSquare = false, ...props }) => {
   );
   return (
     <button
-      className={`transition-all duration-300 ${button({ color, size })}`}
+      className={`transition-all cursor-default lg:cursor-pointer duration-300 ${button(
+        { color, size }
+      )}`}
       {...props}
     />
   );

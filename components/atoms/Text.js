@@ -26,7 +26,7 @@ const Text = ({ color, additionals, weight, size, ...props }) => {
       small: "text-sm",
     },
   });
-  return <p className={text({ color, weight, size })} {...props} />;
+  return <div className={text({ color, weight, size })} {...props} />;
 };
 Text.defaultProps = {
   color: "dark",

@@ -10,6 +10,7 @@ import {
   BsFillPeopleFill,
   BsGridFill,
 } from "react-icons/bs";
+import { BiSolidDashboard } from "react-icons/bi";
 import StackCard from "@/components/atoms/StackCard";
 import JuknisItem from "@/components/atoms/JukinisItem";
 import {
@@ -139,7 +140,11 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         {/* choose */}
         <PopUp isModal={isChoose} onClose={() => setIsChoose(false)}>
           <Text color={"text-black"} size={"smalltitle"} weight={"semi"}>
-            {isIndividu ? "Mendaftar Lomba" : "Buat atau bergabung dengan tim"}
+            {isIndividu ? (
+              <div className="text-center">Mendaftar lomba</div>
+            ) : (
+              <div className="text-center">Buat atau bergabung dengan tim</div>
+            )}
           </Text>
           <div className="bg-slate-200 rounded-md p-6 my-6">
             {isIndividu ? (
@@ -214,9 +219,9 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
         </PopUp>
         {/* create */}
         <PopUp isModal={isCreate} onClose={() => setIsCreate(false)}>
-          <div className="absolute top-4 left-4 flex items-center space-x-2">
+          <div className="absolute top-4 left-4 flex gap-2 items-center space-x-2">
             <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-200 text-slate-800" />
-            <Text>Buat tim baru</Text>
+            <Text additionals={"font-medium"}>Buat tim baru</Text>
           </div>
           <form onSubmit={onCreateTeam}>
             <div className="w-full my-3">
@@ -239,11 +244,13 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
           </form>
         </PopUp>
 
-        <div className="w-11/12 mx-auto py-6">
+        <div className="lg:w-11/12 mx-auto   py-10 px-6 lg:px-0">
+          
           <Button
             onClick={() => setIsCompetitionDetail(false)}
-            additionals={"flex items-center"}
+            additionals={"flex items-center md:mt-5 "}
             color={"silver"}
+            
             size={"base"}
           >
             <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
@@ -253,7 +260,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             <AiOutlineLoading3Quarters className="text-3xl text-silver animate-spin mx-auto my-8" />
           ) : (
             <>
-              <ul className="flex space-x-3 mt-8 mb-10">
+              <ul className="flex space-x-2 lowercase text-slate-700 mt-10 mb-8 text-sm">
                 <li>Competitions</li>
                 <li>/</li>
                 <li>Detail</li>
@@ -266,10 +273,10 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   width={1080}
                   height={1080}
                   alt="competition image"
-                  className="w-full lg:w-5/12 lg:sticky top-6 rounded-lg"
+                  className="w-full md:h-[50vh] lg:w-4/12  top-6 rounded-xl lg:h-[70vh] object-center object-cover"
                 />
-                <article className="w-11/12 my-12 lg:my-0 lg:w-6/12">
-                  <h1 className="text-4xl font-bold uppercase text-slate-900 mb-3">
+                <article className=" my-12 lg:my-0 lg:w-6/12">
+                  <h1 className="text-2xl md:text-5xl font-bold md:font-medium md:tracking-wider  uppercase text-slate-900 mb-5 md:mb-7">
                     {competition?.name}{" "}
                   </h1>
 
@@ -293,7 +300,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   />
                   <div className="flex flex-col lg:flex-row justify-start lg:justify-between lg:items-center mt-5  w-full">
                     <div className="flex lg:flex-col flex-row gap-2">
-                      <Text size={"description"} weight={"semi"}>
+                      <Text size={"description"} weight={""}>
                         HTM :{""}
                       </Text>
                       <p className="text-slate-900 font-bold lg:text-3xl ">
@@ -304,9 +311,11 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                     <Button
                       onClick={handleChoose}
                       size={"lg"}
-                      additionals={"lg:w-auto w-full text-center mt-4"}
+                      additionals={
+                        "lg:w-auto w-full  md:py-5 lg:py-0 text-center mt-4 "
+                      }
                     >
-                      Ikuti Lomha
+                      Ikuti Lomba
                     </Button>
                   </div>
                   <div className="p-1  w-full border-b mt-5 " />
@@ -317,7 +326,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   >
                     Tech Stack
                   </Text>
-                  <ul className="flex gap-3 flex-wrap mt-2 mb-8">
+                  <ul className="flex gap-3 flex-wrap   mt-2 mb-8">
                     {competition?.techStacks.map((stack, index) => {
                       //console.log(stack);
                       return <StackCard key={index}>{stack}</StackCard>;
@@ -326,7 +335,9 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   <Text size={"description"} weight={"semi"}>
                     Deskripsi
                   </Text>
-                  <Text additionals={"mt-2"}>{competition?.description}</Text>
+                  <Text additionals={"mt-2 text-justify md:text-left"}>
+                    {competition?.description}
+                  </Text>
                   <Text
                     additionals={"mt-8"}
                     size={"description"}
@@ -336,16 +347,18 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   </Text>
                   <div className="mt-4 flex items-center mb-8">
                     <div className="border-oren border rounded-full p-3">
-                      <BsFillJournalBookmarkFill className="text-oren text-3xl" />
+                      <BsFillJournalBookmarkFill className="text-oren text-xl md:text-3xl" />
                     </div>
                     <div className="w-full ml-3">
-                      <Text weight={"semi"}>{competition?.name}</Text>
-                      <Text size={"sm"}>Guide Book</Text>
+                      <Text weight={"semi"} additionals={"text-xs md:text-xl"}>
+                        {competition?.name}
+                      </Text>
+                      <Text additionals={"text-xs md:text-md"}>Guide Book</Text>
                     </div>
                     <a
                       href={competition?.guideBookLink}
                       download
-                      className="bg-oren/10 text-oren px-4 py-2 rounded-full"
+                      className="bg-oren/10 text-oren px-4 text-xs font-semibold md:text-md py-2 hover:bg-orange-200 hover:text-orange-500 hover:px-3 hover:py-1.5 transition-all duration-200 rounded-full"
                     >
                       Download
                     </a>
@@ -353,7 +366,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
                   <Text size={"description"} weight={"semi"}>
                     Juknis
                   </Text>
-                  <ul className="mt-2 space-y-1 w-full">
+                  <ul className="mt-2 space-y-1 w-full mb-20">
                     {competition?.criteria.map((item, index) => (
                       <JuknisItem key={index} w={item?.percentage}>
                         {item?.name}
@@ -373,14 +386,16 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
 
 export default CompetitionDetails;
 
-const PopUp = ({ onClose, isModal, children }) => {
+export const PopUp = ({ onClose, isModal, children, className }) => {
   return (
     <div
       className={`${
         isModal ? "visible opacity-100" : "invisible opacity-0"
-      } transition-all duration-300 bg-dark/10 backdrop-blur-md w-full fixed h-screen z-20 flex justify-center items-center`}
+      }  transition-all duration-300 bg-dark/10 backdrop-blur-md w-full top-0 left-0 fixed h-screen z-30 flex justify-center items-center`}
     >
-      <div className="w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative">
+      <div
+        className={`${className}  w-full max-w-[450px] p-12 bg-white rounded-md flex flex-col justify-start items-center relative`}
+      >
         <button
           onClick={onClose}
           className="bg-red/10 text-red rounded-full p-1 absolute top-3 right-3"

@@ -28,26 +28,25 @@ const Timeline = () => {
   return (
     <div
       id="timeline"
-      className={`p-10  bg-slate-700 min-h-screen flex   justify-center items-center flex-col w-full`}
+      className={`p-10  bg-slate-700 h-[80vh]  flex   justify-center items-center flex-col w-full`}
     >
       <div className="flex flex-col gap-3 items-center text-center">
         <FlashParagraph value={"Don't forget your misson"} />
-        <h1 className="font-semibold text-white text-3xl">
+        <h1 className="text-md font-semibold text-white md:text-2xl lg:text-3xl">
           Timeline kami dalam lomba ini
-          {currentPercentage}
         </h1>
-        <p className="text-slate-300">jangan sampai terlewat </p>
+        <p className="text-slate-300 mb-10">jangan sampai terlewat </p>
       </div>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center lg:justify-end justify-between lg:gap-3 w-full">
         <button
           onClick={scrollLeft}
-          className="w-12 h-12 bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
+          className="cursor-default lg:cursor-pointer lg:w-12 w-8 h-8 text-sm md:text-md lg:h-12 md:h-8  bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
         >
           <AiOutlineArrowLeft size={20} />
         </button>
         <button
           onClick={scrollRight}
-          className="w-12 h-12 bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
+          className="cursor-default lg:cursor-pointer lg:w-12 w-8 h-8 text-sm md:text-md lg:h-12 md:h-8  bg-slate-500 rounded-full flex items-center justify-center hover:bg-slate-600 z-10 hover:text-white transition-all duration-200 ease-in"
         >
           <AiOutlineArrowRight size={20} />
         </button>
@@ -56,7 +55,7 @@ const Timeline = () => {
         className={`w-full h-[300px] -mt-20 flex items-center overflow-x-scroll relative scroll-smooth scrollbar-hide `}
         ref={timelineRef}
       >
-        <div className="w-[2000px]  bg-slate-800 h-1 absolute p-1"></div>
+        <div className="w-[2500px]  bg-slate-800 h-1 absolute p-1"></div>
         {/* timeline terlewat */}
         <div
           className={`absolute  h-2 bg-oren`}
@@ -73,7 +72,6 @@ const Timeline = () => {
             modalContent={modalContent[date.toISOString().slice(0, 10)]}
           />
         ))}
-        {/* circle pada tanggal 10 */}
       </div>
     </div>
   );

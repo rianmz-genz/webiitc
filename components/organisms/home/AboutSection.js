@@ -6,13 +6,18 @@ import Text from "@/components/atoms/Text";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-
+import { motion } from "framer-motion";
 const AboutSection = () => {
   return (
-    <section id="about" className=" w-full">
+    <section id="about" className="w-full mb-10 min-h-screen  overflow-hidden">
       <Container>
-        <div className="w-11/12 mx-auto flex flex-col  md:flex-row  md:items-center ">
-          <article className="w-11/12  md:w-6/12 flex flex-col space-y-4 ml-3 md:ml-0 justify-center">
+        <div className="w-11/12 mx-auto my-20  flex flex-col  md:flex-row  md:items-center ">
+          <motion.article
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, ease: "easeIn" }}
+            className="w-11/12  md:w-6/12 flex flex-col space-y-4 ml-3 md:ml-0 justify-center"
+          >
             <div className="text-center w-full mt-10 text-xs md:text-md lg:text-lg">
               <FlashParagraph
                 isHorizontal={true}
@@ -40,15 +45,20 @@ const AboutSection = () => {
                 Daftar Sekarang
               </Button>
             </Link>
-          </article>
-
-          <Image
-            src={"/images/showofFix.png"}
-            alt="Gambar Tunjukan Skill"
-            width={1080}
-            height={1080}
-            className="md:w-6/12 md:bg-contain self-start w-full object-cover bg-red-500 -ml-5 md:-ml-0"
-          />
+          </motion.article>
+          <motion.div
+            initial={{ opacity: 0, x: 200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, ease: "easeIn" }}
+            className="md:w-6/12 md:bg-contain self-start w-full object-cover bg-red-500 -ml-5 lg:-ml-0"
+          >
+            <Image
+              src={"/images/showofFix.png"}
+              alt="Gambar Tunjukan Skill"
+              width={1080}
+              height={1080}
+            />
+          </motion.div>
         </div>
       </Container>
     </section>

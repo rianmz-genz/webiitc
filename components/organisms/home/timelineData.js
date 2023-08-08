@@ -95,7 +95,8 @@ const timelineData = {
 };
 
 // start day & finish
-export const startDate = new Date("2023-07-29");
+
+export const startDate = new Date("2023-07-28");
 export const endDate = new Date("2023-10-03");
 
 export default timelineData;

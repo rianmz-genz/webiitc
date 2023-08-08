@@ -60,11 +60,12 @@ const Signup = () => {
       password,
       phone: parseInt(phone),
     }).then((res) => {
-      const { verifyEmail } = res.data;
-      const { id, hash } = verifyEmail;
+      console.log(res);
       if (res.status == 1) {
+        const { verifyEmail } = res.data;
+        const { id, hash, signature, expires } = verifyEmail;
         setMessage(res.message);
-        SendEmailApi({ email, id, hash }).then((res) => {
+        SendEmailApi({ email, id, hash, signature, expires }).then((res) => {
           if (res != false) {
             setIsSucces(true);
             setIsHitApi(false);
@@ -76,7 +77,7 @@ const Signup = () => {
             setEmail("");
           }
         });
-      } else {
+      } else if (res.status == 0) {
         setIsUsed(true);
         setMessage("Email telah digunakan");
         setIsHitApi(false);
@@ -103,7 +104,7 @@ const Signup = () => {
         <p className="text-sm">{Message}</p>
       </Alert>
       <AuthPage
-        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        description={"Daftar IIT Competition dan jadilah juara sejati!"}
         onSubmit={handleSubmit}
         title={"Daftar IITC"}
       >
@@ -112,6 +113,7 @@ const Signup = () => {
             additionals={"flex  mb-4 items-center"}
             color={"silver"}
             size={"base"}
+            type="button"
           >
             <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
             Kembali

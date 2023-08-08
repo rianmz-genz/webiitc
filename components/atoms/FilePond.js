@@ -13,9 +13,8 @@ const FileInput = ({
   };
 
   return (
-    <div className={` mb-4 mt-2 ring-1 rounded-md ring-slate-300`}>
+    <div className={` mb-4 mt-2 ring-1 rounded-xl ring-slate-300`}>
       <input
-        required
         type="file"
         className="hidden"
         id="file-input"
@@ -28,11 +27,11 @@ const FileInput = ({
         } ${className}  rounded-md cursor-pointer`}
       >
         {image ? (
-          <Image
+          <img
             className="w-full rounded-xl"
             width={1920}
             height={1080}
-            src={URL.createObjectURL(image)}
+            src={typeof image == "string" ? image : URL.createObjectURL(image)}
             alt={`gambar -${image?.target?.value}`}
           />
         ) : (

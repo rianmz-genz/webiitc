@@ -5,7 +5,7 @@ import { FiPlus, FiX } from "react-icons/fi";
 const FaqCard = ({ question, answer }) => {
   const [isOpened, setIsOpened] = useState(false);
   return (
-    <li className="rounded-lg border border-black/10 p-4 transition-all duration-300">
+    <div className="rounded-lg border border-black/10 p-4 transition-all duration-300">
       <div className="flex justify-between">
         <Text
           size={"base"}
@@ -18,7 +18,7 @@ const FaqCard = ({ question, answer }) => {
           <FiPlus
             className={`${
               isOpened ? "rotate-45" : "rotate-0"
-            } text-lg tex-dark transition-all duration-300`}
+            } text-lg tex-dark transition-all duration-300 cursor-default lg:cursor-pointer`}
           />
         </button>
       </div>
@@ -31,7 +31,7 @@ const FaqCard = ({ question, answer }) => {
       >
         <Text size={"small"}>{answer}</Text>
       </div>
-    </li>
+    </div>
   );
 };
 

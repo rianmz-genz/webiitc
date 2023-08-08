@@ -4,7 +4,6 @@ import nodemailer from "nodemailer";
 const smtpOptions = {
   host: process.env.SMTP_HOST || "smtp.mailtrap.io",
   port: parseInt(process.env.SMTP_PORT || "2525"),
-  secure: false,
   auth: {
     user: process.env.SMTP_USER || "user",
     pass: process.env.SMTP_PASSWORD || "password",
@@ -20,6 +19,6 @@ export const sendEmail = async (data) => {
     from: process.env.SMTP_FROM_EMAIL,
     ...data,
   });
-  console.log(sending.accepted);
+  // console.log(sending.accepted);
   return sending.accepted;
 };

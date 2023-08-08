@@ -34,15 +34,23 @@ const Login = () => {
     setIsHitApi(true);
     LoginApi({ email, password }).then((res) => {
       setIsHitApi(false);
+      console.log(res);
       if (res.status == 1) {
-        setIsSucces(true);
-        setMessage(res.message);
-        Cookies.set("token", res.data.access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
-        Cookies.set("email", email, { expires: 2 }); // Cookie berakhir dalam 7 hari
-        router.push("/dashboard");
+        const { access_token, email_verified_at } = res.data;
+        if (email_verified_at == null) {
+          setIsWrong(true);
+          setMessage("Harap verfikasi email terlebih dahulu");
+        } else if (email_verified_at != null) {
+          setIsSucces(true);
+          setMessage(res.message);
+          Cookies.set("token", access_token, { expires: 2 }); // Cookie berakhir dalam 7 hari
+          Cookies.set("email", email, { expires: 2 }); // Cookie berakhir dalam 7 hari
+          router.push("/dashboard");
+        }
       } else if (res.status == 0) {
         setIsWrong(true);
         setMessage(res.message);
+        console.log(res.message);
       }
     });
   };
@@ -57,7 +65,7 @@ const Login = () => {
         <p>{Message}</p>
       </Alert>
       <AuthPage
-        description={"Daftar IIT Competition dan jadilah juara di hati didi"}
+        description={"Daftar IIT Competition dan jadilah juara sejati!"}
         onSubmit={handleLogin}
         title={"Daftar IITC"}
       >
@@ -66,6 +74,7 @@ const Login = () => {
           additionals={"flex lg:absolute top-8 lg:mb-0 mb-4 items-center"}
           color={"silver"}
           size={"base"}
+          type="button"
         >
           <IoMdArrowBack className="text-lg cursor-pointer mr-2" />
           Kembali
