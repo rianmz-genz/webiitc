@@ -39,10 +39,16 @@ const EditCompetitionApi = async ({
         Authorization: GetToken({ isAdmin: true }),
         "Content-Type": "multipart/form-data",
       },
+      timeout: 5000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 

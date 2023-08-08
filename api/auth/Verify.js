@@ -12,11 +12,17 @@ const VerifyEmailApi = async ({ id, hash, signature, expires }) => {
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
+      timeout: 10000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
     //console.log(error);
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 

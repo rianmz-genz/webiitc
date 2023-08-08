@@ -10,12 +10,17 @@ const JoinIndividuApi = async ({ competitionSlug }) => {
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
+      timeout: 30000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
-    //console.log(res.data);
+
     return res.data;
   } catch (error) {
-    //console.log(error);
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 

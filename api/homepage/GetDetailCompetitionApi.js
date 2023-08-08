@@ -6,10 +6,16 @@ const GetDetailCompetitionsApi = async ({ slug }) => {
   try {
     const res = await axios({
       baseURL: `${urlGetCompetitions}/${slug}`,
+      timeout: 5000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    if ((error.code = "ECONNABORTED")) {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 

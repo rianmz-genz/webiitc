@@ -12,10 +12,16 @@ const RegisterApi = async ({ email, password, fullName, phone }) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
+      timeout: 20000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 

@@ -15,10 +15,16 @@ const PaymentValidationApi = async ({ isApprove, reason, id }) => {
       headers: {
         Authorization: GetToken({ isAdmin: true }),
       },
+      timeout: 30000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 export default PaymentValidationApi;

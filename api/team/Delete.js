@@ -10,10 +10,16 @@ const DeleteTeamApi = async ({ teamId }) => {
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
+      timeout: 3000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 export default DeleteTeamApi;
