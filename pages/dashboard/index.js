@@ -107,7 +107,7 @@ const DashboardUser = () => {
 
 export default DashboardUser;
 
-const TeamCard = (props) => {
+export const TeamCard = (props) => {
   return (
     <li className="w-11/12 mx-auto bg-white shadow shadow-black/5 rounded-lg lg:px-8 p-4 lg:py-4 flex lg:flex-row flex-col justify-between items-start">
       <div className="max-lg:w-full relative">
@@ -165,7 +165,11 @@ const TeamCard = (props) => {
         </div>
         <div className="mt-3 text-oren font-bold">
           <Link
-            href={`/team?i=${props.id}&sl=${props.slug}`}
+            href={
+              props.isAdmin
+                ? `/admin/teams/detail?i=${props.id}&sl=${props.slug}`
+                : `/team?i=${props.id}&sl=${props.slug}`
+            }
             className="underline"
           >
             Lihat Detail
@@ -189,7 +193,7 @@ const TeamCard = (props) => {
   );
 };
 
-const EmptyTeam = () => {
+export const EmptyTeam = () => {
   return (
     <DashboardCard>
       <div className="w-full flex justify-center items-center  flex-col py-20">
