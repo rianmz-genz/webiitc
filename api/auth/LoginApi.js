@@ -12,10 +12,16 @@ const LoginApi = async ({ email, password }) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
+      timeout: 10000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
   } catch (error) {
-    return error.response.data;
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      return error.response.data;
+    }
   }
 };
 

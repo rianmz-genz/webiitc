@@ -34,12 +34,20 @@ const EditUser = async (data) => {
         "Content-Type": "multipart/form-data",
         Authorization: GetToken({ isAdmin: false }),
       },
+      timeout: 30000,
+      timeoutErrorMessage: "Request time out, coba lagi",
     });
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    return error.response ? error.response.data : { message: "Unknown error" };
+    if (error.code === "ECONNABORTED") {
+      console.log(error.message);
+    } else {
+      console.log(error);
+      return error.response
+        ? error.response.data
+        : { message: "Unknown error" };
+    }
   }
 };
 
