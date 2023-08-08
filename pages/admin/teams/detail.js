@@ -34,7 +34,7 @@ import GetDetailTeamMember from "@/api/admin/teams/DetailMember";
 const userMail = Cookies.get("email");
 //console.log(userMail);
 export async function getServerSideProps(context) {
-  const token = context.req.cookies.token;
+  const token = context.req.cookies.adminKey;
   if (!token) {
     return {
       redirect: {
