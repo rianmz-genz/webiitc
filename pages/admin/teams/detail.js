@@ -29,6 +29,8 @@ import { BsFileEarmarkCheck } from "react-icons/bs";
 import Link from "next/link";
 import StackCard from "@/components/atoms/StackCard";
 import LeftRightText from "@/components/molecules/LeftRightText";
+import DashboardAdminTemplate from "@/components/pagetemplate/DashboardAdmin";
+import GetDetailTeamMember from "@/api/admin/teams/DetailMember";
 const userMail = Cookies.get("email");
 //console.log(userMail);
 export async function getServerSideProps(context) {
@@ -106,7 +108,7 @@ const TeamPage = () => {
   }, [router]);
   const getDetailTeam = () => {
     setIsHitTeam(true);
-    GetDetailTeam({ id: teamId })
+    GetDetailTeamMember({ id: teamId })
       .then((res) => {
         //console.log(res);
         setTeam(res.data?.team);
@@ -149,7 +151,7 @@ const TeamPage = () => {
   };
   const handlePopUpEdit = () => {
     setIsEditing(true);
-    setTeamName(team.name ? team.name : email);
+    setTeamName(team?.name ? team?.name : email);
   };
   const handleDeleteTeam = () => {
     setIsHitDelete(true);
@@ -201,10 +203,10 @@ const TeamPage = () => {
     setKicId(id);
   };
   const handleOpenSubmit = () => {
-    if (team.isActive == "VALID") {
+    if (team?.isActive == "VALID") {
       setIsPaidOf(true);
-      if (team.title) {
-        setTeamTitle(team.title);
+      if (team?.title) {
+        setTeamTitle(team?.title);
       }
     } else {
       setIsAlert(true);
@@ -213,33 +215,36 @@ const TeamPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsHitEdit(true);
-    EditTeamApi({ teamId, submission, title: teamTitle, name: team.name }).then(
-      (res) => {
-        //console.log(res);
-        if (res.status == 1) {
-          setIsHitEdit(false);
-          setIsPaidOf(false);
-          setIsSucces(true);
-          setMessage(res.message);
-          getDetailTeam();
-          setTimeout(() => {
-            setIsSucces(false);
-          }, 2000);
-        } else {
-          setIsHitEdit(false);
-          setIsPaidOf(false);
-          setIsWrong(true);
-          setMessage(res.message);
-          setTimeout(() => {
-            setIsWrong(false);
-          }, 2000);
-        }
+    EditTeamApi({
+      teamId,
+      submission,
+      title: teamTitle,
+      name: team?.name,
+    }).then((res) => {
+      //console.log(res);
+      if (res.status == 1) {
+        setIsHitEdit(false);
+        setIsPaidOf(false);
+        setIsSucces(true);
+        setMessage(res.message);
+        getDetailTeam();
+        setTimeout(() => {
+          setIsSucces(false);
+        }, 2000);
+      } else {
+        setIsHitEdit(false);
+        setIsPaidOf(false);
+        setIsWrong(true);
+        setMessage(res.message);
+        setTimeout(() => {
+          setIsWrong(false);
+        }, 2000);
       }
-    );
+    });
     // .catch((err) => //console.log(err));
   };
   const buttonBayar = () => {
-    return team.isActive == null || team.isActive == "INVALID";
+    return team?.isActive == null || team?.isActive == "INVALID";
   };
   return (
     <>
@@ -367,7 +372,7 @@ const TeamPage = () => {
           <div className="flex space-x-4 w-full mt-4">
             {buttonBayar() && (
               <Link
-                href={`/payment?i=${team.id}&sl=${cSlug}`}
+                href={`/payment?i=${team?.id}&sl=${cSlug}`}
                 className="w-full"
               >
                 <Button isSquare additionals={"w-full"} color={"oren"}>
@@ -405,7 +410,7 @@ const TeamPage = () => {
         </form>
       </PopUp>
       <div className="overflow-hidden">
-        <DashboardUserTemplate>
+        <DashboardAdminTemplate>
           <Alert onClose={() => setIsSucces(false)} isOpen={isSucces}>
             <AiFillCheckCircle className="text-green-400 text-xl" />
             <p>{Message}</p>
@@ -423,7 +428,7 @@ const TeamPage = () => {
             <li className="text-black/70">&gt;</li>
             <li className="text-black/70">Team</li>
             <li className="text-black/70">&gt;</li>
-            <li className="text-oren">{team.name ? team.name : email}</li>
+            <li className="text-oren">{team?.name ? team?.name : email}</li>
           </ul>
 
           {isHitCompetition ? (
@@ -442,7 +447,7 @@ const TeamPage = () => {
               <div className="md:w-8/12 w-full ">
                 <div className="flex items-center w-full justify-between mb-5 object-contain ">
                   <p className="uppercase text-slate-400">category lomba</p>
-                  {StatusPayment(team.isActive)}
+                  {StatusPayment(team?.isActive)}
                 </div>
                 <div>
                   <h1 className="text-2xl md:text-5xl font-bold md:font-medium md:tracking-wider  uppercase text-slate-900 mb-5 md:mb-7">
@@ -486,17 +491,6 @@ const TeamPage = () => {
                     })}
                   </ul>
                 </div>
-                {isCsr && userMail == team?.leader?.email && (
-                  <Button
-                    disabled={team?.isActive == "VALID"}
-                    onClick={() => handleOpenSubmit()}
-                    isSquare
-                    color={"oren"}
-                    additionals={"w-full mt-3"}
-                  >
-                    {team.isSubmit ? "Edit" : "Submit"}
-                  </Button>
-                )}
               </div>
             </div>
           )}
@@ -508,9 +502,9 @@ const TeamPage = () => {
             <div className="w-11/12 mx-auto bg-white rounded-xl p-5 ">
               <div className="flex lg:flex-row flex-col w-full lg:space-x-6 space-y-3 lg:space-y-0 relative justify-start lg:justify-between items-start lg:items-start pb-8 border-b">
                 <div className="flex w-full gap-3 flex-col lg:flex-row ">
-                  {team.avatar ? (
+                  {team?.avatar ? (
                     <img
-                      src={team.avatar}
+                      src={team?.avatar}
                       alt="Buaya"
                       width={1080}
                       height={1080}
@@ -518,7 +512,7 @@ const TeamPage = () => {
                     />
                   ) : (
                     <div className="lg:w-36 h-36 flex justify-center items-center w-full rounded-md bg-slate-200 animate-pulse">
-                      {getTwoChar(team.name ? team.name : email)}
+                      {getTwoChar(team?.name ? team?.name : email)}
                     </div>
                   )}
                   <div className="flex justify-between items-center mb-3">
@@ -528,46 +522,17 @@ const TeamPage = () => {
                         additionals={"mb-3"}
                         color={"text-black"}
                       >
-                        {team.name ? team.name : email}
+                        {team?.name ? team?.name : email}
                       </Text>
                       <Text>
-                        {team.members?.length + 1}/{competition.maxMembers}{" "}
+                        {team?.members?.length + 1}/{competition.maxMembers}{" "}
                         Anggota
                       </Text>
-
-                      {isCsr && userMail == team?.leader?.email && (
-                        <div className="mt-3 flex space-x-1">
-                          <Button
-                            color={"oren"}
-                            size={"sm"}
-                            isSquare
-                            onClick={() => handlePopUpEdit()}
-                            additionals={"flex items-center space-x-1"}
-                          >
-                            <p>Edit</p>
-                            <RiEditLine />
-                          </Button>
-                          <Button
-                            color={"dark"}
-                            size={"sm"}
-                            isSquare
-                            additionals={`flex items-center space-x-1 ${
-                              team.isActive == "VALID" &&
-                              team.isSubmit &&
-                              "hidden"
-                            }`}
-                            onClick={() => setIsDelete(true)}
-                          >
-                            <p>Hapus</p>
-                            <AiOutlineDelete />
-                          </Button>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
                 <CopyToClipboard
-                  text={team.code}
+                  text={team?.code}
                   onCopy={() => setCopied(true)}
                 >
                   <Button className="relative group inline-flex justify-center items-center gap-x-3.5 text-center bg-white border hover:border-gray-300 shadow-sm font-mono text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition p-2 pl-4 dark:bg-slate-900 dark:border-gray-800 dark:hover:border-gray-600 dark:shadow-slate-700/[.7] dark:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
@@ -580,7 +545,7 @@ const TeamPage = () => {
                     ) : (
                       <>
                         <IoCopyOutline className="text-xl" />
-                        <p>#{team.code}</p>
+                        <p>#{team?.code}</p>
                       </>
                     )}
                   </Button>
@@ -594,7 +559,7 @@ const TeamPage = () => {
                       key={idx}
                       name={item.name}
                       email={item.email}
-                      leaderEmail={team.leader?.email}
+                      leaderEmail={team?.leader?.email}
                       onKick={() => openKick({ name: item.name, id: item.id })}
                       avatar={item?.participant?.avatar}
                     />
@@ -605,7 +570,7 @@ const TeamPage = () => {
               </ul>
             </div>
           )}
-        </DashboardUserTemplate>
+        </DashboardAdminTemplate>
       </div>
     </>
   );
@@ -692,15 +657,6 @@ const MemberItem = ({ avatar, name, email, leaderEmail, onKick }) => {
           <Text>{email}</Text>
         </div>
       </div>
-      {leaderEmail == userMail && (
-        <Button
-          additionals={"max-lg:w-full max-lg:mt-3"}
-          onClick={onKick}
-          color={"red"}
-        >
-          Kick
-        </Button>
-      )}
     </li>
   );
 };
