@@ -10,6 +10,7 @@ import { FiX } from "react-icons/fi";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { FaUserCircle } from "react-icons/fa";
+import { RiTeamLine } from "react-icons/ri";
 const DashboardAdminTemplate = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -17,6 +18,48 @@ const DashboardAdminTemplate = ({ title, children }) => {
     Cookies.remove("adminKey");
     router.replace("/admin");
   };
+  const nav = [
+    {
+      href: "/admin/dashboard",
+      label: (
+        <>
+          <LuLayoutDashboard /> <p>Dashboard</p>
+        </>
+      ),
+    },
+    {
+      href: "/admin/users",
+      label: (
+        <>
+          <FaUserCircle /> <p>Users</p>
+        </>
+      ),
+    },
+    {
+      href: "/admin/teams",
+      label: (
+        <>
+          <RiTeamLine /> <p>Tim</p>
+        </>
+      ),
+    },
+    {
+      href: "/admin/competition",
+      label: (
+        <>
+          <CgEditBlackPoint /> <p>Lomba</p>
+        </>
+      ),
+    },
+    {
+      href: "/admin/competitioncategories",
+      label: (
+        <>
+          <BiCategoryAlt /> <p>Kategori Lomba</p>
+        </>
+      ),
+    },
+  ];
   return (
     <>
       <main className="bg-sslate w-full min-h-screen flex lg:flex-row flex-col">
@@ -45,35 +88,13 @@ const DashboardAdminTemplate = ({ title, children }) => {
           />
           <hr className="border border-gray-400/10 w-full my-7" />
           <ul className="gap-3 flex flex-col w-full h-full">
-            <li className="w-full text-slate-600">
-              <Link
-                href={"/admin/dashboard"}
-                className="flex items-center gap-3"
-              >
-                <LuLayoutDashboard /> <p>Dashboard</p>
-              </Link>
-            </li>
-            <li className="w-full text-slate-600">
-              <Link href={"/admin/users"} className="flex items-center gap-3">
-                <FaUserCircle /> <p>Users</p>
-              </Link>
-            </li>
-            <li className="w-full text-slate-600">
-              <Link
-                href={"/admin/competition"}
-                className="flex items-center gap-3"
-              >
-                <CgEditBlackPoint /> <p>Lomba</p>
-              </Link>
-            </li>
-            <li className="w-full text-slate-600">
-              <Link
-                href={"/admin/competitioncategories"}
-                className="flex items-center gap-3"
-              >
-                <BiCategoryAlt /> <p>Kategori Lomba</p>
-              </Link>
-            </li>
+            {nav?.map(({ label, href }, i) => (
+              <li key={i} className="w-full text-slate-600">
+                <Link href={href} className="flex items-center gap-3">
+                  {label}
+                </Link>
+              </li>
+            ))}
             <hr className="border border-gray-400/10 w-full my-4" />
             <button
               onClick={handleLogout}
