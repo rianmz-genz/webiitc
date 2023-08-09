@@ -11,7 +11,7 @@ const GetMineTeam = async () => {
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
-      timeout: 5000,
+      timeout: 30000,
       timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
