@@ -43,9 +43,13 @@ const DashboardUser = () => {
   useEffect(() => {
     GetMineTeam().then((res) => {
       setTeams(res.data?.teams);
-      //console.log(res.data.teams);
+      if (res.data?.teams.some((team) => team.isActive === "VALID")) {
+        setIsGrupShowing(true);
+      } else {
+        setIsGrupShowing(false);
+      }
     });
-    // .catch((err) => //console.log(err));
+
     setEmail(Cookies.get("email"));
   }, []);
   return (
@@ -65,12 +69,10 @@ const DashboardUser = () => {
             </div>
           </div>
         )} */}
-        {teams.isActive === "VALID" ? (
+        {isGrupShowing && (
           <div className="px-6 md:px-10 lg:px-12 mx-auto w-full">
             <AlertGroup />
           </div>
-        ) : (
-          ""
         )}
         <DashboardCard>
           <ul className="flex items-center gap-2">
