@@ -62,7 +62,7 @@ const DashboardAdminTemplate = ({ title, children }) => {
   ];
   return (
     <>
-      <main className="bg-sslate w-full min-h-screen flex lg:flex-row flex-col">
+      <main className="bg-slate-200 w-full min-h-screen flex lg:flex-row flex-col">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-1 bg-blue-400/10 rounded-md fixed top-3 right-3 lg:hidden visible z-50"

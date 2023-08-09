@@ -10,7 +10,7 @@ const KickApi = async ({ teamId, memberId }) => {
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
-      timeout: 5000,
+      timeout: 20000,
       timeoutErrorMessage: "Request time out, coba lagi",
     });
     //console.log(res.data);

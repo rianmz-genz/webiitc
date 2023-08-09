@@ -12,7 +12,7 @@ const VerifyEmailApi = async ({ id, hash, signature, expires }) => {
       headers: {
         Authorization: GetToken({ isAdmin: false }),
       },
-      timeout: 10000,
+      timeout: 30000,
       timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
