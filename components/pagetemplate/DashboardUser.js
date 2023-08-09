@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 const DashboardUserTemplate = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
   const handleLogout = () => {
     Cookies.remove("token");
@@ -23,7 +24,7 @@ const DashboardUserTemplate = ({ title, children }) => {
   };
   return (
     <>
-      <main className="bg-sslate w-full min-h-screen flex lg:flex-row flex-col">
+      <main className="bg-slate-200 w-full min-h-screen flex lg:flex-row flex-col">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-1 bg-blue-400/10 rounded-md fixed top-3 right-3 z-50 lg:hidden visible"
