@@ -4,7 +4,7 @@ const GetCompetitionsApi = async () => {
   try {
     const res = await axios({
       baseURL: urlGetCompetitions,
-      timeout: 5000,
+      timeout: 20000,
       timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
