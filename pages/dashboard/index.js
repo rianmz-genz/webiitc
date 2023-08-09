@@ -43,11 +43,17 @@ const DashboardUser = () => {
   useEffect(() => {
     GetMineTeam().then((res) => {
       setTeams(res.data?.teams);
-      //console.log(res.data.teams);
+      // console.log(res.data.teams);
     });
     // .catch((err) => //console.log(err));
     setEmail(Cookies.get("email"));
   }, []);
+  let showLinkWa = false;
+  teams.forEach(team => {
+    if (team.isActive == 'VALID') {
+      showLinkWa = true;
+    }
+  });
   return (
     <>
       <Head>
@@ -65,13 +71,13 @@ const DashboardUser = () => {
             </div>
           </div>
         )} */}
-        {teams.isActive === "VALID" ? (
-          <div className="px-6 md:px-10 lg:px-12 mx-auto w-full">
-            <AlertGroup />
-          </div>
-        ) : (
-          ""
-        )}
+        {showLinkWa ? (
+            <div className="px-6 md:px-10 lg:px-12 mx-auto w-full">
+              <AlertGroup />
+            </div>
+          ) : (
+            ""
+          )}
         <DashboardCard>
           <ul className="flex items-center gap-2">
             <Link href={"/"}>
