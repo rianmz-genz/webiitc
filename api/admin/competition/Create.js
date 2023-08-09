@@ -38,7 +38,7 @@ const CreateCompetitionApi = async ({
         Authorization: GetToken({ isAdmin: true }),
         "Content-Type": "multipart/form-data",
       },
-      timeout: 5000,
+      timeout: 30000,
       timeoutErrorMessage: "Request time out, coba lagi",
     });
 
