@@ -13,6 +13,7 @@ import { FiLock, FiPlus } from "react-icons/fi";
 import { MdArrowForwardIos } from "react-icons/md";
 import { getTwoChar } from "../team";
 import Head from "next/head";
+import AlertGroup from "@/components/atoms/AlertGroup";
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies.token;
@@ -36,6 +37,8 @@ export async function getServerSideProps(context) {
 const DashboardUser = () => {
   const [teams, setTeams] = useState([]);
   const [email, setEmail] = useState("");
+  const [isGrupShowing, setIsGrupShowing] = useState(false);
+  console.log(teams);
   const valid = Cookies.get("valid");
   useEffect(() => {
     GetMineTeam().then((res) => {
@@ -62,6 +65,13 @@ const DashboardUser = () => {
             </div>
           </div>
         )} */}
+        {teams.isActive === "VALID" ? (
+          <div className="px-6 md:px-10 lg:px-12 mx-auto w-full">
+            <AlertGroup />
+          </div>
+        ) : (
+          ""
+        )}
         <DashboardCard>
           <ul className="flex items-center gap-2">
             <Link href={"/"}>
