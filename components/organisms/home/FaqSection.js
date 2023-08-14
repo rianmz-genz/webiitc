@@ -55,6 +55,28 @@ const FaqSection = () => {
         </div>
       ),
     },
+    {
+      q: "Penamaan file konfirmasi pembayaran gimana?",
+      a: "Penamaan file tidak ada acuan, yang berarti bebas dengan nama apa saja.",
+    },
+    {
+      q: "Link grup whatsapp nya dimana ya?",
+      a: (
+        <div className="flex flex-wrap gap-3">
+          <span>
+            Bagi yang sudah membayar dan sudah di acc oleh admin maka pada
+            halaman
+          </span>
+          <a
+            href="https://iitc.intermediaamikom.org/dashboard"
+            className="font-semibold flex items-center gap-2 text-blue-500 cursor-default lg:cursor-pointer"
+          >
+            dashboard
+          </a>
+          {""} <span>kan muncul alert link grup whatsappnya.</span>
+        </div>
+      ),
+    },
   ];
 
   const variants = {

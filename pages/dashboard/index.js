@@ -26,9 +26,6 @@ export async function getServerSideProps(context) {
     };
   }
 
-  // Lanjutkan eksekusi jika token tersedia
-  // ...
-
   return {
     props: {},
   };
