@@ -99,12 +99,17 @@ const DashboardAdmin = () => {
           <p className="text-blue-600 text-sm">Tim</p>
         </ul>
         <div className="flex justify-between items-center mt-2">
-          <h1 className="text-2xl fomt-semibold w-6/12">
-            Semua Tim Pembayaran
-          </h1>
-          <div className="group relative w-6/12">
-            <p>{currentFilter.label}</p>
-            <div className="hidden group-hover:flex w-full top-full left-0 shadow bg-white flex-col absolute z-10  rounded-md">
+          <h1 className="text-2xl fomt-semibold">Semua Tim Pembayaran</h1>
+          <div className="group relative w-5/12 ">
+            <div className="flex gap-3 w-full items-center">
+              <p className="text-center font-semibold capitalize w-6/12">
+                Urut berdasar :{" "}
+              </p>
+              <div className="w-w-6/12 p-2 rounded-lg border-2 border-slate-200 w-full">
+                <p className="text-center">{currentFilter.label}</p>
+              </div>
+            </div>
+            <div className="hidden group-hover:flex w-full top-full left-0 shadow bg-white border border-slate-300 flex-col absolute z-10  rounded-md">
               {filterByStatus.map(({ label, value }, i) => (
                 <button
                   key={i}
