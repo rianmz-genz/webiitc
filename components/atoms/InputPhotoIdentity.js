@@ -1,3 +1,4 @@
+import { rename } from "fs";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -10,7 +11,7 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
         acceptedFiles[0].type.startsWith("image/")
       ) {
         const originalFileName = acceptedFiles[0].name;
-        const rename = originalFileName.replace(/[ ()]/g, "");
+        const rename = originalFileName.replace(/[ ()\[\]]/g, "");
         const newFile = new File([acceptedFiles[0]], rename, {
           type: acceptedFiles[0].type,
         });
