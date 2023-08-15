@@ -62,14 +62,6 @@ export default function Users() {
     },
   ];
 
-  // filter data untuk search
-  const filteredData = fromApi.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        value &&
-        value.toString().toLowerCase().includes(filterText.toLowerCase())
-    )
-  );
   useEffect(() => {
     getUsers();
   }, []);
@@ -137,8 +129,8 @@ export default function Users() {
       setIsOpenDetail(true);
     }
   };
-  const data = fromApi.map(
-    ({ name, email, phone, email_verified_at, id, participant }) => ({
+  const filteredData = fromApi
+    .map(({ name, email, phone, email_verified_at, id, participant }) => ({
       name: name,
       email: email,
       phone: phone,
@@ -154,8 +146,14 @@ export default function Users() {
         />
       ),
       participant: participant,
-    })
-  );
+    }))
+    .filter((item) =>
+      Object.values(item).some(
+        (value) =>
+          value &&
+          value.toString().toLowerCase().includes(filterText.toLowerCase())
+      )
+    );
 
   return (
     <>
