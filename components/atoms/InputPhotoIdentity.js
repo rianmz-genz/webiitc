@@ -1,4 +1,3 @@
-import { rename } from "fs";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -11,12 +10,12 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
         acceptedFiles[0].type.startsWith("image/")
       ) {
         const originalFileName = acceptedFiles[0].name;
-        const rename = originalFileName.replace(/[ ()\[\]]/g, "");
-        const newFile = new File([acceptedFiles[0]], rename, {
+        const renameFile = originalFileName.replace(/[ ()\[\]]/g, "");
+        const newFile = new File([acceptedFiles[0]], renameFile, {
           type: acceptedFiles[0].type,
         });
-        console.log(`Original file name: ${originalFileName}`);
-        console.log(`Sanitized file name: ${rename}`);
+        // console.log(`Original file name: ${originalFileName}`);
+        // console.log(`Sanitized file name: ${renameFile}`);
         setPhoto(
           Object.assign(newFile, {
             preview: URL.createObjectURL(newFile),
