@@ -77,6 +77,41 @@ const FaqSection = () => {
         </div>
       ),
     },
+    {
+      q: "Apakah perlu mengirimkan bukti pembayaran ke CP ?",
+      a: "Tidak perlu, cukup upload bukti pembayaran pada website saja.",
+    },
+    {
+      q: "Apakah semua peserta mendapatkan sertifikat?",
+      a: "Ya, semua peserta yang telah mengikuti lomba akan mendapatkan sertifikat.",
+    },
+    {
+      q: "Apakah bisa mendaftar lebih dari satu lomba?",
+      a: "Tentu saja bisa.",
+    },
+    {
+      q: "Apakah wajib melengkapi data profile pada dashboard?",
+      a: (
+        <div className="flex flex-wrap gap-3">
+          <span>Ya, kalian wajib melengkapi</span>
+          <a
+            href="https://iitc.intermediaamikom.org/dashboard/profile"
+            className="font-semibold flex items-center gap-2 text-blue-500 cursor-default lg:cursor-pointer"
+          >
+            profile
+          </a>
+          {""} <span>kalian pada dashboard di menu profile.</span>
+        </div>
+      ),
+    },
+    {
+      q: "Bagaimana dengan foto identitas?",
+      a: "Foto identitas gunakan kartu pelajar bagi siswa dan KTM atau kartu tanda mahasiswa bagi mahasiswa.",
+    },
+    {
+      q: "Format pengumpulan Twibbon?",
+      a: "Gunakan screenshot Twibbon yang sudah kalian upload di sosial media kalian.",
+    },
   ];
 
   const variants = {
