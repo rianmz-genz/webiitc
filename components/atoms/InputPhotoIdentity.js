@@ -9,9 +9,16 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
         acceptedFiles[0] instanceof File &&
         acceptedFiles[0].type.startsWith("image/")
       ) {
+        const originalFileName = acceptedFiles[0].name;
+        const rename = originalFileName.replace(/[ ()]/g, "");
+        const newFile = new File([acceptedFiles[0]], rename, {
+          type: acceptedFiles[0].type,
+        });
+        console.log(`Original file name: ${originalFileName}`);
+        console.log(`Sanitized file name: ${rename}`);
         setPhoto(
-          Object.assign(acceptedFiles[0], {
-            preview: URL.createObjectURL(acceptedFiles[0]),
+          Object.assign(newFile, {
+            preview: URL.createObjectURL(newFile),
           })
         );
       } else {
