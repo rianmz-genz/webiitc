@@ -17,12 +17,13 @@ const VerifyEmailApi = async ({ id, hash, signature, expires }) => {
     });
     return res.data;
   } catch (error) {
-    //console.log(error);
+    console.log(error);
     if (error.code === "ECONNABORTED") {
       console.log(error.message);
     } else {
       return error.response.data;
     }
+    // return error.response.data;
   }
 };
 
