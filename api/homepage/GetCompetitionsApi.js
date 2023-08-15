@@ -14,6 +14,7 @@ const GetCompetitionsApi = async () => {
     } else {
       return error.response.data;
     }
+    // return error.response.data;
   }
 };
 
