@@ -41,6 +41,17 @@ export default function Users() {
       selector: (row) => row.phone,
     },
     {
+      name: "Avatar",
+      cell: (row) =>
+        row.participant?.avatar ? (
+          <img
+            src={row.participant.avatar}
+            alt="avatar"
+            className="w-10 h-10 border border-slate-800 object-cover rounded-full"
+          />
+        ) : null,
+    },
+    {
       name: "Terverifikasi",
       selector: (row) => row.isVerified,
     },
@@ -49,6 +60,7 @@ export default function Users() {
       selector: (row) => row.action,
     },
   ];
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -62,6 +74,7 @@ export default function Users() {
       }
     });
   };
+
   const handleOpenDelete = (id) => {
     setIsOpenDelete(true);
     setUid(id);
@@ -115,22 +128,25 @@ export default function Users() {
       setIsOpenDetail(true);
     }
   };
-  const data = fromApi.map(({ name, email, phone, email_verified_at, id }) => ({
-    name: name,
-    email: email,
-    phone: phone,
-    isVerified: email_verified_at ? (
-      <FiCheckCircle className="text-green-500" />
-    ) : (
-      <FiXCircle className="text-red" />
-    ),
-    action: (
-      <Action
-        onDelete={() => handleOpenDelete(id)}
-        onDetail={() => handleOpenDetail(id)}
-      />
-    ),
-  }));
+  const data = fromApi.map(
+    ({ name, email, phone, email_verified_at, id, participant }) => ({
+      name: name,
+      email: email,
+      phone: phone,
+      isVerified: email_verified_at ? (
+        <FiCheckCircle className="text-green-500" />
+      ) : (
+        <FiXCircle className="text-red" />
+      ),
+      action: (
+        <Action
+          onDelete={() => handleOpenDelete(id)}
+          onDetail={() => handleOpenDetail(id)}
+        />
+      ),
+      participant: participant,
+    })
+  );
   return (
     <>
       <PopUp isModal={isOpenDelete} onClose={() => setIsOpenDelete(false)}>
