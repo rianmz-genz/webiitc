@@ -84,7 +84,7 @@ const DashboardUser = () => {
           <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
             <h1 className="text-2xl font-semibold ">Lomba Yang Diikuti</h1>
             {teams?.length > 0 && (
-              <Link href={"/"}>
+              <Link href={"/#lomba"}>
                 <Button>Daftar lomba</Button>
               </Link>
             )}
@@ -213,7 +213,7 @@ export const EmptyTeam = () => {
           Kamu belum mengikuti lomba, segera daftarkan tim kamu dan jadilah
           juara!
         </p>
-        <Link href={"/"}>
+        <Link href={"/#lomba"}>
           <Button>Daftar lomba</Button>
         </Link>
       </div>
