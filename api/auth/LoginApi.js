@@ -12,7 +12,7 @@ const LoginApi = async ({ email, password }) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      timeout: 10000,
+      timeout: 30000,
       timeoutErrorMessage: "Request time out, coba lagi",
     });
     return res.data;
@@ -22,6 +22,7 @@ const LoginApi = async ({ email, password }) => {
     } else {
       return error.response.data;
     }
+    // return error.response.data;
   }
 };
 
