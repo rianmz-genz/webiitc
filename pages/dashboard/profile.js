@@ -244,7 +244,9 @@ function Profile() {
 
               <InputRadio gender={gender} setGender={setGender} />
               <Text>
-                Avatar <span className="text-rose-600">*</span>
+                Avatar <span className="text-rose-600">*</span>{" "}
+                <span className="text-xs italic font-thin">(JPG,PNG,JPEG)</span>
+                <span className="text-xs">- Bebas sopan</span>
               </Text>
               <InputPhotoIdentity
                 photo={avatar}
@@ -254,6 +256,10 @@ function Profile() {
 
               <Text>
                 Foto Identitas <span className="text-rose-600">*</span>
+                <span className="text-xs italic font-thin">
+                  (JPG,PNG,JPEG)
+                </span>{" "}
+                <span className="text-xs">- KTM/Kartu Pelajar</span>
               </Text>
               <InputPhotoIdentity
                 photo={photoIdentity}
@@ -263,6 +269,12 @@ function Profile() {
 
               <Text>
                 Twibbon <span className="text-rose-600">*</span>
+                <span className="text-xs italic font-thin">
+                  (JPG,PNG,JPEG)
+                </span>{" "}
+                <span className="text-xs">
+                  - hasil screenshot setelah upload di social media
+                </span>
               </Text>
               <InputPhotoIdentity
                 photo={twibbon}
