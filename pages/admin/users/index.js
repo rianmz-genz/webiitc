@@ -24,6 +24,7 @@ export default function Users() {
   const [uid, setUid] = useState("");
   const [profile, setProfile] = useState("");
   const [user, setUser] = useState([]);
+  const [filterText, setFilterText] = useState("");
 
   const columns = [
     {
@@ -61,6 +62,14 @@ export default function Users() {
     },
   ];
 
+  // filter data untuk search
+  const filteredData = fromApi.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        value &&
+        value.toString().toLowerCase().includes(filterText.toLowerCase())
+    )
+  );
   useEffect(() => {
     getUsers();
   }, []);
@@ -147,6 +156,7 @@ export default function Users() {
       participant: participant,
     })
   );
+
   return (
     <>
       <PopUp isModal={isOpenDelete} onClose={() => setIsOpenDelete(false)}>
@@ -180,14 +190,23 @@ export default function Users() {
         ))}
       </PopUp>
       <DashboardAdminTemplate>
-        <div className="w-11/12 mx-auto">
+        <div className="w-11/12 mx-auto bg-white rounded-lg">
+          <div className="p-5">
+            <input
+              type="text"
+              placeholder="Cari..."
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              className="mb-2 p-2 border rounded bg-slate-100"
+            />
+          </div>
           <DataTable
             pagination
             title="List User"
             progressPending={isHitApi}
             progressComponent={<Loader />}
             columns={columns}
-            data={data}
+            data={filteredData}
           />
         </div>
       </DashboardAdminTemplate>
