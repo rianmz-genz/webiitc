@@ -12,25 +12,34 @@ import { IoLogoWhatsapp } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <footer className="bg-darkblue">
+    <footer className="bg-slate-800">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex justify-center  gap-3   ">
           <div className="bg-white flex justify-center items-center rounded-full p-2 ">
-            <img
+            <Image
               src="/images/LOGO/amikom.png"
               alt="logo footer"
+              width={10}
+              height={10}
+              priority
               className="w-10 p-2 object-contain "
             />
           </div>
           <div className="bg-white flex justify-center items-center rounded-full p-2 ">
-            <img
+            <Image
               src="/images/LOGO/LOGOFIX.png"
               alt="logo footer"
               className="w-10 p-2 object-contain"
+              width={10}
+              height={10}
+              priority
             />
           </div>
           <div className="bg-white flex justify-center items-center rounded-full p-2 ">
-            <img
+            <Image
+              width={10}
+              height={10}
+              priority
               src="/images/Sponsor/grab.png"
               alt="logo footer"
               className="w-10  object-contain"

@@ -12,7 +12,7 @@ const CompetitionSection = ({
   competitions,
 }) => {
   const variants = {
-    hidden: { opacity: 0, y: 20},
+    hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
 
@@ -26,7 +26,7 @@ const CompetitionSection = ({
               title={"Pilih lomba yang relevant dengan kamu"}
               description={"pilih lomba yang sesuai dengan kemampuan kamu ya.."}
             />
-            <motion.ol
+            <motion.div
               className="rounded-xl w-full mt-12 grid md:grid-cols-3 lg:grid-cols-5 gap-3"
               initial="hidden"
               animate="visible"
@@ -34,7 +34,15 @@ const CompetitionSection = ({
               transition={{ staggerChildren: 0.2 }}
             >
               {competitions?.map((competition, index) => (
-                <motion.div key={index}  whileInView={{opacity:[0,1],y:[20,0]}} transition={{type:"spring",duration:[.8],delay:[`0.${index}`]}}>
+                <motion.div
+                  key={index}
+                  whileInView={{ opacity: [0, 1], y: [20, 0] }}
+                  transition={{
+                    type: "spring",
+                    duration: [0.8],
+                    delay: [`0.${index}`],
+                  }}
+                >
                   <CompetitonCard
                     setCompetitionName={setCompetitionName}
                     setIsCompetitionDetail={setIsCompetitionDetails}
@@ -46,7 +54,7 @@ const CompetitionSection = ({
                   />
                 </motion.div>
               ))}
-            </motion.ol>
+            </motion.div>
           </div>
         </section>
       </Container>

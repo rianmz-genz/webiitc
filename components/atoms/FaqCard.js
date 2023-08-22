@@ -14,13 +14,13 @@ const FaqCard = ({ question, answer }) => {
         >
           {question}
         </Text>
-        <button onClick={() => setIsOpened(!isOpened)}>
+        <div onClick={() => setIsOpened(!isOpened)}>
           <FiPlus
             className={`${
               isOpened ? "rotate-45" : "rotate-0"
             } text-lg tex-dark transition-all duration-300 cursor-default lg:cursor-pointer`}
           />
-        </button>
+        </div>
       </div>
       <div
         className={`${

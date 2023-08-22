@@ -2,16 +2,14 @@ import {
   AboutSection,
   CompetitionDetails,
   CompetitionSection,
-  Container,
   FaqSection,
   Footer,
   HeroSection,
   SkemaSection,
-  TimelineSection,
 } from "@/components";
 import Head from "next/head";
 import { useState } from "react";
-import axios from "axios";
+
 import GetCompetitionsApi from "@/api/homepage/GetCompetitionsApi";
 import Timeline from "@/components/organisms/home/Timeline";
 import SupportSection from "@/components/organisms/home/SupportSection";
