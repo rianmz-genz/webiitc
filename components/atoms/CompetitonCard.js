@@ -26,7 +26,7 @@ const CompetitonCard = ({
   };
   //console.log(category, title);
   return (
-    <li className="rounded-xl relative w-full overflow-hidden shadow transition-all duration-300 hover:shadow-lg">
+    <div className="rounded-xl relative w-full overflow-hidden shadow transition-all duration-300 hover:shadow-lg">
       {isAdmin && (
         <FiTrash
           onClick={onDelete}
@@ -65,7 +65,7 @@ const CompetitonCard = ({
           </Button>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

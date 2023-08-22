@@ -9,8 +9,8 @@ const FlashParagraph = ({ isHorizontal, value, className }) => {
           : "flex flex-col items-center space-y-2 w-full"
       } ${className}`}
     >
-      <RiFlashlightFill className="text-lg text-orange-500" />
-      <p className="font-semibold text-md  text-orange-500">{value}</p>
+      <RiFlashlightFill className="text-lg text-orange-400" />
+      <p className="font-bold text-md  text-orange-400">{value}</p>
     </div>
   );
 };

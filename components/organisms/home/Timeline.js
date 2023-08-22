@@ -28,7 +28,7 @@ const Timeline = () => {
   return (
     <div
       id="timeline"
-      className={`p-10  bg-slate-700 h-[80vh]  flex   justify-center items-center flex-col w-full`}
+      className={`p-10  bg-slate-600 h-[80vh]  flex   justify-center items-center flex-col w-full`}
     >
       <div className="flex flex-col gap-3 items-center text-center">
         <FlashParagraph value={"Don't forget your misson"} />

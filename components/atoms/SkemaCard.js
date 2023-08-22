@@ -30,7 +30,7 @@ const SkemaCard = ({
     exit: { opacity: 0, transition: { duration: 0.5 } },
   };
   return (
-    <motion.li
+    <motion.div
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -90,7 +90,7 @@ const SkemaCard = ({
           </div>
         </ModalSkema>
       </div>
-    </motion.li>
+    </motion.div>
   );
 };
 
