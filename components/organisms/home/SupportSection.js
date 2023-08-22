@@ -26,31 +26,48 @@ const SupportSection = () => {
       <div className="">
         <Slider {...settings} className="">
           <div className="w-20 flex justify-center items-center py-2">
-            <img
+            <Image
               src="/images/Sponsor/grab.png"
-              alt=""
+              alt="sponsorship1"
               className="h-16 object-contain  w-full"
+              width={1600}
+              height={1600}
             />
           </div>
           <div className="w-20 flex justify-center items-center py-2">
-            <img
+            <Image
               src="/images/Sponsor/pusko.png"
-              alt=""
+              alt="sponsorship2"
               className="h-16 object-contain w-full"
+              width={1600}
+              height={1600}
             />
           </div>
           <div className="w-20 flex justify-center items-center py-2 ">
-            <img
+            <Image
               src="/images/Sponsor/endra.png"
-              alt=""
+              alt="sponsorship3"
               className="h-16 object-contain   w-full "
+              width={1600}
+              height={1600}
             />
           </div>
           <div className="w-20 flex justify-center items-center py-2 mx-auto">
-            <img
+            <Image
               src="/images/Sponsor/owb.png"
-              alt=""
+              alt="sponsorship4"
               className="h-16 object-contain   w-full"
+              width={1600}
+              height={1600}
+            />
+          </div>
+          <div className="w-20 flex justify-center items-center py-2 mx-auto">
+            <Image
+              src="/images/Sponsor/kankuy.svg"
+              alt="sponsorship5"
+              className="h-16 object-contain   w-full"
+              width={1600}
+              height={1600}
             />
           </div>
         </Slider>
