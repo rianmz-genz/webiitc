@@ -29,6 +29,7 @@ import { BsFileEarmarkCheck } from "react-icons/bs";
 import Link from "next/link";
 import StackCard from "@/components/atoms/StackCard";
 import LeftRightText from "@/components/molecules/LeftRightText";
+import InputTitle from "@/components/molecules/InputTitle";
 const userMail = Cookies.get("email");
 //console.log(userMail);
 export async function getServerSideProps(context) {
@@ -109,6 +110,7 @@ const TeamPage = () => {
     GetDetailTeam({ id: teamId })
       .then((res) => {
         //console.log(res);
+        // console.log(res.data);
         setTeam(res.data?.team);
         setIsHitTeam(false);
       })
@@ -206,6 +208,9 @@ const TeamPage = () => {
       if (team.title) {
         setTeamTitle(team.title);
       }
+      if (team.submission) {
+        setSubmission(team.submission);
+      }
     } else {
       setIsAlert(true);
     }
@@ -241,6 +246,9 @@ const TeamPage = () => {
   const buttonBayar = () => {
     return team.isActive == null || team.isActive == "INVALID";
   };
+  const currentDate = new Date();
+  const startDate = new Date("2023-09-01");
+  const endDate = new Date("2023-09-22");
   return (
     <>
       {/* submit */}
@@ -267,26 +275,37 @@ const TeamPage = () => {
               Submit Project
             </Text>
           </div>
-          <Input
-            required
-            placeholder="Judul Project"
+          <InputTitle
+            type="text"
+            title={"Judul Project"}
             value={teamTitle}
+            required={true}
+            placeholder="Masukan Judul Project"
             onChange={(e) => setTeamTitle(e.target.value)}
           />
-
-          <input
+          <div className="mt-4"></div>
+          <InputTitle
+            type="text"
+            title={"Link Submission"}
+            value={submission}
+            defaultValue={submission}
+            required={true}
+            placeholder="Masukan link submission"
+            onChange={(e) => setSubmission(e.target.value)}
+          />
+          {/* <input
             className="block w-full mt-4 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
             id="small_size"
             accept=".zip"
             type="file"
             onChange={(e) => setSubmission(e.target.files[0])}
-          ></input>
-          <label
+          ></input> */}
+          {/* <label
             className="block mt-1 text-sm font-medium text-gray-900 "
             htmlFor="small_size"
           >
             File Project .zip
-          </label>
+          </label> */}
           <div className="flex space-x-4 w-full mt-4">
             <Button isSquare additionals={"w-full"} color={"oren"}>
               {isHitEdit ? (
@@ -488,7 +507,10 @@ const TeamPage = () => {
                 </div>
                 {isCsr && userMail == team?.leader?.email && (
                   <Button
-                    disabled={team?.isActive == "VALID"}
+                    disabled={
+                      team?.isActive == "VALID" &&
+                      (currentDate < startDate || currentDate > endDate)
+                    }
                     onClick={() => handleOpenSubmit()}
                     isSquare
                     color={"oren"}
@@ -588,6 +610,17 @@ const TeamPage = () => {
               </div>
 
               <ul className="mt-8">
+                {team?.leader && (
+                  <MemberItem
+                    name={team?.leader.name}
+                    email={team?.leader.email}
+                    leaderEmail={team.leader?.email}
+                    onKick={() =>
+                      openKick({ name: team?.leader.name, id: team?.leader.id })
+                    }
+                    avatar={team?.leader?.participant?.avatar}
+                  />
+                )}
                 {team?.members?.length > 0 ? (
                   team?.members?.map((item, idx) => (
                     <MemberItem
@@ -672,7 +705,7 @@ export const StatusPayment = (status) => {
 
 const MemberItem = ({ avatar, name, email, leaderEmail, onKick }) => {
   return (
-    <li className="flex justify-between items-center lg:flex-row flex-col">
+    <li className="flex justify-between items-center lg:flex-row flex-col my-3">
       <div className="flex items-start lg:items-center justify-start lg:space-x-3 space-y-2 lg:space-y-0 lg:flex-row flex-col w-full">
         {avatar ? (
           <img
@@ -692,7 +725,7 @@ const MemberItem = ({ avatar, name, email, leaderEmail, onKick }) => {
           <Text>{email}</Text>
         </div>
       </div>
-      {leaderEmail == userMail && (
+      {leaderEmail == userMail && email != leaderEmail && (
         <Button
           additionals={"max-lg:w-full max-lg:mt-3"}
           onClick={onKick}
