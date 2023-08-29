@@ -5,85 +5,72 @@ import DashboardCard from "@/components/atoms/DashboardCard";
 import { BiHomeAlt } from "react-icons/bi";
 import { MdArrowForwardIos } from "react-icons/md";
 import Link from "next/link";
-import { Button } from "@/components";
-import { FiPlus } from "react-icons/fi";
-import { StatusPayment } from "../team";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { StatusPayment } from "../team";
 
 const DashboardAdmin = () => {
-  const filterByStatus = [
+  const paymentStatusFilters = [
     { label: "Semua", value: "ALL" },
     { label: "Belum Bayar", value: null },
     { label: "Di Proses", value: "PENDING" },
     { label: "Sudah Bayar", value: "VALID" },
     { label: "Gagal Bayar", value: "INVALID" },
   ];
-  const [resTeams, setResTeams] = useState([]);
+
   const [teams, setTeams] = useState([]);
-  const [currentFilter, setCurrentFilter] = useState({});
-  const [isHitApi, setIsHitApi] = useState(true);
+  const [originalTeams, setOriginalTeams] = useState([]);
+  const [selectedCompetitionNames, setSelectedCompetitionNames] = useState([]);
+  const [currentPaymentStatus, setCurrentPaymentStatus] = useState(
+    paymentStatusFilters[0].value
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    getTeams();
+    fetchTeams();
   }, []);
-  const getTeams = () => {
+
+  const fetchTeams = () => {
     GetAllTeamApi().then((res) => {
-      setResTeams(res.data.teams?.reverse());
-      setCurrentFilter(filterByStatus[0]);
-      setIsHitApi(false);
-      const result = groupAndLabelByCompetitionName(res.data.teams);
-      setTeams(result);
-      console.log(result);
+      const fetchedTeams = res.data.teams?.reverse();
+      setOriginalTeams(fetchedTeams);
+      setTeams(fetchedTeams);
+      setIsLoading(false);
     });
-    // .catch((err) => //console.log(err));
   };
-  const getNotPaid = () => {
-    const filtered = resTeams.filter((item) => item.isActive == null);
-    setTeams(filtered);
-  };
-  const getPaidOf = () => {
-    const filtered = resTeams.filter((item) => item.isActive == "VALID");
-    setTeams(filtered);
-  };
-  const getPending = () => {
-    const filtered = resTeams.filter((item) => item.isActive == "PENDING");
-    setTeams(filtered);
-  };
-  const getCancel = () => {
-    const filtered = resTeams.filter((item) => item.isActive == "INVALID");
-    setTeams(filtered);
-  };
-  const handleFilter = ({ value }) => {
-    const clickFilter = filterByStatus.find((item) => item.value == value);
-    setCurrentFilter(clickFilter);
-    switch (value) {
-      case "ALL":
-        return getTeams();
-      case null:
-        return getNotPaid();
-      case "VALID":
-        return getPaidOf();
-      case "INVALID":
-        return getCancel();
-      case "PENDING":
-        return getPending();
+
+  const filterTeams = () => {
+    let filteredTeams = originalTeams;
+
+    if (selectedCompetitionNames.length > 0) {
+      filteredTeams = filteredTeams.filter((team) =>
+        selectedCompetitionNames.includes(team.competitionName)
+      );
     }
+
+    if (currentPaymentStatus !== "ALL") {
+      filteredTeams = filteredTeams.filter(
+        (team) => team.isActive === currentPaymentStatus
+      );
+    }
+
+    setTeams(filteredTeams);
   };
 
-  // Fungsi untuk mengelompokkan berdasarkan competitionName dan menambahkan label
-  const groupAndLabelByCompetitionName = (array) => {
-    const groupedData = array.reduce((groups, item) => {
-      const { competitionName, ...rest } = item;
-      if (!groups[competitionName]) {
-        groups[competitionName] = [];
-      }
-      groups[competitionName].push(rest);
-      return groups;
-    }, {});
+  useEffect(() => {
+    filterTeams();
+  }, [selectedCompetitionNames, currentPaymentStatus]);
 
-    return Object.entries(groupedData).map(([competitionName, data]) => ({
-      label: competitionName,
-      data,
-    }));
+  const toggleCompetitionFilter = (competitionName) => {
+    if (selectedCompetitionNames.includes(competitionName)) {
+      setSelectedCompetitionNames((prevNames) =>
+        prevNames.filter((name) => name !== competitionName)
+      );
+    } else {
+      setSelectedCompetitionNames((prevNames) => [
+        ...prevNames,
+        competitionName,
+      ]);
+    }
   };
 
   return (
@@ -99,66 +86,100 @@ const DashboardAdmin = () => {
           <p className="text-blue-600 text-sm">Tim</p>
         </ul>
         <div className="flex justify-between items-center mt-2">
-          <h1 className="text-2xl fomt-semibold">Semua Tim Pembayaran</h1>
-          <div className="group relative w-5/12 ">
-            <div className="flex gap-3 w-full items-center">
-              <p className="text-center font-semibold capitalize w-6/12">
-                Urut berdasar :{" "}
-              </p>
-              <div className="w-w-6/12 p-2 rounded-lg border-2 border-slate-200 w-full">
-                <p className="text-center">{currentFilter.label}</p>
-              </div>
+          <h1 className="text-2xl font-semibold">Semua Tim Pembayaran</h1>
+        </div>
+        <div className="my-3 text-xs">pembayaran :</div>
+        <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
+          {paymentStatusFilters.map((filter, idx) => (
+            <div key={`payment-status-${idx}`} className="mb-2 w-full">
+              <button
+                onClick={() => setCurrentPaymentStatus(filter.value)}
+                className={`flex  cursor-pointer items-center justify-between rounded-lg border text-xs w-full ${
+                  currentPaymentStatus === filter.value
+                    ? "border-orange-500 ring-1 ring-orange-500"
+                    : "border-gray-100"
+                } bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200`}
+              >
+                <div className="flex items-center gap-2">
+                  <svg
+                    className={
+                      currentPaymentStatus === filter.value
+                        ? "h-5 w-5 text-orange-600"
+                        : "hidden"
+                    }
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <p className="text-gray-700">{filter.label}</p>
+                </div>
+              </button>
             </div>
-            <div className="hidden group-hover:flex w-full top-full left-0 shadow bg-white border border-slate-300 flex-col absolute z-10  rounded-md">
-              {filterByStatus.map(({ label, value }, i) => (
-                <button
-                  key={i}
-                  className="hover:bg-slate-100 px-4 py-2"
-                  onClick={() => handleFilter({ value })}
-                >
-                  {label}
-                </button>
-              ))}
+          ))}
+        </div>
+        <div className="my-3 text-xs">kategori :</div>
+        <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
+          {originalTeams.map((team, idx) => (
+            <div key={`team-filters-${idx}`} className="mb-2">
+              <button
+                onClick={() => toggleCompetitionFilter(team.competitionName)}
+                className={`flex cursor-pointer items-center justify-between rounded-lg border w-full ${
+                  selectedCompetitionNames?.includes(team.competitionName)
+                    ? "border-orange-500 ring-1 ring-orange-500"
+                    : "border-gray-100"
+                } bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200`}
+              >
+                <div className="flex items-center gap-2">
+                  <svg
+                    className={
+                      selectedCompetitionNames?.includes(team.competitionName)
+                        ? "h-5 w-5 text-orange-600"
+                        : "hidden"
+                    }
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <p className="text-gray-700">{team.competitionName}</p>
+                </div>
+              </button>
             </div>
-          </div>
+          ))}
         </div>
       </DashboardCard>
+
       <DashboardCard>
-        {isHitApi ? (
+        {isLoading ? (
           <AiOutlineLoading3Quarters className="mx-auto text-lg text-black animate-spin" />
-        ) : currentFilter.value == "ALL" ? (
-          teams.map((group) => (
-            <li key={group.label} className="border rounded-lg p-4 my-1">
-              <h3 className="text-xl font-semibold">{group.label}</h3>
-              <ul className="mt-2 grid grid-cols-3 gap-2">
-                {group.data?.map((team, idx) => (
-                  <Link href={`/admin/team?i=${team.id}`} key={idx}>
-                    <TeamCard
-                      avatar={team.avatar}
-                      name={team.name ?? team.leaderName}
-                      title={team.title}
-                      isActive={team.isActive}
-                      code={team.code}
-                    />
-                  </Link>
-                ))}
+        ) : (
+          teams.map((team) => (
+            <li key={team.id} className="border-b p-4 my-1 list-none">
+              <h3 className="text-xl font-semibold mb-10">{team.label}</h3>
+              <ul className="grid lg:grid-cols-2 gap-3">
+                <Link href={`/admin/team?i=${team.id}`}>
+                  <TeamCard
+                    avatar={team.avatar}
+                    name={team.name ?? team.leaderName}
+                    title={team.title}
+                    isActive={team.isActive}
+                    code={team.code}
+                  />
+                </Link>
               </ul>
             </li>
           ))
-        ) : (
-          <ul className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  lg:grid-cols-4 gap-3">
-            {teams?.map((team, idx) => (
-              <Link href={`/admin/team?i=${team.id}`} key={idx}>
-                <TeamCard
-                  avatar={team.avatar}
-                  name={team.name ?? team.leaderName}
-                  title={team.title}
-                  isActive={team.isActive}
-                  code={team.code}
-                />
-              </Link>
-            ))}
-          </ul>
         )}
       </DashboardCard>
     </DashboardAdminTemplate>
@@ -167,25 +188,39 @@ const DashboardAdmin = () => {
 
 export default DashboardAdmin;
 
-const TeamCard = ({ avatar, name, title, isActive, code }) => {
+const TeamCard = ({ avatar, name, title, isActive, code, label }) => {
   return (
-    <li className="w-full rounded-md bg-white shadow">
-      {avatar ? (
-        <img
-          src={avatar}
-          alt="tim 1"
-          width={1080}
-          height={1080}
-          className="w-full rounded-t-md h-36 object-cover"
-        />
-      ) : (
-        <div className="w-full h-36 rounded-t-md bg-slate-200 animate-pulse"></div>
-      )}
-      <div className="p-4 relative">
-        {StatusPayment(isActive)}
-        <p className="text-sm line-clamp-2 mt-3">{name}</p>
-        <p className="text-lg line-clamp-3">{title}</p>
-        {code && <p className="text-sm">#{code}</p>}
+    <li className="group flex flex-col  bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+      <div className="p-4 md:p-5">
+        <div className="flex items-center">
+          {avatar ? (
+            <img
+              src={avatar}
+              alt="tim 1"
+              width={1080}
+              height={1080}
+              className="w-20 rounded-t-md h-20 object-contain"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-t-md bg-slate-200 animate-pulse"></div>
+          )}
+
+          <div className="grow ml-5">
+            <div className="flex flex-col gap-5 mb-5 justify-between">
+              <h3 className="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400">
+                {name}{" "}
+                <span className="uppercase text-xs text-orange-500">
+                  {label}
+                </span>
+              </h3>
+              {StatusPayment(isActive)}
+            </div>
+            <div className="text-sm text-gray-500">
+              {title} {code && <span>#{code}</span>}
+              <span className="text-blue-600 font-medium dark:text-blue-500"></span>
+            </div>
+          </div>
+        </div>
       </div>
     </li>
   );
