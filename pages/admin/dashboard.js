@@ -72,7 +72,9 @@ const DashboardAdmin = () => {
       ]);
     }
   };
-
+  const uniqueCompetitionNames = [
+    ...new Set(originalTeams.map((team) => team.competitionName)),
+  ];
   return (
     <DashboardAdminTemplate title={"Dashboard"}>
       <DashboardCard>
@@ -125,12 +127,12 @@ const DashboardAdmin = () => {
         </div>
         <div className="my-3 text-xs">kategori :</div>
         <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
-          {originalTeams.map((team, idx) => (
+          {uniqueCompetitionNames.map((competitionName, idx) => (
             <div key={`team-filters-${idx}`} className="mb-2">
               <button
-                onClick={() => toggleCompetitionFilter(team.competitionName)}
+                onClick={() => toggleCompetitionFilter(competitionName)}
                 className={`flex cursor-pointer items-center justify-between rounded-lg border w-full ${
-                  selectedCompetitionNames?.includes(team.competitionName)
+                  selectedCompetitionNames?.includes(competitionName)
                     ? "border-orange-500 ring-1 ring-orange-500"
                     : "border-gray-100"
                 } bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200`}
@@ -138,7 +140,7 @@ const DashboardAdmin = () => {
                 <div className="flex items-center gap-2">
                   <svg
                     className={
-                      selectedCompetitionNames?.includes(team.competitionName)
+                      selectedCompetitionNames?.includes(competitionName)
                         ? "h-5 w-5 text-orange-600"
                         : "hidden"
                     }
@@ -152,7 +154,7 @@ const DashboardAdmin = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <p className="text-gray-700">{team.competitionName}</p>
+                  <p className="text-gray-700">{competitionName}</p>
                 </div>
               </button>
             </div>
