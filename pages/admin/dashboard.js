@@ -88,13 +88,13 @@ const DashboardAdmin = () => {
         <div className="flex justify-between items-center mt-2">
           <h1 className="text-2xl font-semibold">Semua Tim Pembayaran</h1>
         </div>
-
-        <div className="mt-2 flex flex-wrap gap-3">
+        <div className="my-3 text-xs">pembayaran :</div>
+        <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
           {paymentStatusFilters.map((filter, idx) => (
-            <div key={`payment-status-${idx}`} className="mb-2">
+            <div key={`payment-status-${idx}`} className="mb-2 w-full">
               <button
                 onClick={() => setCurrentPaymentStatus(filter.value)}
-                className={`flex  cursor-pointer items-center justify-between rounded-lg border w-40 ${
+                className={`flex  cursor-pointer items-center justify-between rounded-lg border text-xs w-full ${
                   currentPaymentStatus === filter.value
                     ? "border-orange-500 ring-1 ring-orange-500"
                     : "border-gray-100"
@@ -123,13 +123,13 @@ const DashboardAdmin = () => {
             </div>
           ))}
         </div>
-
-        <div className="mt-2 flex flex-wrap gap-3">
+        <div className="my-3 text-xs">kategori :</div>
+        <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
           {originalTeams.map((team, idx) => (
             <div key={`team-filters-${idx}`} className="mb-2">
               <button
                 onClick={() => toggleCompetitionFilter(team.competitionName)}
-                className={`flex cursor-pointer items-center justify-between rounded-lg border w-40 ${
+                className={`flex cursor-pointer items-center justify-between rounded-lg border w-full ${
                   selectedCompetitionNames?.includes(team.competitionName)
                     ? "border-orange-500 ring-1 ring-orange-500"
                     : "border-gray-100"
@@ -206,7 +206,7 @@ const TeamCard = ({ avatar, name, title, isActive, code, label }) => {
           )}
 
           <div className="grow ml-5">
-            <div className="flex justify-between">
+            <div className="flex flex-col gap-5 mb-5 justify-between">
               <h3 className="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400">
                 {name}{" "}
                 <span className="uppercase text-xs text-orange-500">
