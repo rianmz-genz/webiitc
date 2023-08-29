@@ -163,26 +163,33 @@ const DashboardAdmin = () => {
       </DashboardCard>
 
       <DashboardCard>
-        {isLoading ? (
-          <AiOutlineLoading3Quarters className="mx-auto text-lg text-black animate-spin" />
-        ) : (
-          teams.map((team) => (
-            <li key={team.id} className="border-b p-4 my-1 list-none">
-              <h3 className="text-xl font-semibold mb-10">{team.label}</h3>
-              <ul className="grid lg:grid-cols-2 gap-3">
-                <Link href={`/admin/team?i=${team.id}`}>
-                  <TeamCard
-                    avatar={team.avatar}
-                    name={team.name ?? team.leaderName}
-                    title={team.title}
-                    isActive={team.isActive}
-                    code={team.code}
-                  />
-                </Link>
-              </ul>
-            </li>
-          ))
-        )}
+        <p className="w-full text-right pr-5">total tim: {teams.length}</p>
+        <div
+          className={`grid ${
+            teams.length > 1 ? "lg:grid-cols-2" : ""
+          }  items-center mt-2`}
+        >
+          {isLoading ? (
+            <AiOutlineLoading3Quarters className="mx-auto text-lg text-black animate-spin" />
+          ) : (
+            teams.map((team) => (
+              <li key={team.id} className=" p-4 my-1 list-none">
+                <ul className="">
+                  <Link href={`/admin/team?i=${team.id}`}>
+                    <TeamCard
+                      label={team.competitionName}
+                      avatar={team.avatar}
+                      name={team.name ?? team.leaderName}
+                      title={team.title}
+                      isActive={team.isActive}
+                      code={team.code}
+                    />
+                  </Link>
+                </ul>
+              </li>
+            ))
+          )}
+        </div>
       </DashboardCard>
     </DashboardAdminTemplate>
   );
@@ -194,32 +201,31 @@ const TeamCard = ({ avatar, name, title, isActive, code, label }) => {
   return (
     <li className="group flex flex-col  bg-white border shadow-sm rounded-xl hover:shadow-md transition">
       <div className="p-4 md:p-5">
-        <div className="flex items-center">
+        <div className="flex flex-col md:flex-row md:items-center">
           {avatar ? (
             <img
               src={avatar}
               alt="tim 1"
               width={1080}
               height={1080}
-              className="w-20 rounded-t-md h-20 object-contain"
+              className="md:w-20 w-40 h-40 rounded-t-md md:h-20 object-cover"
             />
           ) : (
-            <div className="w-20 h-20 rounded-t-md bg-slate-200 animate-pulse"></div>
+            <div className="w-full h-40 md:w-20 md:h-20 rounded-t-md bg-slate-200 animate-pulse"></div>
           )}
 
-          <div className="grow ml-5">
-            <div className="flex flex-col gap-5 mb-5 justify-between">
-              <h3 className="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400">
+          <div className="mt-3 md:mt-0 w-full md:ml-5">
+            <div className="flex flex-row items-center gap-5 mb-5  justify-between">
+              <h3 className="group-hover:text-blue-600 text-xs items-center font-semibold text-gray-800 dark:group-hover:text-gray-400">
                 {name}{" "}
-                <span className="uppercase text-xs text-orange-500">
-                  {label}
-                </span>
               </h3>
-              {StatusPayment(isActive)}
+              <div className="text-xs">{StatusPayment(isActive)}</div>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm flex justify-between text-gray-500">
               {title} {code && <span>#{code}</span>}
-              <span className="text-blue-600 font-medium dark:text-blue-500"></span>
+              <span className="text-blue-600 font-medium dark:text-blue-500">
+                {label}
+              </span>
             </div>
           </div>
         </div>
