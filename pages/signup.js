@@ -6,14 +6,17 @@ import Input from "@/components/atoms/Input";
 import InputPhone from "@/components/atoms/InputPhone";
 import Text from "@/components/atoms/Text";
 import InputTitle from "@/components/molecules/InputTitle";
+import Modals from "@/components/organisms/admin/Modals";
 import AuthPage from "@/components/pagetemplate/AuthPage";
 import Cookies from "js-cookie";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { AiFillWarning, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
+import { PopUp } from "./team";
 const Signup = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -26,6 +29,7 @@ const Signup = () => {
   const [isSucces, setIsSucces] = useState(false);
   const [Message, setMessage] = useState("");
   const [isUsed, setIsUsed] = useState(false);
+  const [isPopUp, setIsPopUp] = useState(true);
   const router = useRouter();
   useEffect(() => {
     const token = Cookies.get("token");
@@ -85,8 +89,31 @@ const Signup = () => {
       }
     });
   };
+  Alert;
   return (
     <div className="overflow-hidden">
+      <PopUp isModal={isPopUp} onClose={() => setIsPopUp(false)}>
+        <div className="w-full flex flex-col items-center">
+          <Image
+            src={"/images/LOGO/LOGOFIX.svg"}
+            alt="logo iitc"
+            width={1080}
+            height={1080}
+            className="w-20"
+          />
+          <Text
+            size={"smalltitle"}
+            additionals={"my-3"}
+            color={"text-black"}
+            weight={"bold"}
+          >
+            Pendaftaran Ditutup
+          </Text>
+          <Text additionals={"text-center"}>
+            Pendaftaran untuk IIT Competition telah ditutup!
+          </Text>
+        </div>
+      </PopUp>
       <Alert onClose={() => setIsSucces(false)} isOpen={isSucces}>
         <AiOutlineLoading3Quarters className="text-green-400 text-xl animate-spin" />
         <p>{Message}</p>
@@ -171,7 +198,11 @@ const Signup = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <Button disabled={isHitApi} color={"gradient2"}>
+        <Button
+          disabled={true}
+          color={"gradient2"}
+          additionals={"cursor-no-drop"}
+        >
           {isHitApi ? (
             <AiOutlineLoading3Quarters className="text-white text-xl animate-spin" />
           ) : (
