@@ -646,7 +646,7 @@ const TeamPage = () => {
 
 export default TeamPage;
 
-const PopUp = ({ onClose, isModal, children }) => {
+export const PopUp = ({ onClose, isModal, children }) => {
   return (
     <div
       className={`${
