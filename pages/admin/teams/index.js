@@ -14,7 +14,18 @@ import { MdArrowForwardIos } from "react-icons/md";
 
 export default function Teams() {
   const [teams, setTeams] = useState([]);
+  const [filteredTeams, setFilteredTeams] = useState([]);
   const [email, setEmail] = useState("");
+
+  const submissionStatusFilters = [
+    { label: "Semua", value: "all" },
+    { label: "Belum Submit", value: false },
+    { label: "Sudah Submit", value: true },
+  ];
+
+  const [selectedSubmission, setselectedSubmission] = useState(
+    submissionStatusFilters[0].value
+  );
   const valid = Cookies.get("valid");
   useEffect(() => {
     // GetMineTeam().then((res) => {
@@ -25,8 +36,22 @@ export default function Teams() {
     setEmail(Cookies.get("email"));
     GetAllTeamAdminApi().then((res) => {
       setTeams(res.data?.teams);
+      setFilteredTeams(res.data?.teams);
     });
   }, []);
+  const filterTeams = () => {
+    if (selectedSubmission !== "all") {
+      let filter = teams.filter((team) => team.isSubmit === selectedSubmission);
+      setFilteredTeams(filter);
+    } else {
+      setFilteredTeams(teams);
+    }
+  };
+
+  useEffect(() => {
+    filterTeams();
+  }, [selectedSubmission, teams]);
+  console.log(teams);
   return (
     <>
       <Head>
@@ -56,14 +81,51 @@ export default function Teams() {
           </ul>
           <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
             <h1 className="text-2xl font-semibold ">Daftar Tim</h1>
-            <p>total tim: {teams.length}</p>
+            <p>
+              total tim:{" "}
+              <span className="font-bold">{filteredTeams.length}</span>{" "}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
+            {submissionStatusFilters.map((filter, idx) => (
+              <div key={`payment-status-${idx}`} className="mb-2 w-full">
+                <button
+                  onClick={() => setselectedSubmission(filter.value)}
+                  className={`flex  cursor-pointer items-center justify-between rounded-lg border text-xs w-full ${
+                    selectedSubmission === filter.value
+                      ? "border-orange-500 ring-1 ring-orange-500"
+                      : "border-gray-100"
+                  } bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200`}
+                >
+                  <div className="flex items-center gap-2">
+                    <svg
+                      className={
+                        submissionStatusFilters === filter.value
+                          ? "h-5 w-5 text-orange-600"
+                          : "hidden"
+                      }
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <p className="text-gray-700">{filter.label}</p>
+                  </div>
+                </button>
+              </div>
+            ))}{" "}
           </div>
         </DashboardCard>
         <ul className="flex flex-col space-y-4">
-          {teams?.length == 0 ? (
+          {filteredTeams?.length == 0 ? (
             <EmptyTeam />
           ) : (
-            teams?.map((item, idx) => (
+            filteredTeams?.map((item, idx) => (
               <TeamCard
                 isAdmin={true}
                 key={idx}
