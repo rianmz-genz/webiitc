@@ -51,7 +51,7 @@ export default function Teams() {
   useEffect(() => {
     filterTeams();
   }, [selectedSubmission, teams]);
-  console.log(teams);
+  // console.log(filteredTeams);
   return (
     <>
       <Head>
