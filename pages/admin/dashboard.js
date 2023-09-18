@@ -75,6 +75,7 @@ const DashboardAdmin = () => {
   const uniqueCompetitionNames = [
     ...new Set(originalTeams.map((team) => team.competitionName)),
   ];
+
   return (
     <DashboardAdminTemplate title={"Dashboard"}>
       <DashboardCard>
@@ -183,6 +184,7 @@ const DashboardAdmin = () => {
                       title={team.title}
                       isActive={team.isActive}
                       code={team.code}
+                      leaderName={team.leaderName}
                     />
                   </Link>
                 </ul>
@@ -197,7 +199,15 @@ const DashboardAdmin = () => {
 
 export default DashboardAdmin;
 
-const TeamCard = ({ avatar, name, title, isActive, code, label }) => {
+const TeamCard = ({
+  avatar,
+  name,
+  title,
+  isActive,
+  code,
+  label,
+  leaderName,
+}) => {
   return (
     <li className="group flex flex-col  bg-white border shadow-sm rounded-xl hover:shadow-md transition">
       <div className="p-4 md:p-5">
@@ -221,9 +231,10 @@ const TeamCard = ({ avatar, name, title, isActive, code, label }) => {
               </h3>
               <div className="text-xs">{StatusPayment(isActive)}</div>
             </div>
+            <div className="text-sm flex mb-3 text-gray-500">{leaderName}</div>
             <div className="text-sm flex justify-between text-gray-500">
-              {title} {code && <span>#{code}</span>}
-              <span className="text-blue-600 font-medium dark:text-blue-500">
+              {title ? title : "belum submit"}
+              <span className="text-blue-600 font-medium dark:text-blue-500 text-right">
                 {label}
               </span>
             </div>

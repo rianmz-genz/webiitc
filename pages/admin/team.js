@@ -22,7 +22,7 @@ const TeamDetailAdmin = () => {
   useEffect(() => {
     GetDetailTeamAdminApi({ id }).then((res) => {
       // console.log(res);
-      setTeam(res.data?.team);
+      setTeam(res?.data?.team);
       if (res.data?.team?.isActive == "PENDING") {
         setImage(res?.data?.team?.transferReceipt);
         setDone(true);
