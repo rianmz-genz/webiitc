@@ -1,5 +1,6 @@
 import GetAllTeamAdminApi from "@/api/admin/teams/AllTeam";
 import GetMineTeam from "@/api/team/Mine";
+import { exportToExcel } from "@/api/utils/ExportExcel";
 import { Button } from "@/components";
 import DashboardCard from "@/components/atoms/DashboardCard";
 import DashboardAdminTemplate from "@/components/pagetemplate/DashboardAdmin";
@@ -16,6 +17,7 @@ export default function Teams() {
   const [teams, setTeams] = useState([]);
   const [filteredTeams, setFilteredTeams] = useState([]);
   const [email, setEmail] = useState("");
+  const [exportData, setExportData] = useState([]);
 
   const submissionStatusFilters = [
     { label: "Semua", value: "all" },
@@ -37,6 +39,14 @@ export default function Teams() {
     GetAllTeamAdminApi().then((res) => {
       setTeams(res.data?.teams);
       setFilteredTeams(res.data?.teams);
+      const dataa = res?.data?.teams.map((item) => {
+        const d = {
+          nama: item.teamName,
+          link: item.submission,
+        };
+        return d;
+      });
+      setExportData(dataa);
     });
   }, []);
   const filterTeams = () => {
@@ -86,7 +96,10 @@ export default function Teams() {
                 total tim:
                 <span className="font-bold">{filteredTeams.length}</span>
               </p>
-              <button className="px-4 py-2 bg-green-500/10 text-green-500 rounded-full ring-2 ring-green-600">
+              <button
+                onClick={() => exportToExcel("dataTim", exportData)}
+                className="px-4 py-2 bg-green-500/10 text-green-500 rounded-full ring-2 ring-green-600"
+              >
                 Export
               </button>
             </div>
@@ -123,7 +136,7 @@ export default function Teams() {
                   </div>
                 </button>
               </div>
-            ))}{" "}
+            ))}
           </div>
         </DashboardCard>
         <ul className="flex flex-col space-y-4">
