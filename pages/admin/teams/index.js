@@ -81,10 +81,15 @@ export default function Teams() {
           </ul>
           <div className="flex justify-between space-y-2 lg:space-y-0 items-center mt-4 lg:flex-row flex-col">
             <h1 className="text-2xl font-semibold ">Daftar Tim</h1>
-            <p>
-              total tim:{" "}
-              <span className="font-bold">{filteredTeams.length}</span>{" "}
-            </p>
+            <div className="flex gap-3">
+              <p>
+                total tim:
+                <span className="font-bold">{filteredTeams.length}</span>
+              </p>
+              <button className="px-4 py-2 bg-green-500/10 text-green-500 rounded-full ring-2 ring-green-600">
+                Export
+              </button>
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
             {submissionStatusFilters.map((filter, idx) => (

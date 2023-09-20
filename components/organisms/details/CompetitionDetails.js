@@ -241,7 +241,6 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             </div>
             <div className="flex space-x-4 w-full">
               <Button
-                disabled={true}
                 isSquare
                 additionals={"w-full"}
                 color={"oren"}
