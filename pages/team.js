@@ -31,7 +31,6 @@ import StackCard from "@/components/atoms/StackCard";
 import LeftRightText from "@/components/molecules/LeftRightText";
 import InputTitle from "@/components/molecules/InputTitle";
 const userMail = Cookies.get("email");
-//console.log(userMail);
 export async function getServerSideProps(context) {
   const token = context.req.cookies.token;
   if (!token) {
@@ -505,7 +504,7 @@ const TeamPage = () => {
                     })}
                   </ul>
                 </div>
-                {isCsr && userMail == team?.leader?.email && (
+                {isCsr && email == team?.leader?.email && (
                   <Button
                     disabled={
                       team?.isActive == "VALID" &&
@@ -557,7 +556,7 @@ const TeamPage = () => {
                         Anggota
                       </Text>
 
-                      {isCsr && userMail == team?.leader?.email && (
+                      {isCsr && email == team?.leader?.email && (
                         <div className="mt-3 flex space-x-1">
                           <Button
                             color={"oren"}
