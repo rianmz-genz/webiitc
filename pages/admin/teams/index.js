@@ -39,20 +39,20 @@ export default function Teams() {
     GetAllTeamAdminApi().then((res) => {
       setTeams(res.data?.teams);
       setFilteredTeams(res.data?.teams);
-      const dataa = res?.data?.teams.map((item) => {
-        const d = {
-          nama: item.teamName,
-          link: item.submission,
-        };
-        return d;
-      });
-      setExportData(dataa);
     });
   }, []);
   const filterTeams = () => {
     if (selectedSubmission !== "all") {
       let filter = teams.filter((team) => team.isSubmit === selectedSubmission);
       setFilteredTeams(filter);
+      const dataa = filter.map((item) => {
+        const d = {
+          tim: item.teamName,
+          linkSubmission: item.submission,
+        };
+        return d;
+      });
+      setExportData(dataa);
     } else {
       setFilteredTeams(teams);
     }
