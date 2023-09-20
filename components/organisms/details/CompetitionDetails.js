@@ -223,14 +223,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
             <BsFillPeopleFill className="text-4xl p-2 rounded-full bg-slate-200 text-slate-800" />
             <Text additionals={"font-medium"}>Buat tim baru</Text>
           </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setIsWrong(true);
-              setMessage("Pendaftaran telah ditutup");
-              return;
-            }}
-          >
+          <form onSubmit={onCreateTeam}>
             <div className="w-full my-3">
               <Text>Nama Tim</Text>
               <Input
@@ -240,11 +233,7 @@ const CompetitionDetails = ({ setIsCompetitionDetail, competitionSlug }) => {
               />
             </div>
             <div className="flex space-x-4 w-full">
-              <Button
-                isSquare
-                additionals={"w-full"}
-                color={"oren"}
-              >
+              <Button isSquare additionals={"w-full"} color={"oren"}>
                 {isHitJoin ? (
                   <AiOutlineLoading3Quarters className="text-xl mx-auto animate-spin" />
                 ) : (
