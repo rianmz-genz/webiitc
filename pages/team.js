@@ -504,20 +504,19 @@ const TeamPage = () => {
                     })}
                   </ul>
                 </div>
-                {isCsr && email == team?.leader?.email && (
-                  <Button
-                    disabled={
-                      team?.isActive == "VALID" &&
-                      (currentDate < startDate || currentDate > endDate)
-                    }
-                    onClick={() => handleOpenSubmit()}
-                    isSquare
-                    color={"oren"}
-                    additionals={"w-full mt-3"}
-                  >
-                    {team.isSubmit ? "Edit" : "Submit"}
-                  </Button>
-                )}
+
+                <Button
+                  disabled={
+                    team?.isActive == "VALID" &&
+                    (currentDate < startDate || currentDate > endDate)
+                  }
+                  onClick={() => handleOpenSubmit()}
+                  isSquare
+                  color={"oren"}
+                  additionals={"w-full mt-3"}
+                >
+                  {team.isSubmit ? "Edit" : "Submit"}
+                </Button>
               </div>
             </div>
           )}
