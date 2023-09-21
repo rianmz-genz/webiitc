@@ -54,8 +54,8 @@ const Navbar = () => {
                 <Button additionals={"w-full"}>Dashboard</Button>
               </Link>
             ) : (
-              <Link href={"/signup"}>
-                <Button additionals={"w-full"}>Daftar</Button>
+              <Link href={"/login"}>
+                <Button additionals={"w-full"}>Masuk</Button>
               </Link>
             )}
           </div>
