@@ -553,6 +553,17 @@ const TeamPage = () => {
               </div>
 
               <ul className="mt-8 flex flex-col space-y-2">
+                {team?.leader && (
+                  <MemberItem
+                    name={team?.leader.name}
+                    email={team?.leader.email}
+                    leaderEmail={team.leader?.email}
+                    onKick={() =>
+                      openKick({ name: team?.leader.name, id: team?.leader.id })
+                    }
+                    avatar={team?.leader?.participant?.avatar}
+                  />
+                )}
                 {team?.members?.length > 0 ? (
                   team?.members?.map((item, idx) => (
                     <MemberItem
