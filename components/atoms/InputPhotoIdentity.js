@@ -34,12 +34,12 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
   }, [photo]);
 
   // If photo is not set but initialPhotoUrl is available, set the initialPhotoUrl as photo
+
   useEffect(() => {
     if (!photo && initialPhotoUrl) {
       setPhoto({ preview: initialPhotoUrl });
     }
-  }, [initialPhotoUrl, photo, setPhoto]);
-
+  }, [initialPhotoUrl]);
   return (
     <div
       {...getRootProps()}
@@ -52,6 +52,7 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
       {photo && (
         <img
           src={photo.preview ? photo.preview : initialPhotoUrl}
+          onLoad={() => photo.preview && URL.revokeObjectURL(photo.preview)}
           className="h-24 w-auto"
           alt="New Preview"
         />
