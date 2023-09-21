@@ -31,15 +31,15 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
     if (photo) {
       URL.revokeObjectURL(photo.preview);
     }
-  }, [photo]);
+  }, [initialPhotoUrl, photo, setPhoto]);
 
   // If photo is not set but initialPhotoUrl is available, set the initialPhotoUrl as photo
-
   useEffect(() => {
     if (!photo && initialPhotoUrl) {
       setPhoto({ preview: initialPhotoUrl });
     }
-  }, [initialPhotoUrl]);
+  }, [initialPhotoUrl, photo, setPhoto]);
+
   return (
     <div
       {...getRootProps()}
