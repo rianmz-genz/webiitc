@@ -515,7 +515,9 @@ const TeamPage = () => {
                   color={"oren"}
                   additionals={"w-full mt-3"}
                 >
-                  {team.isSubmit ? "Submission telah di tutup" : "Submit"}
+                  {team.isSubmit
+                    ? "Submission telah di tutup"
+                    : "Submission telah di tutup"}
                 </Button>
               </div>
             </div>
