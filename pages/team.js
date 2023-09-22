@@ -510,11 +510,12 @@ const TeamPage = () => {
                     team?.isActive == "VALID" &&
                     (currentDate < startDate || currentDate > endDate)
                   }
+                  onClick={() => handleOpenSubmit()}
                   isSquare
                   color={"oren"}
                   additionals={"w-full mt-3"}
                 >
-                  {team.isSubmit ? "Submission sudah ditutup" : "Submit"}
+                  {team.isSubmit ? "Edit" : "Submit"}
                 </Button>
               </div>
             </div>
