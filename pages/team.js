@@ -247,7 +247,7 @@ const TeamPage = () => {
   };
   const currentDate = new Date();
   const startDate = new Date("2023-09-01");
-  const endDate = new Date("2023-09-22");
+  const endDate = new Date("2023-09-23");
   return (
     <>
       {/* submit */}
