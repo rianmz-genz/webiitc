@@ -48,6 +48,7 @@ export default function Teams() {
       const dataa = filter.map((item) => {
         const d = {
           tim: item.teamName,
+          teamLeader: item.leader.name,
           linkSubmission: item.submission,
         };
         return d;
