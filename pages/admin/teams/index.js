@@ -37,6 +37,7 @@ export default function Teams() {
     // .catch((err) => //console.log(err));
     setEmail(Cookies.get("email"));
     GetAllTeamAdminApi().then((res) => {
+      console.log(res);
       setTeams(res.data?.teams);
       setFilteredTeams(res.data?.teams);
     });
@@ -47,9 +48,11 @@ export default function Teams() {
       setFilteredTeams(filter);
       const dataa = filter.map((item) => {
         const d = {
-          tim: item.teamName,
-          teamLeader: item.leader.name,
+          tim: item?.teamName,
+          namaKetua: item.leader?.name,
+          emailKetua: item.leader?.email,
           linkSubmission: item.submission,
+          lomba: item?.cName,
         };
         return d;
       });
