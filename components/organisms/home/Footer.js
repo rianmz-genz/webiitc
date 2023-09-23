@@ -4,6 +4,7 @@ import Text from "@/components/atoms/Text";
 import Container from "@/components/molecules/Container";
 import NavLink from "@/components/molecules/NavLink";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { BiMailSend } from "react-icons/bi";
@@ -11,6 +12,21 @@ import { FaTiktok } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
 const Footer = () => {
+  const githubUrl = "https://github.com/";
+  const developers = [
+    {
+      name: "Adrian",
+      githubUrl: githubUrl + "rianmz-genz",
+    },
+    {
+      name: "Didi",
+      githubUrl: githubUrl + "prasetyodidi",
+    },
+    {
+      name: "Taufik",
+      githubUrl: githubUrl + "Taufik-H",
+    },
+  ];
   return (
     <footer className="bg-slate-800">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
@@ -162,9 +178,22 @@ const Footer = () => {
       </div>
 
       {/* copyright */}
+
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 border-t border-slate-700">
-        <p className="mt-4 text-center text-sm text-gray-500 lg:mt-0 ">
-          Copyright &copy; 2023. intermedia All rights reserved.
+        <p className="mt-4 text-center text-sm text-white lg:mt-0 ">
+          Copyright &copy; 2023. intermedia All rights reserved. Develop with
+          <span className="font-bold mx-1">sincerity</span>
+          by
+          {developers.map(({ githubUrl, name }, i) => (
+            <Link
+              className="mx-1 text-blue-500 underline"
+              key={i}
+              href={githubUrl}
+              target="_blank"
+            >
+              {name} {i != developers.length - 1 ? "," : "."}
+            </Link>
+          ))}
         </p>
       </div>
     </footer>
