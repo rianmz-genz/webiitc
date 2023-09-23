@@ -14,8 +14,9 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
         const newFile = new File([acceptedFiles[0]], renameFile, {
           type: acceptedFiles[0].type,
         });
-        console.log(`Original file name: ${originalFileName}`);
-        console.log(`Sanitized file name: ${renameFile}`);
+        // console.log(`Original file name: ${originalFileName}`);
+        // console.log(`Sanitized file name: ${renameFile}`);
+        // console.log(`initialPhotoUrl  : ${initialPhotoUrl}`);
         setPhoto(
           Object.assign(newFile, {
             preview: URL.createObjectURL(newFile),
@@ -31,7 +32,7 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
     if (photo) {
       URL.revokeObjectURL(photo.preview);
     }
-  }, [photo]);
+  }, [initialPhotoUrl, photo, setPhoto]);
 
   // If photo is not set but initialPhotoUrl is available, set the initialPhotoUrl as photo
   useEffect(() => {
@@ -52,6 +53,7 @@ const InputPhotoIdentity = ({ photo, setPhoto, initialPhotoUrl }) => {
       {photo && (
         <img
           src={photo.preview ? photo.preview : initialPhotoUrl}
+          onLoad={() => photo.preview && URL.revokeObjectURL(photo.preview)}
           className="h-24 w-auto"
           alt="New Preview"
         />

@@ -247,7 +247,7 @@ const TeamPage = () => {
   };
   const currentDate = new Date();
   const startDate = new Date("2023-09-01");
-  const endDate = new Date("2023-09-22");
+  const endDate = new Date("2023-09-23");
   return (
     <>
       {/* submit */}
@@ -510,12 +510,14 @@ const TeamPage = () => {
                     team?.isActive == "VALID" &&
                     (currentDate < startDate || currentDate > endDate)
                   }
-                  onClick={() => handleOpenSubmit()}
+                  // onClick={() => handleOpenSubmit()}
                   isSquare
                   color={"oren"}
                   additionals={"w-full mt-3"}
                 >
-                  {team.isSubmit ? "Edit" : "Submit"}
+                  {team.isSubmit
+                    ? "Submission telah di tutup"
+                    : "Submission telah di tutup"}
                 </Button>
               </div>
             </div>
