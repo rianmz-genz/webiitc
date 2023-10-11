@@ -7,8 +7,6 @@ const timelineData = {
     new Date("2023-09-22"),
     new Date("2023-09-28"),
     new Date("2023-10-01"),
-    new Date("2023-10-24"),
-    new Date("2023-11-01"),
   ],
   modalContent: {
     "2023-08-01": {
@@ -63,26 +61,6 @@ const timelineData = {
     },
     "2023-10-01": {
       date: new Date("2023-10-01").toLocaleString("id-ID", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-      title: "Submission",
-      description: "Submission Project dibuka",
-    },
-    "2023-10-24": {
-      date: new Date("2023-10-24").toLocaleString("id-ID", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-      title: "Submission",
-      description: "Submission Project ditutup",
-    },
-    "2023-11-01": {
-      date: new Date("2023-11-01").toLocaleString("id-ID", {
         weekday: "long",
         day: "numeric",
         month: "long",
